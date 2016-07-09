@@ -1,0 +1,13 @@
+stages:
+  - mirror
+
+mirror_repo:
+  stage: mirror
+  only:
+    - master
+    - develop
+  script:
+    - git checkout master
+    - git push git@github.com:namboy94/mal-tournament.git master --force
+    - git checkout develop
+    - git push git@github.com:namboy94/mal-tournament.git develop --force
