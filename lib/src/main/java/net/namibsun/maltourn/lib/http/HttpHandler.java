@@ -1,9 +1,9 @@
 package net.namibsun.maltourn.lib.http;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import org.python.util.PythonInterpreter;
+import sun.net.www.http.HttpClient;
+
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -38,22 +38,49 @@ public class HttpHandler {
     }
 
     public static void postWithAuth(String target, String authentication, String payload) {
+
+        PythonInterpreter inter = new PythonInterpreter();
+        String authToken = "Basic " + javax.xml.bind.DatatypeConverter.printBase64Binary(authentication.getBytes());
+
+        String pythonCode =
+                "import urllib, urllib2\n" +
+                        "auth = '" + authToken + "'\n" +
+                        "opener = urllib2.build_opener()\n" +
+                        "opener.addheaders = [('User-Agent', 'api-team-f894427cc1c571f79da49605ef8b112f'), " +
+                        "('Authorization', auth)]\n" +
+                        "data = '" + payload + "'\n" +
+                        "opener.open('" + target + "', data)\n";
+
+        inter.exec(pythonCode);
+
+        /*
         try {
-            byte[] postData = payload.getBytes(StandardCharsets.UTF_8);
             URL url = new URL(target);
             String authToken = "Basic " + javax.xml.bind.DatatypeConverter.printBase64Binary(authentication.getBytes());
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoOutput(true);
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Authorization", authToken);
+            connection.setRequestProperty("Content-Type", "text/xml");
 
-            DataOutputStream writer = new DataOutputStream(connection.getOutputStream());
 
-            writer.write(postData);
-            writer.close();
+            OutputStream out = connection.getOutputStream();
+
+            out.write(payload.getBytes());
+            out.flush();
+            out.close();
+            String line;
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+            reader.close();
+
+
         } catch (Exception e) {
-
-        }
+            e.printStackTrace();
+        }*/
     }
 
 }

@@ -8,7 +8,7 @@ import java.util.Map;
  */
 public class AnimeSeries {
 
-    private String xmlData;
+    public String xmlData;
     public int seriesAnimedbId;
     public String seriesTitle;
     public String seriesSynonyms;

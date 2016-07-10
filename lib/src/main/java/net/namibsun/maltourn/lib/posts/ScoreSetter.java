@@ -8,16 +8,14 @@ import net.namibsun.maltourn.lib.http.HttpHandler;
 public class ScoreSetter {
 
     private String authentication;
-    private String username;
 
     public ScoreSetter(String username, String password) {
         this.authentication = username + ":" + password;
-        this.username = username;
     }
 
     public void setScore(int seriesAnimedbId, int score) {
         String url = "http://myanimelist.net/api/animelist/update/" + seriesAnimedbId + ".xml";
-        String payload = "<my_score>" + score + "</my_score>";
+        String payload = "data=%3Centry%3E%3Cscore%3E" + score + "%3C%2Fscore%3E%3C%2Fentry%3E";
         HttpHandler.postWithAuth(url, authentication, payload);
     }
 
