@@ -3,8 +3,9 @@ Copyright 2016 Hermann Krumrey
 
 This file is part of mal-tournament.
 
-    mal-tournament is a program that lets a user view football (soccer)
-    match standings and league tables
+    mal-tournament is a program that lets a user pit his watched anime series
+    from myanimelist.net against each other in an attempt to determine relative scores
+    between the shows.
 
     mal-tournament is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

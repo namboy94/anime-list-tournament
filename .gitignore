@@ -2,3 +2,6 @@
 .idea/workspace.xml
 out
 lib/build
+.idea/gradle.xml
+.idea/libraries/
+.idea/modules/
