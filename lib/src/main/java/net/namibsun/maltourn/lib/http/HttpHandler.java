@@ -39,21 +39,6 @@ public class HttpHandler {
 
     public static void postWithAuth(String target, String authentication, String payload) {
 
-        PythonInterpreter inter = new PythonInterpreter();
-        String authToken = "Basic " + javax.xml.bind.DatatypeConverter.printBase64Binary(authentication.getBytes());
-
-        String pythonCode =
-                "import urllib, urllib2\n" +
-                        "auth = '" + authToken + "'\n" +
-                        "opener = urllib2.build_opener()\n" +
-                        "opener.addheaders = [('User-Agent', 'api-team-f894427cc1c571f79da49605ef8b112f'), " +
-                        "('Authorization', auth)]\n" +
-                        "data = '" + payload + "'\n" +
-                        "opener.open('" + target + "', data)\n";
-
-        inter.exec(pythonCode);
-
-        /*
         try {
             URL url = new URL(target);
             String authToken = "Basic " + javax.xml.bind.DatatypeConverter.printBase64Binary(authentication.getBytes());
@@ -62,7 +47,7 @@ public class HttpHandler {
             connection.setDoOutput(true);
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Authorization", authToken);
-            connection.setRequestProperty("Content-Type", "text/xml");
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
 
             OutputStream out = connection.getOutputStream();
@@ -80,7 +65,7 @@ public class HttpHandler {
 
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
 }
