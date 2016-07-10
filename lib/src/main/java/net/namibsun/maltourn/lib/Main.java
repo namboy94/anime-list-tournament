@@ -24,7 +24,6 @@ This file is part of mal-tournament.
 package net.namibsun.maltourn.lib;
 
 import net.namibsun.maltourn.lib.gets.ListGetter;
-import net.namibsun.maltourn.lib.http.HttpHandler;
 import net.namibsun.maltourn.lib.objects.AnimeSeries;
 import net.namibsun.maltourn.lib.posts.ScoreSetter;
 import java.util.ArrayList;
