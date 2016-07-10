@@ -24,20 +24,32 @@ This file is part of mal-tournament.
 package net.namibsun.maltourn.lib.posts;
 
 import net.namibsun.maltourn.lib.http.HttpHandler;
+import net.namibsun.maltourn.lib.objects.AnimeSeries;
 
 /**
- * Created by hermann on 7/10/16.
+ * Class that handles setting the score of an anime
  */
 public class ScoreSetter {
 
     private String authentication;
 
+    /**
+     * Creates a new ScoreSetter object, converts the password and username
+     * into an authentication string to be used by HttpHandler
+     * @param username the username of the user who's score will be changed
+     * @param password the password of said user
+     */
     public ScoreSetter(String username, String password) {
         this.authentication = username + ":" + password;
     }
 
-    public void setScore(int seriesAnimedbId, int score) {
-        String url = "http://myanimelist.net/api/animelist/update/" + seriesAnimedbId + ".xml";
+    /**
+     * Sets the score of an anime series
+     * @param series the AnimeSeries object of the series to change the score of
+     * @param score the new score, an integer value between 1 and 10
+     */
+    public void setScore(AnimeSeries series, int score) {
+        String url = "http://myanimelist.net/api/animelist/update/" + series.seriesAnimedbId + ".xml";
         String payload = "data=%3Centry%3E%3Cscore%3E" + score + "%3C%2Fscore%3E%3C%2Fentry%3E";
         HttpHandler.postWithAuth(url, authentication, payload);
     }

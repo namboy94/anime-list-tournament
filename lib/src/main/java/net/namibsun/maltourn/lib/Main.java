@@ -40,18 +40,13 @@ public class Main {
     public static void main(String[] args) {
 
         //was 5
-        /*
-        ListGetter list = new ListGetter("namboy94", "");
-        ArrayList<AnimeSeries> series = list.getList();
+        ArrayList<AnimeSeries> series = ListGetter.getList("namboy94");
         for (AnimeSeries serie: series) {
-            System.out.println(serie.myScore);
+            System.out.println(serie.seriesTitle + " " + serie.myScore);
         }
 
         ScoreSetter setter = new ScoreSetter("namboy94", "");
-        setter.setScore(20, 4);
-        */
-        ScoreSetter setter = new ScoreSetter("namboy94", "");
-        setter.setScore(20, 5);
+        setter.setScore(series.get(0), 1);
 
     }
 }

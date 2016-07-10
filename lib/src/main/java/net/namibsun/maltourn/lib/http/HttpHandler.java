@@ -23,20 +23,21 @@ This file is part of mal-tournament.
 
 package net.namibsun.maltourn.lib.http;
 
-import org.python.util.PythonInterpreter;
-import sun.net.www.http.HttpClient;
-
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 
 /**
- * Created by hermann on 7/9/16.
+ * Class that handles Http Connections
  */
 public class HttpHandler {
 
+    /**
+     * Sends a GET command with basic authentication
+     * @param target the target URL
+     * @param authentication the authentication string ('username:password')
+     * @return the GET response
+     */
     public static String getWithAuth(String target, String authentication) {
 
         try {
@@ -60,6 +61,12 @@ public class HttpHandler {
         }
     }
 
+    /**
+     * Sends a POST request with basic authentication and a URLencoded payload
+     * @param target the target URL
+     * @param authentication the authentication string('username: password')
+     * @param payload the urlencoded payload
+     */
     public static void postWithAuth(String target, String authentication, String payload) {
 
         try {
@@ -72,18 +79,10 @@ public class HttpHandler {
             connection.setRequestProperty("Authorization", authToken);
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
-
             OutputStream out = connection.getOutputStream();
-
             out.write(payload.getBytes());
             out.flush();
             out.close();
-            String line;
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
-            reader.close();
 
 
         } catch (Exception e) {

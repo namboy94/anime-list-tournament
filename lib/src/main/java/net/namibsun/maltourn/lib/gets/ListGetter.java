@@ -29,26 +29,27 @@ import net.namibsun.maltourn.lib.objects.AnimeSeries;
 import java.util.ArrayList;
 
 /**
- * Created by hermann on 7/9/16.
+ * Class that handles fetching the user's anime list data.
  */
 public class ListGetter {
 
-    private String authentication;
-    private String user;
-
-    public ListGetter(String user, String password) {
-        this.authentication = user + ":" + password;
-        this.user = user;
-    }
-
-    public ArrayList<AnimeSeries> getList() {
+    /**
+     * Gets the list data for a myanimelist.net user
+     * @param username the username for which the list data should be fetched
+     * @return the list data as an ArrayList of AnimeSeries objects
+     */
+    public static ArrayList<AnimeSeries> getList(String username) {
         ArrayList<AnimeSeries> series = new ArrayList<>();
-        String list =  HttpHandler.getWithAuth("http://myanimelist.net/malappinfo.php?status=all&type=anime&u=" + this.user, this.authentication);
+
+        String list =  HttpHandler.getWithAuth(
+                "http://myanimelist.net/malappinfo.php?status=all&type=anime&u=" + username, username);
+
         for (String xmlData: list.split("<anime>")) {
-            if (xmlData.contains("<my_status>2</my_status>")) {
-                series.add(new AnimeSeries(xmlData.split("</anime>")[0]));
+            if (xmlData.contains("<my_status>2</my_status>")) {  //Status 2 = Completed
+                series.add(new AnimeSeries(xmlData.split("</anime>")[0]));  //Get XML data from inside <anime> tags
             }
         }
+
         return series;
     }
 

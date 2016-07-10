@@ -23,12 +23,10 @@ This file is part of mal-tournament.
 
 package net.namibsun.maltourn.lib.objects;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
- * Created by hermann on 7/9/16.
+ * Class that models a myanimelist.net Anime Series
  */
+@SuppressWarnings("WeakerAccess")
 public class AnimeSeries {
 
     public String xmlData;
@@ -52,6 +50,10 @@ public class AnimeSeries {
     public int myLastUpdated;
     public String myTags;
 
+    /**
+     * The Constructor takes an XML data string and parses it to get all the variable data
+     * @param xmlData the XML data string to parse
+     */
     public AnimeSeries(String xmlData) {
         this.xmlData = xmlData;
         this.seriesAnimedbId = this.convertToInt(this.getData("series_animedb_id"));
@@ -81,15 +83,25 @@ public class AnimeSeries {
 
     }
 
+    /**
+     * Gets the data from inside an XML tag
+     * @param dataType the XML tag
+     * @return the data from inside the XML tag
+     */
     private String getData(String dataType) {
         return xmlData.split("<" + dataType + ">")[1].split("</" + dataType + ">")[0];
     }
-    
+
+    /**
+     * Converts a String to an int, and if the String is not parseable, the result is -1
+     * @param number the String to parse
+     * @return the parsed integer value
+     */
     private int convertToInt(String number) {
         try {
             return Integer.parseInt(number);
         } catch (NumberFormatException e) {
-            return 0;
+            return -1;
         }
     }
 
