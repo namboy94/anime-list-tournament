@@ -12,6 +12,7 @@ public class Tournament {
 
     ArrayList<Competitor> competitors = new ArrayList<>();
     ArrayList<Competitor> competitorsLeft = new ArrayList<>();
+    boolean prelims = false;
 
     public Tournament(ArrayList<AnimeSeries> series) {
         for (AnimeSeries serie : series) {
@@ -40,11 +41,16 @@ public class Tournament {
         if (sizeDifference == 0) {
             return this.competitorsLeft;
         } else {
+            this.prelims = true;
             ArrayList<Competitor> preliminaries = new ArrayList<>();
-            for (int i = 0; i < sizeDifference; i++) {
-
+            for (int i = 0; i < this.competitorsLeft.size() - sizeDifference; i++) {
+                preliminaries.add(this.competitorsLeft.get(i));
             }
+            return preliminaries;
         }
     }
+
+    public void setMatchupResults
+
 
 }
