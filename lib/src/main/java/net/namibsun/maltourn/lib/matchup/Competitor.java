@@ -33,7 +33,4 @@ public class Competitor {
         this.losses++;
         this.losers.forEach(Competitor::addLoss);
     }
-
-
-
 }
