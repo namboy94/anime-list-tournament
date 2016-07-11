@@ -3,26 +3,23 @@ package net.namibsun.maltourn.lib.matchup;
 import net.namibsun.maltourn.lib.objects.AnimeSeries;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
  */
 public class Competitor {
 
-    private AnimeSeries series;
+    private Object competitorObject;
     private ArrayList<Competitor> losers = new ArrayList<>();
     private int losses = 0;
 
-    public Competitor(AnimeSeries series) {
-        this.series = series;
+    public Competitor(Object competitorObject) {
+        this.competitorObject = competitorObject;
     }
 
-    public String getName() {
-        return this.series.seriesTitle;
-    }
-
-    public String getImageUrl() {
-        return this.series.seriesImage;
+    public Object getObject() {
+        return this.competitorObject;
     }
 
     public int getLosses() {
