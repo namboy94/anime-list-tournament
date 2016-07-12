@@ -23,7 +23,7 @@ build_jar:
     - gradle build
   artifacts:
     paths:
-      lib/build/libs
+      - lib/build/libs
 
 generate_git_stats:
   stage: docstats
