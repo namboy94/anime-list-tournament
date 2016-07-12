@@ -64,7 +64,7 @@ public class CliMalTournament {
             Set<Matchup> matchups = tournament.getNextMatchups();
             Set<Matchup> matchupResults = new HashSet<>();
 
-            for (Matchup matchup: tournament.getNextMatchups()) {
+            for (Matchup matchup : tournament.getNextMatchups()) {
                 matchupCount++;
 
                 Competitor competitorOne = matchup.getCompetitors()[0];
@@ -72,15 +72,23 @@ public class CliMalTournament {
 
                 AnimeSeries seriesOne = (AnimeSeries) competitorOne.getObject();
                 AnimeSeries seriesTwo = (AnimeSeries) competitorTwo.getObject();
-                System.out.println(seriesOne.seriesTitle + " vs. " + seriesTwo.seriesTitle);
-                matchup.setResult(competitorOne, competitorTwo);
+
+                System.out.println("1: " + seriesOne.seriesTitle + "  vs.  2: " + seriesTwo.seriesTitle);
+                String userResponse = "";
+                while (!userResponse.equals("1") && !userResponse.equals("2")) {
+                    userResponse = this.inputScanner.nextLine();
+                }
+
+                if (userResponse.equals("1")) {
+                    matchup.setResult(competitorOne, competitorTwo);
+                } else {
+                    matchup.setResult(competitorTwo, competitorOne);
+                }
                 matchupResults.add(matchup);
             }
             tournament.setMatchResults(matchupResults);
-            System.out.println("------------------------------" + matchupCount + "---------------" + (matchupCount * 2) + "--------------------------------------");
+            System.out.println("Round complete");
             matchupCount = 0;
         }
     }
-
-
 }
