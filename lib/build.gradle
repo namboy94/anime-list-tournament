@@ -29,13 +29,12 @@ version = 0.1
 
 //noinspection GroovyAssignabilityCheck
 jar {
-    //This line is needed to compile a standalone jar, but breaks android builds.
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    manifest {
+        attributes 'Main-Class': 'net.namibsun.maltourn.lib.Main'
+    }
 }
 
 //noinspection GroovyAssignabilityCheck
 dependencies {
-    compile "org.apache.httpcomponents:httpclient:4.5.2"
-    compile "org.python:jython-standalone:2.7.1b2"
     testCompile 'junit:junit:4.12'
 }

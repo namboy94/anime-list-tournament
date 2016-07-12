@@ -1,5 +1,7 @@
 stages:
   - mirror
+  - build
+  - docstats
 
 mirror_repo:
   stage: mirror
@@ -11,3 +13,23 @@ mirror_repo:
     - git push git@github.com:namboy94/mal-tournament.git master --force
     - git checkout develop
     - git push git@github.com:namboy94/mal-tournament.git develop --force
+
+build_jar:
+  stage: build
+  only:
+    - master
+  script:
+    - cd lib
+    - gradle build
+  artifacts:
+    paths:
+      lib/build/libs
+
+generate_git_stats:
+  stage: docstats
+  only:
+    - master
+    - develop
+  script:
+    - gitstats . git_stats
+    - rsync -av git_stats/ www.krumreyh.com@ssh.strato.de:~/programming_pages/mal-tournament/git_stats --delete-after
