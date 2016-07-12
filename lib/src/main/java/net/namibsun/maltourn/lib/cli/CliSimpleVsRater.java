@@ -39,10 +39,24 @@ import java.util.Set;
  */
 public class CliSimpleVsRater {
 
+    /**
+     * A scanner that scans stdin for user input
+     */
     private Scanner inputScanner = new Scanner(System.in);
+
+    /**
+     * A list of anime series associated with the specified username
+     */
     private ArrayList<AnimeSeries> animeList = new ArrayList<>();
+
+    /**
+     * An authenticated ScoreSetter object to change show scores
+     */
     ScoreSetter scoreSetter;
 
+    /**
+     * Starts the CLI loop. Asks for an checks user credentials
+     */
     public CliSimpleVsRater(){
 
         System.out.println("Welcome to the Simple vs Rater CLI");
@@ -83,9 +97,11 @@ public class CliSimpleVsRater {
                 running = false;
             }
         }
-
     }
 
+    /**
+     * Lets the user rate two shows
+     */
     private void ratingLoop() {
         AnimeSeries entrantOne = this.animeList.remove(0);
         AnimeSeries entrantTwo = this.animeList.remove(0);
@@ -119,6 +135,12 @@ public class CliSimpleVsRater {
         this.animeList.add(entrantTwo);
     }
 
+    /**
+     * Lets the user evaluate his own rating
+     * @param winner the winner of the rating
+     * @param loser the loser of the rating
+     * @param wasDraw true if it was a draw, false otherwise
+     */
     private void evaluateRating(AnimeSeries winner, AnimeSeries loser, boolean wasDraw) {
         if ((!wasDraw && winner.myScore <= loser.myScore) || (wasDraw && winner.myScore != loser.myScore)) {
             System.out.println("Current scores for theses shows are:");

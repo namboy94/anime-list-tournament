@@ -39,18 +39,22 @@ import net.namibsun.maltourn.lib.objects.AnimeSeries;
  */
 public class CliMalTournament {
 
+    /**
+     * The input scanner to scan stdin for user input
+     */
     Scanner inputScanner = new Scanner(System.in);
-    String username;
-    String password;
 
+    /**
+     * Constructor that asks for authentication and starts the tournament procedure
+     */
     public CliMalTournament() {
 
         System.out.println("Please enter your username");
-        this.username = this.inputScanner.nextLine();
+        String username = this.inputScanner.nextLine();
         System.out.println("Please enter your password");
-        this.password = this.inputScanner.nextLine();
+        String password = this.inputScanner.nextLine();
 
-        if (!Authenticator.isAuthenticated(this.username, this.password)) {
+        if (!Authenticator.isAuthenticated(username, password)) {
             System.out.println("Invalid username/password");
             System.exit(1);
         }
