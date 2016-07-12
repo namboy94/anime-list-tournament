@@ -1,3 +1,26 @@
+/*
+Copyright 2016 Hermann Krumrey
+
+This file is part of mal-tournament.
+
+    mal-tournament is a program that lets a user pit his watched anime series
+    from myanimelist.net against each other in an attempt to determine relative scores
+    between the shows.
+
+    mal-tournament is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    mal-tournament is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with mal-tournament. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 package net.namibsun.maltourn.lib.matchup;
 
 import java.util.*;
@@ -12,22 +35,24 @@ public class Tournament {
     /**
      * A set of all competitors in the tournament
      */
-    Set<Competitor> competitors = new HashSet<>();
+    // Set<Competitor> competitors = new HashSet<>();
 
     /**
      * A set of all competitors left in the tournament
      */
     Set<Competitor> competitorsLeft = new HashSet<>();
 
+    Set<Competitor> seeded = new HashSet<>();
+
     /**
      * The constructor wraps each entrant inside a Competitor object and adds them to the
      * competitors and competitorsLeft sets
      * @param entrants a set of tournament participants
      */
-    public Tournament(Set<Object> entrants) {
+    public Tournament(Set entrants) {
         for (Object entrant : entrants) {
             Competitor competitor = new Competitor(entrant);
-            this.competitors.add(competitor);
+            // this.competitors.add(competitor);
             this.competitorsLeft.add(competitor);
         }
     }
@@ -54,8 +79,13 @@ public class Tournament {
             matchupPool = this.competitorsLeft;
         } else {
             Iterator<Competitor> iterator = this.competitorsLeft.iterator();
-            for (int i = 0; i < this.competitorsLeft.size() - sizeDifference; i++) {
-                matchupPool.add(iterator.next());
+            for (int i = 0; i < this.competitorsLeft.size(); i++) {
+                if (i < this.competitorsLeft.size() - sizeDifference) {
+                    matchupPool.add(iterator.next());
+                }
+                else {
+                    this.seeded.add(iterator.next());
+                }
             }
         }
 
@@ -79,6 +109,10 @@ public class Tournament {
         for (Matchup matchup: matchups) {
             this.competitorsLeft.add(matchup.getWinner());
         }
+        for (Competitor seededCompetitor: this.seeded) {
+            this.competitorsLeft.add(seededCompetitor);
+        }
+        this.seeded = new HashSet<>();
     }
 
     /**
@@ -86,7 +120,7 @@ public class Tournament {
      * @return true if the tournament is completed, false otherwise
      */
     public boolean isDone() {
-        return this.competitorsLeft.size() == 1;
+        return (this.competitorsLeft.size() == 1);
     }
 
 }

@@ -26,7 +26,8 @@ package net.namibsun.maltourn.lib.gets;
 import net.namibsun.maltourn.lib.http.HttpHandler;
 import net.namibsun.maltourn.lib.objects.AnimeSeries;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Class that handles fetching the user's anime list data.
@@ -38,8 +39,8 @@ public class ListGetter {
      * @param username the username for which the list data should be fetched
      * @return the list data as an ArrayList of AnimeSeries objects
      */
-    public static ArrayList<AnimeSeries> getList(String username) {
-        ArrayList<AnimeSeries> series = new ArrayList<>();
+    public static Set<AnimeSeries> getList(String username) {
+        Set<AnimeSeries> series = new HashSet<>();
 
         String list =  HttpHandler.getWithAuth(
                 "http://myanimelist.net/malappinfo.php?status=all&type=anime&u=" + username, username);

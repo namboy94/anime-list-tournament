@@ -1,31 +1,85 @@
+/*
+Copyright 2016 Hermann Krumrey
+
+This file is part of mal-tournament.
+
+    mal-tournament is a program that lets a user pit his watched anime series
+    from myanimelist.net against each other in an attempt to determine relative scores
+    between the shows.
+
+    mal-tournament is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    mal-tournament is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with mal-tournament. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 package net.namibsun.maltourn.lib.cli;
 
-import java.io.Console;
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
 
 import net.namibsun.maltourn.lib.gets.Authenticator;
+import net.namibsun.maltourn.lib.gets.ListGetter;
+import net.namibsun.maltourn.lib.matchup.Competitor;
+import net.namibsun.maltourn.lib.matchup.Matchup;
+import net.namibsun.maltourn.lib.matchup.Tournament;
+import net.namibsun.maltourn.lib.objects.AnimeSeries;
 
 /**
- * Created by hermann on 7/12/16.
+ * Class that creates a CLI for the MAL tournament
  */
 public class CliMalTournament {
 
-    Console console = System.console();
+    Scanner inputScanner = new Scanner(System.in);
     String username;
     String password;
 
     public CliMalTournament() {
 
         System.out.println("Please enter your username");
-        this.username = this.console.readLine();
+        this.username = this.inputScanner.nextLine();
         System.out.println("Please enter your password");
-        this.password = this.console.readLine();
+        this.password = this.inputScanner.nextLine();
 
         if (!Authenticator.isAuthenticated(this.username, this.password)) {
             System.out.println("Invalid username/password");
             System.exit(1);
         }
 
+        Set<AnimeSeries> completedSeries = ListGetter.getList(username);
+        Tournament tournament = new Tournament(completedSeries);
+
+        int matchupCount = 0;
+
+        while (!tournament.isDone()) {
+            Set<Matchup> matchups = tournament.getNextMatchups();
+            Set<Matchup> matchupResults = new HashSet<>();
+
+            for (Matchup matchup: tournament.getNextMatchups()) {
+                matchupCount++;
+
+                Competitor competitorOne = matchup.getCompetitors()[0];
+                Competitor competitorTwo = matchup.getCompetitors()[1];
+
+                AnimeSeries seriesOne = (AnimeSeries) competitorOne.getObject();
+                AnimeSeries seriesTwo = (AnimeSeries) competitorTwo.getObject();
+                System.out.println(seriesOne.seriesTitle + " vs. " + seriesTwo.seriesTitle);
+                matchup.setResult(competitorOne, competitorTwo);
+                matchupResults.add(matchup);
+            }
+            tournament.setMatchResults(matchupResults);
+            System.out.println("------------------------------" + matchupCount + "---------------" + (matchupCount * 2) + "--------------------------------------");
+            matchupCount = 0;
+        }
     }
 
 
