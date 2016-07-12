@@ -1,0 +1,4 @@
+V 0.1
+  - Created HTTP framework to get animelist and set scores
+  - Created Tournament structure
+  - Created basic CLIs
