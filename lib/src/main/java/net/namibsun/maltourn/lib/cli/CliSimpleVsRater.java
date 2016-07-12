@@ -40,9 +40,6 @@ import java.util.Set;
 public class CliSimpleVsRater {
 
     private Scanner inputScanner = new Scanner(System.in);
-    private boolean running = true;
-    private String username;
-    private String password;
     private ArrayList<AnimeSeries> animeList = new ArrayList<>();
     ScoreSetter scoreSetter;
 
@@ -52,21 +49,21 @@ public class CliSimpleVsRater {
         System.out.println("Please enter your myanimelist.net account information");
 
         System.out.println("Please enter your username");
-        this.username = this.inputScanner.nextLine();
+        String username = this.inputScanner.nextLine();
         System.out.println("Please enter your password");
-        this.password = this.inputScanner.nextLine();
+        String password = this.inputScanner.nextLine();
 
-        if (!Authenticator.isAuthenticated(this.username, this.password)) {
+        if (!Authenticator.isAuthenticated(username, password)) {
             System.out.println("Invalid username/password");
             System.exit(1);
         }
         else {
-            this.scoreSetter = new ScoreSetter(this.username, this.password);
+            this.scoreSetter = new ScoreSetter(username, password);
             System.out.println("Authentication successful");
         }
 
         System.out.println("Fetching list data. This might take a while.");
-        Set<AnimeSeries> animeSet = ListGetter.getList(this.username);
+        Set<AnimeSeries> animeSet = ListGetter.getList(username);
         for (AnimeSeries anime: animeSet) {
             this.animeList.add(anime);
         }
@@ -74,14 +71,16 @@ public class CliSimpleVsRater {
         System.out.println("Fetched list data");
 
         System.out.println("To select the better of the two shows, enter the number to the left of" +
-                "the title. If you think both shows are equally good, enter '='.");
+                "the title. If you think both shows are equally good, enter '='." +
+                "\nTo skip a matchup, just press enter/return without entering anything.");
 
-        while (this.running) {
+        boolean running = true;
+        while (running) {
             this.ratingLoop();
             System.out.println("Would you like to do a new comparison? (y/n)");
             String userResponse = this.inputScanner.nextLine();
             if (userResponse.equals("n")) {
-                this.running = false;
+                running = false;
             }
         }
 
@@ -93,8 +92,11 @@ public class CliSimpleVsRater {
 
         System.out.println("1: " + entrantOne.seriesTitle + "  vs.  2: " + entrantTwo.seriesTitle);
 
-        String userRating = this.inputScanner.nextLine();;
-        while (!userRating.equals("1") && !userRating.equals("2") && !userRating.equals("=")) {
+        String userRating = this.inputScanner.nextLine();
+        while (!userRating.equals("1") &&
+                !userRating.equals("2") &&
+                !userRating.equals("=") &&
+                !userRating.equals("")) {
             System.out.println("Invalid input. Please enter '1', '2' or '='");
             userRating = this.inputScanner.nextLine();
         }
@@ -106,8 +108,10 @@ public class CliSimpleVsRater {
             case "2":
                 this.evaluateRating(entrantTwo, entrantOne, false);
                 break;
-            default:
+            case "=":
                 this.evaluateRating(entrantOne, entrantTwo, true);
+                break;
+            default:
                 break;
         }
 
