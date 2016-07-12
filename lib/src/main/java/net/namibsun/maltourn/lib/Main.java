@@ -23,10 +23,8 @@ This file is part of mal-tournament.
 
 package net.namibsun.maltourn.lib;
 
-import net.namibsun.maltourn.lib.gets.ListGetter;
-import net.namibsun.maltourn.lib.objects.AnimeSeries;
-import net.namibsun.maltourn.lib.posts.ScoreSetter;
-import java.util.ArrayList;
+import net.namibsun.maltourn.lib.cli.CliMalTournament;
+import net.namibsun.maltourn.lib.cli.CliSimpleVsRater;
 
 /**
  * Main class that starts the program
@@ -35,15 +33,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-
-
-        ArrayList<AnimeSeries> series = ListGetter.getList("namboy94");
-        for (AnimeSeries serie: series) {
-            System.out.println(serie.seriesTitle + " " + serie.myScore);
-        }
-
-        ScoreSetter setter = new ScoreSetter("namboy94", "");
-        setter.setScore(series.get(0), 1);
-
+        //new CliMalTournament();
+        new CliSimpleVsRater();
     }
+
 }

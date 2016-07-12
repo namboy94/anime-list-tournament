@@ -83,7 +83,12 @@ public class HttpHandler {
             out.write(payload.getBytes());
             out.flush();
             out.close();
-
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+            reader.close();
 
         } catch (Exception e) {
             e.printStackTrace();
