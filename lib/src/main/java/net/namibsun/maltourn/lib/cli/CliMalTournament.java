@@ -56,7 +56,7 @@ public class CliMalTournament {
         }
 
         Set<AnimeSeries> completedSeries = ListGetter.getList(username);
-        Tournament tournament = new Tournament(completedSeries);
+        Tournament tournament = new Tournament(completedSeries, 8);
 
         int matchupCount = 0;
 

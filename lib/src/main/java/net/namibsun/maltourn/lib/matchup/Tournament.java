@@ -33,15 +33,14 @@ import java.util.*;
 public class Tournament {
 
     /**
-     * A set of all competitors in the tournament
-     */
-    // Set<Competitor> competitors = new HashSet<>();
-
-    /**
      * A set of all competitors left in the tournament
      */
     Set<Competitor> competitorsLeft = new HashSet<>();
 
+    /**
+     * A set of competitors that are exempt from the first round of matches to ensure a
+     * binary tree following the first round.
+     */
     Set<Competitor> seeded = new HashSet<>();
 
     /**
@@ -52,8 +51,24 @@ public class Tournament {
     public Tournament(Set entrants) {
         for (Object entrant : entrants) {
             Competitor competitor = new Competitor(entrant);
-            // this.competitors.add(competitor);
             this.competitorsLeft.add(competitor);
+        }
+    }
+
+    /**
+     * Alternative constructor that allows limiting the entrant pool to a specific size
+     * @param entrants the entire pool of entrants
+     * @param poolSize the amount of entrants to use
+     */
+    public Tournament(Set entrants, int poolSize) {
+        ArrayList<Competitor> helperList = new ArrayList<>();
+        for (Object entrant : entrants) {
+            Competitor competitor = new Competitor(entrant);
+            helperList.add(competitor);
+        }
+        Collections.shuffle(helperList);
+        for (int i = 0; i < poolSize; i++) {
+            this.competitorsLeft.add(helperList.get(i));
         }
     }
 
