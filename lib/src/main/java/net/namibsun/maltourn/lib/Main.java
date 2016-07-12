@@ -24,6 +24,7 @@ This file is part of mal-tournament.
 package net.namibsun.maltourn.lib;
 
 import net.namibsun.maltourn.lib.cli.CliMalTournament;
+import net.namibsun.maltourn.lib.cli.CliSimpleVsRater;
 
 /**
  * Main class that starts the program
@@ -32,8 +33,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        new CliMalTournament();
-
+        //new CliMalTournament();
+        new CliSimpleVsRater();
     }
 
 }
