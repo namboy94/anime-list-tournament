@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class SimpleVsRaterGui extends JFrame {
@@ -23,8 +22,8 @@ public class SimpleVsRaterGui extends JFrame {
 
     public SimpleVsRaterGui() {
 
-        int width = 750;
-        int height = 450;
+        int width = 800;
+        int height = 500;
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int xPosition = (int)(screenSize.getWidth() / 2) - (width / 2);
@@ -49,24 +48,32 @@ public class SimpleVsRaterGui extends JFrame {
 
     private void setLayoutElements() throws IOException {
 
-        int labelWidth = 200;
+        int labelWidth = 100;
         int labelHeight = 50;
+        int imageWidth = 200;
+        int imageHeight = 300;
 
-        this.leftContestantLabel = new JLabel("Test", SwingConstants.CENTER);
-        this.leftContestantLabel.setLocation(10, 200);
+        this.leftContestantLabel = new JLabel("Left", SwingConstants.CENTER);
+        this.leftContestantLabel.setLocation(0, 0);
         this.leftContestantLabel.setSize(labelWidth, labelHeight);
         this.add(this.leftContestantLabel);
 
-        this.rightContestantLabel = new JLabel("Test", SwingConstants.CENTER);
-        this.rightContestantLabel.setLocation(250, 200);
+        this.rightContestantLabel = new JLabel("Right", SwingConstants.CENTER);
+        this.rightContestantLabel.setLocation(400, 0);
         this.rightContestantLabel.setSize(labelWidth, labelWidth);
         this.add(this.rightContestantLabel);
 
-        URL leftImageUrl = new URL("https://pixabay.com/static/uploads/photo/2015/10/01/21/39/background-image-967820_960_720.jpg");
+        URL leftImageUrl = new URL("http://images.ichkoche.at/data/image/variations/496x384/1/vanillekipferl-das-klassische-rezept-img-327.jpg");
         BufferedImage leftImage = ImageIO.read(leftImageUrl);
-        this.leftContestantImage = new ImageLabel(leftImage, 200, 200, ImageLabel.ScaleMode.STRETCH, Color.black);
-        this.leftContestantImage.setLocation(300, 300);
+        this.leftContestantImage = new ImageLabel(leftImage, imageWidth, imageHeight, ImageLabel.ScaleMode.STRETCH, Color.black);
+        this.leftContestantImage.setLocation(0, 100);
         this.add(this.leftContestantImage);
+
+        URL rightImageUrl = new URL("http://images.ichkoche.at/data/image/variations/496x384/4/vanillekipferl-rezept-img-31386.jpg");
+        BufferedImage rightImage = ImageIO.read(rightImageUrl);
+        this.rightContestantImage = new ImageLabel(rightImage, imageWidth, imageHeight, ImageLabel.ScaleMode.STRETCH, Color.black);
+        this.rightContestantImage.setLocation(400, 100);
+        this.add(this.rightContestantImage);
 
 
     }
