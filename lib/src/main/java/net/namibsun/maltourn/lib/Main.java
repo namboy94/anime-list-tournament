@@ -25,6 +25,7 @@ package net.namibsun.maltourn.lib;
 
 import net.namibsun.maltourn.lib.cli.CliMalTournament;
 import net.namibsun.maltourn.lib.cli.CliSimpleVsRater;
+import net.namibsun.maltourn.lib.gui.SimpleVsRaterGui;
 
 /**
  * Main class that starts the program
@@ -34,7 +35,8 @@ public class Main {
     public static void main(String[] args) {
 
         //new CliMalTournament();
-        new CliSimpleVsRater();
+        //new CliSimpleVsRater();
+        new SimpleVsRaterGui();
     }
 
 }
