@@ -1,9 +1,19 @@
 package net.namibsun.maltourn.lib.gui;
 
+import net.namibsun.maltourn.lib.objects.AnimeSeries;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class SimpleVsRaterGui extends JFrame {
+
+
+    JLabel leftContestantLabel;
+    JLabel rightContestantLabel;
+    JLabel leftContestantImage;
+    JLabel rightContestantImage;
+    AnimeSeries leftContestant;
+    AnimeSeries rightContestant;
 
 
     public SimpleVsRaterGui() {
@@ -21,8 +31,20 @@ public class SimpleVsRaterGui extends JFrame {
         this.getContentPane().setPreferredSize(new Dimension(width, height));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
+
+        this.setLayoutElements();
+
         this.setResizable(false);
         this.setVisible(true);
+    }
+
+    private void setLayoutElements() {
+
+        this.leftContestantLabel = new JLabel("Test", SwingConstants.CENTER);
+        this.leftContestantLabel.setLocation(1, 1);
+        this.leftContestantLabel.setSize(200, 200);
+        this.add(this.leftContestantLabel);
+
     }
 
 }
