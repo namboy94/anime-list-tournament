@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib/lib_main.iml" filepath="$PROJECT_DIR$/.idea/modules/lib/lib_main.iml" group="lib" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib/lib_test.iml" filepath="$PROJECT_DIR$/.idea/modules/lib/lib_test.iml" group="lib" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/mal-tournament.iml" filepath="$PROJECT_DIR$/.idea/modules/mal-tournament.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mal-tournament-android/mal-tournament-android.iml" filepath="$PROJECT_DIR$/mal-tournament-android/mal-tournament-android.iml" />
       <module fileurl="file://$PROJECT_DIR$/mal-tournament-java/mal-tournament-java.iml" filepath="$PROJECT_DIR$/mal-tournament-java/mal-tournament-java.iml" />
     </modules>
   </component>
