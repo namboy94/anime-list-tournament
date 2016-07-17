@@ -175,7 +175,6 @@ public class SimpleVsRaterGui extends JFrame {
             for (AnimeSeries anime: series) {
                 this.series.add(anime);
             }
-            Collections.shuffle(this.series);
         }
     }
 
@@ -284,6 +283,7 @@ public class SimpleVsRaterGui extends JFrame {
             this.series.add(this.leftContestant);
             this.series.add(this.rightContestant);
         }
+        Collections.shuffle(this.series);
 
         this.leftContestant = this.series.remove(0);
         this.rightContestant = this.series.remove(0);
