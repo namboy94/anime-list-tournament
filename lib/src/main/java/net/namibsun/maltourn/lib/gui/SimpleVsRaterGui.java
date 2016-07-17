@@ -8,8 +8,6 @@ import net.namibsun.maltourn.lib.posts.ScoreSetter;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -20,7 +18,6 @@ import java.util.Collections;
 import java.util.Set;
 
 public class SimpleVsRaterGui extends JFrame {
-
 
     JLabel leftContestantLabel;
     JLabel rightContestantLabel;
@@ -33,7 +30,7 @@ public class SimpleVsRaterGui extends JFrame {
     JButton drawButton;
     AnimeSeries leftContestant;
     AnimeSeries rightContestant;
-    ScoreSetter scoreSetter = null;
+    ScoreSetter scoreSetter;
     ArrayList<AnimeSeries> series = new ArrayList<>();
 
 
@@ -41,7 +38,10 @@ public class SimpleVsRaterGui extends JFrame {
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException | IllegalAccessException e) {
+        } catch (ClassNotFoundException |
+                InstantiationException |
+                UnsupportedLookAndFeelException |
+                IllegalAccessException e) {
             e.printStackTrace();
         }
 
@@ -72,44 +72,45 @@ public class SimpleVsRaterGui extends JFrame {
     }
 
     private void login() {
-        while (this.scoreSetter == null) {
-            String username = JOptionPane.showInputDialog(null, "Username");
-            String password = JOptionPane.showInputDialog(null, "Password");
+        String username = JOptionPane.showInputDialog(null, "Username");
+        String password = JOptionPane.showInputDialog(null, "Password");
 
-            if (!Authenticator.isAuthenticated(username, password)) {
-                JOptionPane.showConfirmDialog(null, "Invalid Username/Password");
+        if (!Authenticator.isAuthenticated(username, password)) {
+            JOptionPane.showConfirmDialog(null, "Invalid Username/Password");
+            System.exit(1);
+        }
+        else {
+            this.scoreSetter = new ScoreSetter(username, password);
+            Set<AnimeSeries> series = ListGetter.getList(username);
+            for (AnimeSeries anime: series) {
+                this.series.add(anime);
             }
-            else {
-                this.scoreSetter = new ScoreSetter(username, password);
-                Set<AnimeSeries> series = ListGetter.getList(username);
-                for (AnimeSeries anime: series) {
-                    this.series.add(anime);
-                }
-                Collections.shuffle(this.series);
-                this.leftContestant = this.series.remove(0);
-                this.rightContestant = this.series.remove(0);
-            }
+            Collections.shuffle(this.series);
+            this.leftContestant = this.series.remove(0);
+            this.rightContestant = this.series.remove(0);
         }
     }
 
     private void setLayoutElements() throws IOException {
 
-        int labelWidth = 300;
-        int labelHeight = 50;
-        int imageWidth = 200;
-        int imageHeight = 300;
-        int scoreEntryWidth = 30;
-        int scoreEntryHeight = 20;
-        int buttonWidth = 50;
+        int labelWidth = 200;
+        int labelHeight = 65;
+        int imageWidth = 225;
+        int imageHeight = 318;
+        int scoreEntryWidth = 40;
+        int scoreEntryHeight = 30;
+        int buttonWidth = 150;
         int buttonHeight = 50;
 
-        this.leftContestantLabel = new JLabel(this.leftContestant.seriesTitle, SwingConstants.CENTER);
-        this.leftContestantLabel.setLocation(50, 0);
+        this.leftContestantLabel = new JLabel("<html>" + this.leftContestant.seriesTitle + "</html>",
+                SwingConstants.CENTER);
+        this.leftContestantLabel.setLocation(100, 0);
         this.leftContestantLabel.setSize(labelWidth, labelHeight);
         this.add(this.leftContestantLabel);
 
-        this.rightContestantLabel = new JLabel(this.rightContestant.seriesTitle, SwingConstants.CENTER);
-        this.rightContestantLabel.setLocation(450, 0);
+        this.rightContestantLabel = new JLabel("<html>" + this.rightContestant.seriesTitle + "</html>",
+                SwingConstants.CENTER);
+        this.rightContestantLabel.setLocation(500, 0);
         this.rightContestantLabel.setSize(labelWidth, labelHeight);
         this.add(this.rightContestantLabel);
 
@@ -118,15 +119,15 @@ public class SimpleVsRaterGui extends JFrame {
         this.leftContestantImage = new JLabel();
         this.leftContestantImage.setSize(imageWidth, imageHeight);
         this.leftContestantImage.setIcon(new ImageIcon(leftImage));
-        this.leftContestantImage.setLocation(100, 100);
+        this.leftContestantImage.setLocation(75, 75);
         this.add(this.leftContestantImage);
 
         URL rightImageUrl = new URL(this.rightContestant.seriesImage);
         BufferedImage rightImage = ImageIO.read(rightImageUrl);
         this.rightContestantImage = new JLabel();
         this.rightContestantImage.setSize(imageWidth, imageHeight);
-        this.leftContestantImage.setIcon(new ImageIcon(rightImage));
-        this.rightContestantImage.setLocation(500, 100);
+        this.rightContestantImage.setIcon(new ImageIcon(rightImage));
+        this.rightContestantImage.setLocation(500, 75);
         this.add(this.rightContestantImage);
 
         this.leftContestantImage.addMouseListener(new MouseAdapter() {
@@ -148,27 +149,32 @@ public class SimpleVsRaterGui extends JFrame {
         });
 
         this.drawButton = new JButton("Draw");
-        this.drawButton.setSize(50, 50);
-        this.drawButton.setLocation(0, 0);
+        this.drawButton.setSize(buttonWidth, buttonHeight);
+        this.drawButton.setLocation(325, 175);
         this.drawButton.addActionListener(actionEvent -> SimpleVsRaterGui.this.evaluateBets(true));
+        this.add(this.drawButton);
 
         this.leftContestantScore = new JTextField("");
         this.leftContestantScore.setSize(scoreEntryWidth, scoreEntryHeight);
-        this.leftContestantScore.setLocation(0, 0);
+        this.leftContestantScore.setLocation(180, 425);
+        this.add(this.leftContestantScore);
 
         this.rightContestantScore = new JTextField("");
         this.rightContestantScore.setSize(scoreEntryWidth, scoreEntryHeight);
-        this.rightContestantScore.setLocation(0, 0);
+        this.rightContestantScore.setLocation(580, 425);
+        this.add(this.rightContestantScore);
 
         this.scoreConfirmer = new JButton("Confirm");
         this.scoreConfirmer.setSize(buttonWidth, buttonHeight);
-        this.scoreConfirmer.setLocation(0, 0);
+        this.scoreConfirmer.setLocation(400, 425);
         this.scoreConfirmer.addActionListener(actionEvent -> SimpleVsRaterGui.this.confirmScores());
+        this.add(this.scoreConfirmer);
 
         this.scoreCancler = new JButton("Cancel");
         this.scoreCancler.setSize(buttonWidth, buttonHeight);
-        this.scoreCancler.setLocation(0, 0);
+        this.scoreCancler.setLocation(250, 425);
         this.scoreCancler.addActionListener(actionEvent -> SimpleVsRaterGui.this.loadNextContestants());
+        this.add(this.scoreCancler);
 
 
     }
@@ -198,15 +204,23 @@ public class SimpleVsRaterGui extends JFrame {
             e.printStackTrace();
         }
 
-        this.leftContestantLabel.setText(this.leftContestant.seriesTitle);
-        this.rightContestantLabel.setText(this.rightContestant.seriesTitle);
-
+        this.leftContestantLabel.setText("<html>" + this.leftContestant.seriesTitle + "</html>");
+        this.rightContestantLabel.setText("<html>" + this.rightContestant.seriesTitle + "</html>");
 
     }
 
     private void confirmScores() {
-        this.scoreSetter.setScore(this.leftContestant, Integer.parseInt(this.leftContestantScore.getText()));
-        this.scoreSetter.setScore(this.rightContestant, Integer.parseInt(this.rightContestantScore.getText()));
+        int leftScore = Integer.parseInt(this.leftContestantScore.getText());
+        int rightScore = Integer.parseInt(this.rightContestantScore.getText());
+        if (leftScore > 0 && leftScore <= 10 && rightScore > 0 && leftScore <= 10) {
+            if (leftScore != this.leftContestant.myScore) {
+                this.scoreSetter.setScore(this.leftContestant, leftScore);
+            }
+            if (rightScore != this.rightContestant.myScore) {
+                this.scoreSetter.setScore(this.rightContestant, rightScore);
+            }
+            this.loadNextContestants();
+        }
     }
 
     private void evaluateBets() {
