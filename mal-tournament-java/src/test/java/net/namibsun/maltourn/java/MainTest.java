@@ -21,5 +21,12 @@ This file is part of mal-tournament.
     along with mal-tournament. If not, see <http://www.gnu.org/licenses/>.
 */
 
-rootProject.name = 'mal-tournament'
-include ':java'
+package net.namibsun.maltourn.java;
+
+/**
+ * Created by hermann on 7/9/16.
+ */
+public class MainTest {
+
+
+}

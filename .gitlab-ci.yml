@@ -10,8 +10,10 @@ mirror_repo:
     - develop
   script:
     - git checkout master
+    - git pull origin master
     - git push git@github.com:namboy94/mal-tournament.git master --force
     - git checkout develop
+    - git pull origin develop
     - git push git@github.com:namboy94/mal-tournament.git develop --force
 
 build_jar:
@@ -19,11 +21,11 @@ build_jar:
   only:
     - master
   script:
-    - cd lib
+    - cd java
     - gradle build
   artifacts:
     paths:
-      - lib/build/libs
+      - java/build/libs
 
 generate_git_stats:
   stage: docstats
