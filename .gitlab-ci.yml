@@ -21,11 +21,11 @@ build_jar:
   only:
     - master
   script:
-    - cd lib
+    - cd java
     - gradle build
   artifacts:
     paths:
-      - lib/build/libs
+      - java/build/libs
 
 generate_git_stats:
   stage: docstats

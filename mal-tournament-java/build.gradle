@@ -21,5 +21,20 @@ This file is part of mal-tournament.
     along with mal-tournament. If not, see <http://www.gnu.org/licenses/>.
 */
 
-rootProject.name = 'mal-tournament'
-include ':java'
+//noinspection GrUnresolvedAccess
+apply plugin: 'java'
+
+//noinspection GroovyUnusedAssignment
+version = 0.1
+
+//noinspection GroovyAssignabilityCheck
+jar {
+    manifest {
+        attributes 'Main-Class': 'net.namibsun.maltourn.java.Main'
+    }
+}
+
+//noinspection GroovyAssignabilityCheck
+dependencies {
+    testCompile 'junit:junit:4.12'
+}

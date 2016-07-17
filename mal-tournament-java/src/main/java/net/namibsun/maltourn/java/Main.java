@@ -21,5 +21,20 @@ This file is part of mal-tournament.
     along with mal-tournament. If not, see <http://www.gnu.org/licenses/>.
 */
 
-rootProject.name = 'mal-tournament'
-include ':java'
+package net.namibsun.maltourn.java;
+
+import net.namibsun.maltourn.java.gui.SimpleVsRaterGui;
+
+/**
+ * Main class that starts the program
+ */
+public class Main {
+
+    public static void main(String[] args) {
+
+        //new CliMalTournament();
+        //new CliSimpleVsRater();
+        new SimpleVsRaterGui();
+    }
+
+}
