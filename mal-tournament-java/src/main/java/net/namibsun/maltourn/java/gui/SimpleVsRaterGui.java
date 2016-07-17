@@ -112,6 +112,11 @@ public class SimpleVsRaterGui extends JFrame {
     ArrayList<AnimeSeries> series = new ArrayList<>();
 
     /**
+     * A flag set whenever the user decided on an outcome;
+     */
+    boolean decided;
+
+    /**
      * Constructor that authenticates the user and creates the layout
      * The GUI is non-scalable to decrease complexity
      */
@@ -147,6 +152,7 @@ public class SimpleVsRaterGui extends JFrame {
         // log in and set layout elements
         this.login();
         this.setLayoutElements();
+        this.loadNextContestants();
 
         // Start the GUI
         this.setVisible(true);
@@ -270,6 +276,10 @@ public class SimpleVsRaterGui extends JFrame {
      */
     private void loadNextContestants() {
 
+        this.decided = false;
+        this.leftContestantScore.setText("");
+        this.rightContestantScore.setText("");
+
         if (this.leftContestant != null && this.rightContestant != null) {
             this.series.add(this.leftContestant);
             this.series.add(this.rightContestant);
@@ -291,7 +301,6 @@ public class SimpleVsRaterGui extends JFrame {
             this.rightContestantImage.setIcon(rightIcon);
         } catch (IOException e) {
             // Just don't display images if IOError
-            e.printStackTrace();
         }
 
         // HTML tags used for multi-line label
@@ -304,18 +313,23 @@ public class SimpleVsRaterGui extends JFrame {
      * Confirms and input scores and sets them on the user's myanimelist.net account
      */
     private void confirmScores() {
-        int leftScore = Integer.parseInt(this.leftContestantScore.getText());
-        int rightScore = Integer.parseInt(this.rightContestantScore.getText());
+        try {
+            int leftScore = Integer.parseInt(this.leftContestantScore.getText());
+            int rightScore = Integer.parseInt(this.rightContestantScore.getText());
 
-        // Check if values are legal
-        if (leftScore > 0 && leftScore <= 10 && rightScore > 0 && leftScore <= 10) {
-            if (leftScore != this.leftContestant.myScore) {
-                this.scoreSetter.setScore(this.leftContestant, leftScore);
+            // Check if values are legal
+            if (leftScore > 0 && leftScore <= 10 && rightScore > 0 && leftScore <= 10) {
+                if (leftScore != this.leftContestant.myScore) {
+                    this.scoreSetter.setScore(this.leftContestant, leftScore);
+                }
+                if (rightScore != this.rightContestant.myScore) {
+                    this.scoreSetter.setScore(this.rightContestant, rightScore);
+                }
+                this.loadNextContestants();  // Start the new round
             }
-            if (rightScore != this.rightContestant.myScore) {
-                this.scoreSetter.setScore(this.rightContestant, rightScore);
-            }
-            this.loadNextContestants();  // Start the new round
+        }
+        catch (NumberFormatException e) {
+            // Don't do stuff
         }
     }
 
@@ -323,6 +337,7 @@ public class SimpleVsRaterGui extends JFrame {
      * Sets the current scores into the score fields
      */
     private void evaluateBets() {
+        this.decided = true;
         this.leftContestantScore.setText("" + this.leftContestant.myScore);
         this.rightContestantScore.setText("" + this.rightContestant.myScore);
     }
@@ -334,6 +349,8 @@ public class SimpleVsRaterGui extends JFrame {
     private void evaluateBets(boolean drawn) {
         if (this.leftContestant.myScore != this.rightContestant.myScore) {
             this.evaluateBets();
+        } else if (!this.decided){
+            this.loadNextContestants();
         }
     }
 
@@ -343,12 +360,11 @@ public class SimpleVsRaterGui extends JFrame {
      * @param loser the losing competitor
      */
     private void evaluateBets(AnimeSeries winner, AnimeSeries loser) {
-        if (winner.myScore > loser.myScore) {
+        if (winner.myScore > loser.myScore && !this.decided) {
             this.loadNextContestants();
         }
         else {
             this.evaluateBets();
         }
     }
-
 }
