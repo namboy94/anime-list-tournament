@@ -21,7 +21,7 @@ build_jar:
   only:
     - master
   script:
-    - cd java
+    - cd mal-tournament-java
     - gradle build
   artifacts:
     paths:
