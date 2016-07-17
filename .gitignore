@@ -1,7 +1,9 @@
 .gradle
 .idea/workspace.xml
 out
-lib/build
+mal-tournament-java/build
 .idea/gradle.xml
 .idea/libraries/
 .idea/modules/
+.idea/uiDesigner.xml
+lib/
