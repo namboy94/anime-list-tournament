@@ -23,6 +23,9 @@ build_jar:
   script:
     - cd mal-tournament-java
     - gradle build
+    - cd ..
+    - python github-release.py $GITHUBAUTH
+
   artifacts:
     paths:
       - java/build/libs
