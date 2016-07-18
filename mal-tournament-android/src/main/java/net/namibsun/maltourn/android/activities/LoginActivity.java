@@ -27,14 +27,22 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Process;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import net.iharder.Base64;
 import net.namibsun.maltourn.android.R;
 import net.namibsun.maltourn.lib.gets.Authenticator;
 import net.namibsun.maltourn.lib.gets.ListGetter;
+import net.namibsun.maltourn.lib.objects.AnimeSeries;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * Activity that handles the login of the user to myanimelist.net
@@ -51,6 +59,10 @@ public class LoginActivity extends AnalyticsActivity {
      */
     protected void onCreate(Bundle savedInstanceState) {
 
+        //Remove this!
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         // this.analyticsActive = false;
         this.layoutFile = R.layout.activity_login;
         this.screenName = "Login";
@@ -65,9 +77,13 @@ public class LoginActivity extends AnalyticsActivity {
             @Override
             public void onClick(View v) {
                 LoginActivity.this.getLoginData();
+                // Network on main thread exceptions are bad!
+
                 if (Authenticator.isAuthenticated(LoginActivity.this.username, LoginActivity.this.password)) {
                     LoginActivity.this.loginProgressCircle.setVisibility(View.VISIBLE);
-                    ListGetter.getList(LoginActivity.this.username);
+                    for (AnimeSeries serie: ListGetter.getList(LoginActivity.this.username)) {
+                        Log.e("Anime", serie.seriesTitle);
+                    }
                     LoginActivity.this.loginProgressCircle.setVisibility(View.INVISIBLE);
                 } else {
                     LoginActivity.this.showAuthenticationErrorDialog();
