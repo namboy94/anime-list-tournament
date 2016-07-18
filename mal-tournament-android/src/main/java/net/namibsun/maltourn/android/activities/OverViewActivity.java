@@ -23,7 +23,50 @@ This file is part of mal-tournament.
 
 package net.namibsun.maltourn.android.activities;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+import net.namibsun.maltourn.android.R;
 
-public class OverViewActivity extends AppCompatActivity {
+public class OverViewActivity extends AnalyticsActivity {
+
+    private Bundle authBundle;
+
+    /**
+     * Creates the login activity and sets the different game modes available
+     * @param savedInstanceState the saved instance sent by the Android OS
+     */
+    protected void onCreate(Bundle savedInstanceState) {
+
+        Bundle bundle = this.getIntent().getExtras();
+        this.authBundle = new Bundle();
+        bundle.putString("username", bundle.getString("username"));
+        bundle.putString("password", bundle.getString("password"));
+
+        // this.analyticsActive = false;
+        this.layoutFile = R.layout.activity_overview;
+        this.screenName = "Overview";
+        this.analyticsName = "Overview";
+        super.onCreate(savedInstanceState);
+
+        TextView loginButton = (TextView) this.findViewById(R.id.simpleVsSelection);
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OverViewActivity.this.startSimpleVsActivity();
+            }
+        });
+    }
+
+    /**
+     * Starts the Simple VS Activity and gives it the authentication bundle
+     */
+    private void startSimpleVsActivity() {
+        Intent simpleVsActivity = new Intent(this, SimpleVsActivity.class);
+        simpleVsActivity.putExtras(authBundle);
+        this.startActivity(simpleVsActivity);
+    }
+
 }
