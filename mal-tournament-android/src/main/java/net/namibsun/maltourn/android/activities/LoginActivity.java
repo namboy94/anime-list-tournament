@@ -23,7 +23,25 @@ This file is part of mal-tournament.
 
 package net.namibsun.maltourn.android.activities;
 
-import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import net.namibsun.maltourn.android.R;
 
-public class LoginActivity extends AppCompatActivity {
+/**
+ * Activity that handles the login of the user to myanimelist.net
+ */
+public class LoginActivity extends AnalyticsActivity {
+
+    /**
+     * Creates the login activity
+     * @param savedInstanceState the saved instance sent by the Android OS
+     */
+    protected void onCreate(Bundle savedInstanceState) {
+
+        // this.analyticsActive = false;
+        this.layoutFile = R.layout.activity_login;
+        this.screenName = "Login";
+        this.analyticsName = "MAL-Login";
+        super.onCreate(savedInstanceState);
+    }
+
 }
