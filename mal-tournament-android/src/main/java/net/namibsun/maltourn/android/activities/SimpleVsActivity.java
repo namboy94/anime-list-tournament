@@ -28,8 +28,9 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import net.namibsun.maltourn.android.R;
 import net.namibsun.maltourn.lib.gets.ListGetter;
 import net.namibsun.maltourn.lib.objects.AnimeSeries;
@@ -70,6 +71,27 @@ public class SimpleVsActivity extends AnalyticsActivity {
         new MalListGetter().execute();
     }
 
+    private void initializeListeners() {
+        this.findViewById(R.id.drawResultCard).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SimpleVsActivity.this.nextRound();
+            }
+        });
+        this.findViewById(R.id.topCompetitorCard).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SimpleVsActivity.this.nextRound();
+            }
+        });
+        this.findViewById(R.id.bottomCompetitorCard).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SimpleVsActivity.this.nextRound();
+            }
+        });
+    }
+
     private void nextRound() {
 
         if (this.topCompetitor != null && this.bottomCompetitor != null) {
@@ -80,6 +102,11 @@ public class SimpleVsActivity extends AnalyticsActivity {
 
         this.topCompetitor = this.animeList.remove(0);
         this.bottomCompetitor = this.animeList.remove(0);
+
+        TextView topCompetitorText = (TextView) this.findViewById(R.id.topCompetitorTitle);
+        TextView bottomCompetitorText = (TextView) this.findViewById(R.id.bottomCompetitorTitle);
+        topCompetitorText.setText(this.topCompetitor.seriesTitle);
+        bottomCompetitorText.setText(this.bottomCompetitor.seriesTitle);
 
         new ImageLoader().execute();
 
@@ -96,12 +123,12 @@ public class SimpleVsActivity extends AnalyticsActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ImageButton topCompetitorButton =
-                                (ImageButton) SimpleVsActivity.this.findViewById(R.id.topCompetitorImage);
-                        ImageButton bottomCompetitorButton =
-                                (ImageButton) SimpleVsActivity.this.findViewById(R.id.bottomCompetitorImage);
-                        topCompetitorButton.setImageBitmap(topBitmap);
-                        bottomCompetitorButton.setImageBitmap(bottomBitmap);
+                        ImageView topCompetitorImage =
+                                (ImageView) SimpleVsActivity.this.findViewById(R.id.topCompetitorImage);
+                        ImageView bottomCompetitorImage =
+                                (ImageView) SimpleVsActivity.this.findViewById(R.id.bottomCompetitorImage);
+                        topCompetitorImage.setImageBitmap(topBitmap);
+                        bottomCompetitorImage.setImageBitmap(bottomBitmap);
                     }
                 });
             } catch (IOException e) {
@@ -124,6 +151,7 @@ public class SimpleVsActivity extends AnalyticsActivity {
                     ProgressBar progressBar = (ProgressBar) SimpleVsActivity.this.findViewById(R.id.loadingSimpleVs);
                     progressBar.setVisibility(View.GONE);
                     SimpleVsActivity.this.nextRound();
+                    SimpleVsActivity.this.initializeListeners();
                 }
             });
             return null;
