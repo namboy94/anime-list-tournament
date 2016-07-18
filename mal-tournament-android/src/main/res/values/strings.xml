@@ -34,4 +34,5 @@ This file is part of mal-tournament.
     <string name="draw_text">Draw</string>
     <string name="cancel_text">Cancel</string>
     <string name="confirm_text">Confirm</string>
+    <string name="score_label">Score</string>
 </resources>
