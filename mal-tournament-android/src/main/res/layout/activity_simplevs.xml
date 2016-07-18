@@ -73,6 +73,7 @@ This file is part of mal-tournament.
                             android:text="@string/score_label"
                             android:layout_gravity="center"/>
                     <EditText
+                            android:id="@+id/topScore"
                             android:layout_width="30dp"
                             android:maxLength="2"
                             android:layout_height="wrap_content"
@@ -193,6 +194,7 @@ This file is part of mal-tournament.
                             android:text="@string/score_label"
                             android:layout_gravity="center"/>
                     <EditText
+                            android:id="@+id/bottomScore"
                             android:layout_width="30dp"
                             android:maxLength="2"
                             android:layout_height="wrap_content"

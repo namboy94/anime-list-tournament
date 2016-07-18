@@ -23,11 +23,13 @@ This file is part of mal-tournament.
 
 package net.namibsun.maltourn.android.activities;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -51,6 +53,7 @@ public class SimpleVsActivity extends AnalyticsActivity {
 
     private AnimeSeries topCompetitor = null;
     private AnimeSeries bottomCompetitor = null;
+    private boolean decided = false;
 
     /**
      * The MAL score setter
@@ -75,16 +78,30 @@ public class SimpleVsActivity extends AnalyticsActivity {
         this.findViewById(R.id.drawResultCard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SimpleVsActivity.this.nextRound();
+                SimpleVsActivity.this.evaluateDraw();
             }
         });
         this.findViewById(R.id.topCompetitorCard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SimpleVsActivity.this.nextRound();
+                SimpleVsActivity.this.evaluate(SimpleVsActivity.this.topCompetitor,
+                                               SimpleVsActivity.this.bottomCompetitor);
             }
         });
         this.findViewById(R.id.bottomCompetitorCard).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SimpleVsActivity.this.evaluate(SimpleVsActivity.this.bottomCompetitor,
+                                               SimpleVsActivity.this.topCompetitor);
+            }
+        });
+        this.findViewById(R.id.confirmResultCard).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SimpleVsActivity.this.confirmScores();
+            }
+        });
+        this.findViewById(R.id.cancelResultCard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SimpleVsActivity.this.nextRound();
@@ -93,6 +110,10 @@ public class SimpleVsActivity extends AnalyticsActivity {
     }
 
     private void nextRound() {
+
+        this.decided = false;
+        ((EditText)this.findViewById(R.id.topScore)).setText("");
+        ((EditText)this.findViewById(R.id.bottomScore)).setText("");
 
         if (this.topCompetitor != null && this.bottomCompetitor != null) {
             this.animeList.add(this.topCompetitor);
@@ -110,6 +131,52 @@ public class SimpleVsActivity extends AnalyticsActivity {
 
         new ImageLoader().execute();
 
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void evaluate() {
+        this.decided = true;
+        ((EditText) this.findViewById(R.id.topScore)).setText("" + this.topCompetitor.myScore);
+        ((EditText) this.findViewById(R.id.bottomScore)).setText("" + this.bottomCompetitor.myScore);
+    }
+
+    private void evaluate(AnimeSeries winner, AnimeSeries loser) {
+        if (winner.myScore > loser.myScore && !this.decided) {
+            this.nextRound();
+        }
+        else {
+            this.evaluate();
+        }
+    }
+
+    private void evaluateDraw() {
+        if (this.topCompetitor.myScore != this.bottomCompetitor.myScore) {
+            this.evaluate();
+        }
+        else if (!this.decided) {
+            this.nextRound();
+        }
+    }
+
+    private void confirmScores() {
+        int topScore = Integer.parseInt(((EditText) this.findViewById(R.id.topScore)).getText().toString());
+        int bottomScore = Integer.parseInt(((EditText) this.findViewById(R.id.bottomScore)).getText().toString());
+        if (this.decided && topScore > 0 && topScore <= 10 && bottomScore > 0 && bottomScore <= 10) {
+            new AsyncScoreSetter().execute(topScore, bottomScore);
+            this.nextRound();
+        }
+    }
+
+    private class AsyncScoreSetter extends AsyncTask<Integer, Void, Void> {
+        protected Void doInBackground(Integer... params) {
+            if (params[0] != SimpleVsActivity.this.topCompetitor.myScore) {
+                SimpleVsActivity.this.scoreSetter.setScore(SimpleVsActivity.this.topCompetitor, params[0]);
+            }
+            if (params[1] != SimpleVsActivity.this.bottomCompetitor.myScore) {
+                SimpleVsActivity.this.scoreSetter.setScore(SimpleVsActivity.this.bottomCompetitor, params[1]);
+            }
+            return null;
+        }
     }
 
     private class ImageLoader extends AsyncTask<Void, Void, Void> {
@@ -157,5 +224,4 @@ public class SimpleVsActivity extends AnalyticsActivity {
             return null;
         }
     }
-
 }
