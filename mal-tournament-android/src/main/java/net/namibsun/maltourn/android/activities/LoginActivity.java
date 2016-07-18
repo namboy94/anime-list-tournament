@@ -24,7 +24,6 @@ This file is part of mal-tournament.
 package net.namibsun.maltourn.android.activities;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -32,17 +31,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import net.iharder.Base64;
+import android.content.DialogInterface;
 import net.namibsun.maltourn.android.R;
 import net.namibsun.maltourn.lib.gets.Authenticator;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 
 /**
  * Activity that handles the login of the user to myanimelist.net
@@ -53,7 +44,7 @@ public class LoginActivity extends AnalyticsActivity {
     private String password;
 
     /**
-     * Creates the login activity
+     * Creates the login activity and sets the login button
      * @param savedInstanceState the saved instance sent by the Android OS
      */
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +66,10 @@ public class LoginActivity extends AnalyticsActivity {
         });
     }
 
+    /**
+     * Fetches the username and password from the text entries and stores the values
+     * in their dedicated class variables
+     */
     private void getLoginData() {
         EditText usernameEditText = (EditText) this.findViewById(R.id.usernameEntry);
         this.username = usernameEditText.getText().toString();
@@ -84,20 +79,30 @@ public class LoginActivity extends AnalyticsActivity {
         Log.e("Test", this.password);
     }
 
+    /**
+     * Shows an authentication error dialog notifying the user that the entered credentials
+     * were not accepted by myanimelist.net
+     */
     private void showAuthenticationErrorDialog(){
+
         AlertDialog.Builder errorDialogBuilder = new AlertDialog.Builder(this);
         errorDialogBuilder.setTitle("Authentication Error");
         errorDialogBuilder.setMessage("Wrong username/password");
         errorDialogBuilder.setCancelable(true);
+
         errorDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.cancel();
             }
         });
+
         errorDialogBuilder.create();
         errorDialogBuilder.show();
     }
 
+    /**
+     * Starts the overview activity and gives it the username and password
+     */
     private void startOverViewActivity() {
         Intent overViewActivity = new Intent(this, OverViewActivity.class);
         Bundle bundle = new Bundle();
@@ -108,7 +113,18 @@ public class LoginActivity extends AnalyticsActivity {
 
     }
 
+    /**
+     * Checks if the entered username and password are accepted by myanimelist.net.
+     * If it is successful, the overview activity is started, else an authentication
+     * error dialog is shown
+     */
     private class AsyncLogin extends AsyncTask<Void, Void, Void> {
+
+        /**
+         * Runs the authentication check in a separate background thread
+         * @param params nothing
+         * @return nothing
+         */
         protected Void doInBackground(Void... params) {
             if (Authenticator.isAuthenticated(LoginActivity.this.username, LoginActivity.this.password)) {
                 LoginActivity.this.startOverViewActivity();
