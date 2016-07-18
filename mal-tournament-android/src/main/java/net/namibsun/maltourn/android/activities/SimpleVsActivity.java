@@ -23,7 +23,63 @@ This file is part of mal-tournament.
 
 package net.namibsun.maltourn.android.activities;
 
-import android.support.v7.app.AppCompatActivity;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import net.namibsun.maltourn.android.R;
+import net.namibsun.maltourn.lib.gets.ListGetter;
+import net.namibsun.maltourn.lib.objects.AnimeSeries;
+import net.namibsun.maltourn.lib.posts.ScoreSetter;
 
-public class SimpleVsActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.Set;
+
+public class SimpleVsActivity extends AnalyticsActivity {
+
+    /**
+     * The list of completed anime series of the user
+     */
+    private ArrayList<AnimeSeries> animeList = new ArrayList<>();
+
+    /**
+     * The MAL score setter
+     */
+    private ScoreSetter scoreSetter;
+
+    private String username;
+    private String password;
+
+    protected void onCreate(Bundle savedInstanceState) {
+
+        // this.analyticsActive = false;
+        this.layoutFile = R.layout.activity_overview;
+        this.screenName = "Simple VS Rater";
+        this.analyticsName = "Simple Vs Rater";
+        super.onCreate(savedInstanceState);
+
+        Bundle bundle = this.getIntent().getExtras();
+        this.username = bundle.getString("username");
+        this.password = bundle.getString("password");
+        this.scoreSetter = new ScoreSetter(this.username, this.password);
+    }
+
+    private void nextRound() {
+
+    }
+
+    private class MalListGetter extends AsyncTask<Void, Void, Void> {
+        protected Void doInBackground(Void... params) {
+            Set<AnimeSeries> animeSeries = ListGetter.getList(SimpleVsActivity.this.username);
+            for (AnimeSeries anime: animeSeries) {
+                SimpleVsActivity.this.animeList.add(anime);
+            }
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    SimpleVsActivity.this.nextRound();
+                }
+            });
+            return null;
+        }
+    }
+
 }

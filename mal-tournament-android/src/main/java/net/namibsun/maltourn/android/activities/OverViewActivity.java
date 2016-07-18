@@ -29,6 +29,9 @@ import android.view.View;
 import android.widget.TextView;
 import net.namibsun.maltourn.android.R;
 
+/**
+ * Activity that shows the available rating/game modes
+ */
 public class OverViewActivity extends AnalyticsActivity {
 
     private Bundle authBundle;
