@@ -159,11 +159,15 @@ public class SimpleVsActivity extends AnalyticsActivity {
     }
 
     private void confirmScores() {
-        int topScore = Integer.parseInt(((EditText) this.findViewById(R.id.topScore)).getText().toString());
-        int bottomScore = Integer.parseInt(((EditText) this.findViewById(R.id.bottomScore)).getText().toString());
-        if (this.decided && topScore > 0 && topScore <= 10 && bottomScore > 0 && bottomScore <= 10) {
-            new AsyncScoreSetter().execute(topScore, bottomScore);
-            this.nextRound();
+        try {
+            int topScore = Integer.parseInt(((EditText) this.findViewById(R.id.topScore)).getText().toString());
+            int bottomScore = Integer.parseInt(((EditText) this.findViewById(R.id.bottomScore)).getText().toString());
+            if (this.decided && topScore > 0 && topScore <= 10 && bottomScore > 0 && bottomScore <= 10) {
+                new AsyncScoreSetter().execute(topScore, bottomScore);
+                this.nextRound();
+            }
+        } catch (NumberFormatException e) {
+            // Skip it
         }
     }
 
