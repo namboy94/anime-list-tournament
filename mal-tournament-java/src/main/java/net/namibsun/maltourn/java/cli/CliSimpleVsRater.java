@@ -23,10 +23,10 @@ This file is part of mal-tournament.
 
 package net.namibsun.maltourn.java.cli;
 
-import net.namibsun.maltourn.java.gets.Authenticator;
-import net.namibsun.maltourn.java.gets.ListGetter;
-import net.namibsun.maltourn.java.objects.AnimeSeries;
-import net.namibsun.maltourn.java.posts.ScoreSetter;
+import net.namibsun.maltourn.lib.gets.Authenticator;
+import net.namibsun.maltourn.lib.gets.ListGetter;
+import net.namibsun.maltourn.lib.objects.AnimeSeries;
+import net.namibsun.maltourn.lib.posts.ScoreSetter;
 
 import java.util.ArrayList;
 import java.util.Collections;

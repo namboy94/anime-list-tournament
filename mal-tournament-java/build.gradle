@@ -32,9 +32,11 @@ jar {
     manifest {
         attributes 'Main-Class': 'net.namibsun.maltourn.java.Main'
     }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }
 
 //noinspection GroovyAssignabilityCheck
 dependencies {
     testCompile 'junit:junit:4.12'
+    compile project(':mal-tournament-lib')
 }

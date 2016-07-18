@@ -24,3 +24,4 @@ This file is part of mal-tournament.
 rootProject.name = 'mal-tournament'
 include ':mal-tournament-java'
 include ':mal-tournament-android'
+include ':mal-tournament-lib'
