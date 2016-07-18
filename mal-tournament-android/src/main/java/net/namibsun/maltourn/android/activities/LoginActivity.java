@@ -23,13 +23,27 @@ This file is part of mal-tournament.
 
 package net.namibsun.maltourn.android.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Process;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 import net.namibsun.maltourn.android.R;
+import net.namibsun.maltourn.lib.gets.Authenticator;
+import net.namibsun.maltourn.lib.gets.ListGetter;
 
 /**
  * Activity that handles the login of the user to myanimelist.net
  */
 public class LoginActivity extends AnalyticsActivity {
+
+    private String username;
+    private String password;
+    private ProgressBar loginProgressCircle;
 
     /**
      * Creates the login activity
@@ -42,6 +56,46 @@ public class LoginActivity extends AnalyticsActivity {
         this.screenName = "Login";
         this.analyticsName = "MAL-Login";
         super.onCreate(savedInstanceState);
+
+        this.loginProgressCircle = (ProgressBar) this.findViewById(R.id.login_loader);
+        //this.loginProgressCircle.setVisibility(View.INVISIBLE);
+        Button loginButton = (Button) this.findViewById(R.id.loginButton);
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginActivity.this.getLoginData();
+                if (Authenticator.isAuthenticated(LoginActivity.this.username, LoginActivity.this.password)) {
+                    LoginActivity.this.loginProgressCircle.setVisibility(View.VISIBLE);
+                    ListGetter.getList(LoginActivity.this.username);
+                    LoginActivity.this.loginProgressCircle.setVisibility(View.INVISIBLE);
+                } else {
+                    LoginActivity.this.showAuthenticationErrorDialog();
+                }
+            }
+        });
     }
 
+    private void getLoginData() {
+        EditText usernameEditText = (EditText) this.findViewById(R.id.usernameEntry);
+        this.username = usernameEditText.getText().toString();
+        EditText passwordEditText = (EditText) this.findViewById(R.id.passwordEntry);
+        this.password = passwordEditText.getText().toString();
+        Log.e("Test", this.username);
+        Log.e("Test", this.password);
+    }
+
+    private void showAuthenticationErrorDialog(){
+        AlertDialog.Builder errorDialogBuilder = new AlertDialog.Builder(this);
+        errorDialogBuilder.setTitle("Authentication Error");
+        errorDialogBuilder.setMessage("Wrong username/password");
+        errorDialogBuilder.setCancelable(true);
+        errorDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        errorDialogBuilder.create();
+        errorDialogBuilder.show();
+    }
 }
