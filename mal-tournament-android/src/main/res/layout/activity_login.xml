@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-->
+Copyright 2016 Hermann Krumrey
+
+This file is part of mal-tournament.
+
+    mal-tournament is a program that lets a user pit his watched anime series
+    from myanimelist.net against each other in an attempt to determine relative scores
+    between the shows.
+
+    mal-tournament is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    mal-tournament is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with mal-tournament. If not, see <http://www.gnu.org/licenses/>.
+<-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:background="@color/colorLoginBG"
+                android:id="@+id/loginLayout"
+                tools:context="net.namibsun.maltourn.android.activities.LoginActivity">
+    <android.support.v7.widget.CardView android:layout_width="400dp"
+                                        android:layout_height="150dp"
+                                        android:layout_centerInParent="false">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+
+            <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <EditText
+                        android:singleLine="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/login_username"
+                        android:gravity="center"
+                        android:id="@+id/usernameEntry" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <EditText
+                        android:singleLine="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/login_password"
+                        android:gravity="center"
+                        android:inputType="textPassword"
+                        android:id="@+id/passwordEntry"/>
+            </android.support.design.widget.TextInputLayout>
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login_loginbutton"
+                    android:gravity="center"
+                    android:id="@+id/loginButton"
+                    android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

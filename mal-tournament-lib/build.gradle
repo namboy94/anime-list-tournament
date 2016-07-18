@@ -21,25 +21,23 @@ This file is part of mal-tournament.
     along with mal-tournament. If not, see <http://www.gnu.org/licenses/>.
 */
 
-package net.namibsun.maltourn.java.gets;
+//noinspection GrUnresolvedAccess
+apply plugin: 'java'
 
-import net.namibsun.maltourn.java.http.HttpHandler;
+targetCompatibility= 1.7
+sourceCompatibility= 1.7
 
-/**
- * Class that checks if a user is authenticated on myanimelist.net
- */
-public class Authenticator {
+//noinspection GroovyUnusedAssignment
+version = "0.3"
 
-    /**
-     * Chacks the authentication of the user
-     * @param username the user's user name
-     * @param password the user's password
-     * @return true if the user is authenticated, false otherwise
-     */
-    public static boolean isAuthenticated(String username, String password) {
-        String authUrl = "http://myanimelist.net/api/account/verify_credentials.xml";
-        String authenticationResponse = HttpHandler.getWithAuth(authUrl, username + ":" + password);
-        return !authenticationResponse.equals("");
+//noinspection GroovyAssignabilityCheck
+jar {
+    manifest {
     }
+}
 
+//noinspection GroovyAssignabilityCheck
+dependencies {
+    testCompile 'junit:junit:4.12'
+    compile 'net.iharder:base64:2.3.8'
 }

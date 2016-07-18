@@ -7,3 +7,4 @@ mal-tournament-java/build
 .idea/modules/
 .idea/uiDesigner.xml
 lib/
+mal-tournament-android/google-services.json

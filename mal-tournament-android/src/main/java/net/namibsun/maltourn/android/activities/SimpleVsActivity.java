@@ -21,7 +21,9 @@ This file is part of mal-tournament.
     along with mal-tournament. If not, see <http://www.gnu.org/licenses/>.
 */
 
-rootProject.name = 'mal-tournament'
-include ':mal-tournament-java'
-include ':mal-tournament-android'
-include ':mal-tournament-lib'
+package net.namibsun.maltourn.android.activities;
+
+import android.support.v7.app.AppCompatActivity;
+
+public class SimpleVsActivity extends AppCompatActivity {
+}

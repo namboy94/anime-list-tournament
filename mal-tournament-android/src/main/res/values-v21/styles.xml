@@ -1,4 +1,4 @@
-/*
+<!-->
 Copyright 2016 Hermann Krumrey
 
 This file is part of mal-tournament.
@@ -19,9 +19,12 @@ This file is part of mal-tournament.
 
     You should have received a copy of the GNU General Public License
     along with mal-tournament. If not, see <http://www.gnu.org/licenses/>.
-*/
-
-rootProject.name = 'mal-tournament'
-include ':mal-tournament-java'
-include ':mal-tournament-android'
-include ':mal-tournament-lib'
+<-->
+<resources>>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+</resources>

@@ -1,4 +1,4 @@
-/*
+<!-->
 Copyright 2016 Hermann Krumrey
 
 This file is part of mal-tournament.
@@ -19,9 +19,12 @@ This file is part of mal-tournament.
 
     You should have received a copy of the GNU General Public License
     along with mal-tournament. If not, see <http://www.gnu.org/licenses/>.
-*/
-
-rootProject.name = 'mal-tournament'
-include ':mal-tournament-java'
-include ':mal-tournament-android'
-include ':mal-tournament-lib'
+<-->
+<resources>
+    <!-- Activity/View Names  -->
+    <string name="app_name">MAL Tournament</string>
+    <string name="login_login">Login</string>
+    <string name="login_username">Username</string>
+    <string name="login_password">password</string>
+    <string name="login_loginbutton">Log In</string>
+</resources>
