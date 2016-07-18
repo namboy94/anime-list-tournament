@@ -23,7 +23,120 @@ This file is part of mal-tournament.
 
 package net.namibsun.maltourn.android.activities;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.content.DialogInterface;
+import net.namibsun.maltourn.android.R;
+import net.namibsun.maltourn.lib.gets.Authenticator;
 
-public class LoginActivity extends AppCompatActivity {
+/**
+ * Activity that handles the login of the user to myanimelist.net
+ */
+public class LoginActivity extends AnalyticsActivity {
+
+    private String username;
+    private String password;
+
+    /**
+     * Creates the login activity and sets the login button
+     * @param savedInstanceState the saved instance sent by the Android OS
+     */
+    protected void onCreate(Bundle savedInstanceState) {
+
+        // this.analyticsActive = false;
+        this.layoutFile = R.layout.activity_login;
+        this.screenName = "Login";
+        this.analyticsName = "MAL-Login";
+        super.onCreate(savedInstanceState);
+
+        Button loginButton = (Button) this.findViewById(R.id.loginButton);
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginActivity.this.getLoginData();
+                new AsyncLogin().execute();
+            }
+        });
+    }
+
+    /**
+     * Fetches the username and password from the text entries and stores the values
+     * in their dedicated class variables
+     */
+    private void getLoginData() {
+        EditText usernameEditText = (EditText) this.findViewById(R.id.usernameEntry);
+        this.username = usernameEditText.getText().toString();
+        EditText passwordEditText = (EditText) this.findViewById(R.id.passwordEntry);
+        this.password = passwordEditText.getText().toString();
+        Log.e("Test", this.username);
+        Log.e("Test", this.password);
+    }
+
+    /**
+     * Shows an authentication error dialog notifying the user that the entered credentials
+     * were not accepted by myanimelist.net
+     */
+    private void showAuthenticationErrorDialog(){
+
+        AlertDialog.Builder errorDialogBuilder = new AlertDialog.Builder(this);
+        errorDialogBuilder.setTitle("Authentication Error");
+        errorDialogBuilder.setMessage("Wrong username/password");
+        errorDialogBuilder.setCancelable(true);
+
+        errorDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+
+        errorDialogBuilder.create();
+        errorDialogBuilder.show();
+    }
+
+    /**
+     * Starts the overview activity and gives it the username and password
+     */
+    private void startOverViewActivity() {
+        Intent overViewActivity = new Intent(this, OverViewActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("username", this.username);
+        bundle.putString("password", this.password);
+        overViewActivity.putExtras(bundle);
+        this.startActivity(overViewActivity);
+
+    }
+
+    /**
+     * Checks if the entered username and password are accepted by myanimelist.net.
+     * If it is successful, the overview activity is started, else an authentication
+     * error dialog is shown
+     */
+    private class AsyncLogin extends AsyncTask<Void, Void, Void> {
+
+        /**
+         * Runs the authentication check in a separate background thread
+         * @param params nothing
+         * @return nothing
+         */
+        protected Void doInBackground(Void... params) {
+            if (Authenticator.isAuthenticated(LoginActivity.this.username, LoginActivity.this.password)) {
+                LoginActivity.this.startOverViewActivity();
+            } else {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        LoginActivity.this.showAuthenticationErrorDialog();
+                    }
+                });
+            }
+            return null;
+        }
+    }
 }

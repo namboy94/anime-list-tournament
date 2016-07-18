@@ -39,4 +39,5 @@ jar {
 //noinspection GroovyAssignabilityCheck
 dependencies {
     testCompile 'junit:junit:4.12'
+    compile 'net.iharder:base64:2.3.8'
 }

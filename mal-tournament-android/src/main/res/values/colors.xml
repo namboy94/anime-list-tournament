@@ -22,7 +22,8 @@ This file is part of mal-tournament.
     along with mal-tournament. If not, see <http://www.gnu.org/licenses/>.
 <-->
 <resources>
-    <color name="colorPrimary">#8BA870</color>
-    <color name="colorPrimaryDark">#458B00</color>
-    <color name="colorAccent">#0047ab</color>
+    <color name="colorPrimary">#2E51A2</color>
+    <color name="colorPrimaryDark">#2E51A2</color>
+    <color name="colorAccent">#2E51A2</color>
+    <color name="colorLoginBG">#e1e7f5</color>
 </resources>
