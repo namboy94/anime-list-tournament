@@ -23,14 +23,22 @@ This file is part of mal-tournament.
 
 package net.namibsun.maltourn.android.activities;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import net.namibsun.maltourn.android.R;
 import net.namibsun.maltourn.lib.gets.ListGetter;
 import net.namibsun.maltourn.lib.objects.AnimeSeries;
 import net.namibsun.maltourn.lib.posts.ScoreSetter;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Set;
 
 public class SimpleVsActivity extends AnalyticsActivity {
@@ -40,41 +48,81 @@ public class SimpleVsActivity extends AnalyticsActivity {
      */
     private ArrayList<AnimeSeries> animeList = new ArrayList<>();
 
+    private AnimeSeries topCompetitor = null;
+    private AnimeSeries bottomCompetitor = null;
+
     /**
      * The MAL score setter
      */
     private ScoreSetter scoreSetter;
 
-    private String username;
-    private String password;
-
     protected void onCreate(Bundle savedInstanceState) {
 
         // this.analyticsActive = false;
-        this.layoutFile = R.layout.activity_overview;
+        this.layoutFile = R.layout.activity_simplevs;
         this.screenName = "Simple VS Rater";
         this.analyticsName = "Simple Vs Rater";
         super.onCreate(savedInstanceState);
 
         Bundle bundle = this.getIntent().getExtras();
-        this.username = bundle.getString("username");
-        this.password = bundle.getString("password");
-        this.scoreSetter = new ScoreSetter(this.username, this.password);
+        this.scoreSetter = new ScoreSetter(bundle.getString("username"), bundle.getString("password"));
+
+        new MalListGetter().execute();
     }
 
     private void nextRound() {
 
+        if (this.topCompetitor != null && this.bottomCompetitor != null) {
+            this.animeList.add(this.topCompetitor);
+            this.animeList.add(this.topCompetitor);
+            Collections.shuffle(this.animeList);
+        }
+
+        this.topCompetitor = this.animeList.remove(0);
+        this.bottomCompetitor = this.animeList.remove(0);
+
+        new ImageLoader().execute();
+
+    }
+
+    private class ImageLoader extends AsyncTask<Void, Void, Void> {
+        protected Void doInBackground(Void... params) {
+            try {
+                URL topUrl = new URL(SimpleVsActivity.this.topCompetitor.seriesImage);
+                final Bitmap topBitmap = BitmapFactory.decodeStream(topUrl.openConnection().getInputStream());
+                URL bottomUrl = new URL(SimpleVsActivity.this.bottomCompetitor.seriesImage);
+                final Bitmap bottomBitmap = BitmapFactory.decodeStream(bottomUrl.openConnection().getInputStream());
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ImageButton topCompetitorButton =
+                                (ImageButton) SimpleVsActivity.this.findViewById(R.id.topCompetitorImage);
+                        ImageButton bottomCompetitorButton =
+                                (ImageButton) SimpleVsActivity.this.findViewById(R.id.bottomCompetitorImage);
+                        topCompetitorButton.setImageBitmap(topBitmap);
+                        bottomCompetitorButton.setImageBitmap(bottomBitmap);
+                    }
+                });
+            } catch (IOException e) {
+                // Do nothing
+            }
+            return null;
+        }
     }
 
     private class MalListGetter extends AsyncTask<Void, Void, Void> {
         protected Void doInBackground(Void... params) {
-            Set<AnimeSeries> animeSeries = ListGetter.getList(SimpleVsActivity.this.username);
+            String username = SimpleVsActivity.this.getIntent().getExtras().getString("username");
+            Set<AnimeSeries> animeSeries = ListGetter.getList(username);
             for (AnimeSeries anime: animeSeries) {
                 SimpleVsActivity.this.animeList.add(anime);
             }
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    ProgressBar progressBar = (ProgressBar) SimpleVsActivity.this.findViewById(R.id.loadingSimpleVs);
+                    progressBar.setVisibility(View.GONE);
                     SimpleVsActivity.this.nextRound();
                 }
             });

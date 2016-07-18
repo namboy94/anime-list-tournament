@@ -34,18 +34,11 @@ import net.namibsun.maltourn.android.R;
  */
 public class OverViewActivity extends AnalyticsActivity {
 
-    private Bundle authBundle;
-
     /**
      * Creates the login activity and sets the different game modes available
      * @param savedInstanceState the saved instance sent by the Android OS
      */
     protected void onCreate(Bundle savedInstanceState) {
-
-        Bundle bundle = this.getIntent().getExtras();
-        this.authBundle = new Bundle();
-        bundle.putString("username", bundle.getString("username"));
-        bundle.putString("password", bundle.getString("password"));
 
         // this.analyticsActive = false;
         this.layoutFile = R.layout.activity_overview;
@@ -68,7 +61,7 @@ public class OverViewActivity extends AnalyticsActivity {
      */
     private void startSimpleVsActivity() {
         Intent simpleVsActivity = new Intent(this, SimpleVsActivity.class);
-        simpleVsActivity.putExtras(authBundle);
+        simpleVsActivity.putExtras(this.getIntent().getExtras());
         this.startActivity(simpleVsActivity);
     }
 
