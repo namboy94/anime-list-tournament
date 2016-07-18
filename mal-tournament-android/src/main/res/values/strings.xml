@@ -32,4 +32,6 @@ This file is part of mal-tournament.
     <string name="top_competitor_desc">The top competitor</string>
     <string name="bottom_competitor_desc">Bottom Competitor</string>
     <string name="draw_text">Draw</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="confirm_text">Confirm</string>
 </resources>

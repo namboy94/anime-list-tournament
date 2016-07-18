@@ -28,16 +28,9 @@ This file is part of mal-tournament.
                 android:layout_height="match_parent"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:background="@color/colorLoginBG"
+                android:background="@color/colorDefaultBG"
                 android:id="@+id/overViewLayout"
-                tools:context="net.namibsun.maltourn.android.activities.OverViewActivity">
-
-    <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:id="@+id/loadingSimpleVs"
-            android:indeterminate="true" />
+                tools:context="net.namibsun.maltourn.android.activities.SimpleVsActivity">
 
     <android.support.v7.widget.CardView android:layout_width="fill_parent"
                                         android:layout_height="200dp"
@@ -50,6 +43,7 @@ This file is part of mal-tournament.
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/colorAccent"
                     android:id="@+id/topCompetitorTitle"
                     android:layout_centerHorizontal="true"
                     android:text=""/>
@@ -63,22 +57,67 @@ This file is part of mal-tournament.
                     android:contentDescription="@string/top_competitor_desc"/>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
-    <android.support.v7.widget.CardView android:layout_width="match_parent"
-                                        android:layout_height="100dp"
-                                        android:id="@+id/drawResultCard"
-                                        android:layout_marginBottom="10dp"
-                                        android:layout_below="@+id/topCompetitorCard"
-                                        android:layout_centerInParent="false">
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/drawResultText"
-                android:text="@string/draw_text"/>
-    </android.support.v7.widget.CardView>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="100dp"
+                  android:layout_marginBottom="10dp"
+                  android:layout_centerHorizontal="true"
+                  android:id="@+id/metaButtons"
+                  android:layout_below="@+id/topCompetitorCard"
+                  android:layout_centerInParent="false">
+        <android.support.v7.widget.CardView android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_vertical"
+                                            android:id="@+id/cancelResultCard"
+                                            android:layout_weight="30">
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/cancelResultText"
+                    android:gravity="center"
+                    android:textSize="30sp"
+                    android:textColor="@color/colorAccent"
+                    android:text="@string/cancel_text"/>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:id="@+id/drawResultCard"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_marginLeft="3dp"
+                                            android:layout_marginStart="3dp"
+                                            android:layout_marginRight="3dp"
+                                            android:layout_marginEnd="3dp"
+                                            android:layout_weight="30">
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/drawResultText"
+                    android:textSize="30sp"
+                    android:textColor="@color/colorAccent"
+                    android:text="@string/draw_text"/>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_vertical"
+                                            android:id="@+id/confirmResultCard"
+                                            android:layout_weight="30">
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/confirmResultText"
+                    android:gravity="center"
+                    android:textSize="30sp"
+                    android:textColor="@color/colorAccent"
+                    android:text="@string/confirm_text"/>
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
     <android.support.v7.widget.CardView android:layout_width="match_parent"
                                         android:layout_height="200dp"
                                         android:id="@+id/bottomCompetitorCard"
-                                        android:layout_below="@+id/drawResultCard"
+                                        android:background="@color/colorDefaultBG"
+                                        android:layout_below="@+id/metaButtons"
                                         android:layout_centerInParent="false">
         <RelativeLayout
                 android:layout_width="match_parent"
@@ -88,6 +127,7 @@ This file is part of mal-tournament.
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:id="@+id/bottomCompetitorTitle"
+                    android:textColor="@color/colorAccent"
                     android:text=""/>
             <ImageView
                     android:layout_width="110dp"
@@ -99,5 +139,12 @@ This file is part of mal-tournament.
                     android:contentDescription="@string/bottom_competitor_desc"/>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
+
+    <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/loadingSimpleVs"
+            android:indeterminate="true" />
 
 </RelativeLayout>
