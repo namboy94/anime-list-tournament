@@ -11,8 +11,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3a908e12-dcc6-4b20-8731-1f7c175dfbd7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/privacy_statement" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/store_entry" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/art_assets/banner.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/art_assets/banner.xcf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/art_assets/malcolor_inverted_vs_logo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/art_assets/malcolor_inverted_vs_logo.xcf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/art_assets/malcolor_vs_logo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/art_assets/malcolor_vs_logo.xcf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/art_assets/transparent_vs_logo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/art_assets/transparent_vs_logo.xcf" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mal-tournament.iws" />
@@ -2765,6 +2771,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mal-tournament" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mal-tournament" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mal-tournament-android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="playstore" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="art_assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope">
@@ -3782,14 +3810,7 @@
       <workItem from="1468912551151" duration="21132000" />
       <workItem from="1468957022248" duration="4673000" />
       <workItem from="1468962998189" duration="76000" />
-      <workItem from="1468964380709" duration="1195000" />
-    </task>
-    <task id="LOCAL-00049" summary="Integrated github release build step">
-      <created>1468769807521</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1468769807521</updated>
+      <workItem from="1468964380709" duration="2444000" />
     </task>
     <task id="LOCAL-00050" summary="Fixed some minor UI issues">
       <created>1468770593373</created>
@@ -4127,15 +4148,22 @@
       <option name="project" value="LOCAL" />
       <updated>1468961496579</updated>
     </task>
-    <option name="localTasksCounter" value="98" />
+    <task id="LOCAL-00098" summary="Wrote store entry file and privacy statement">
+      <created>1468965594481</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1468965594482</updated>
+    </task>
+    <option name="localTasksCounter" value="99" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="141489000" />
+    <option name="totallyTimeSpent" value="142738000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -4150,7 +4178,7 @@
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.040625" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -4183,7 +4211,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Implemented advanced image scaling" />
     <MESSAGE value="Improved the layout of the simple vs rater" />
     <MESSAGE value="Added score fields" />
     <MESSAGE value="Implemented working simple vs getter" />
@@ -4208,7 +4235,8 @@
     <MESSAGE value="Testing if adding file will restore the lib src directory" />
     <MESSAGE value="Finally fixed missing lib source code" />
     <MESSAGE value="Removed unnecessary entries in .gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed unnecessary entries in .gitignore" />
+    <MESSAGE value="Wrote store entry file and privacy statement" />
+    <option name="LAST_COMMIT_MESSAGE" value="Wrote store entry file and privacy statement" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
