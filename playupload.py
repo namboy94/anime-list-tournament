@@ -14,18 +14,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Uploads an apk to the beta track."""
-
 import argparse
-
 from apiclient.discovery import build
 import httplib2
 from oauth2client.service_account import ServiceAccountCredentials
 from oauth2client import client
 
-TRACK = 'beta'  # Can be 'alpha', beta', 'production' or 'rollout'
+TRACK = 'production'  # Can be 'alpha', beta', 'production' or 'rollout'
 SERVICE_ACCOUNT_EMAIL = (
-    'gitlab-ci@categories-1261.iam.gserviceaccount.com')
+    'hermann@krumreyh.com')
 
 # Declare command-line flags.
 argparser = argparse.ArgumentParser(add_help=False)
