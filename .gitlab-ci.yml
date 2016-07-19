@@ -26,6 +26,7 @@ build_release:
   stage: build
   only:
     - master
+    - test_build
   script:
     - cp $GOOGLESERVICES_JSON mal-tournament-android/google-services.json
     - gradle build
