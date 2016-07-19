@@ -27,8 +27,7 @@ apply plugin: 'java'
 targetCompatibility= 1.7
 sourceCompatibility= 1.7
 
-//noinspection GroovyUnusedAssignment
-version = "0.3"
+version = rootProject.ext.version
 
 //noinspection GroovyAssignabilityCheck
 jar {

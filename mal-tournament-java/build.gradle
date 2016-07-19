@@ -24,8 +24,7 @@ This file is part of mal-tournament.
 //noinspection GrUnresolvedAccess
 apply plugin: 'java'
 
-//noinspection GroovyUnusedAssignment
-version = "0.3"
+version = rootProject.ext.version
 
 //noinspection GroovyAssignabilityCheck
 jar {
