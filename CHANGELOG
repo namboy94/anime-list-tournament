@@ -1,3 +1,8 @@
+V 0.5
+  - Stored play store data in repository
+  - Readied app for deployment on Google Play
+V 0.4
+  - Implemented Android App
 V 0.3
   - Improved UX and UI
   - implemented release build step
