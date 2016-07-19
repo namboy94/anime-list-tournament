@@ -26,6 +26,7 @@ package net.namibsun.maltourn.android.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import net.namibsun.maltourn.android.R;
 
@@ -45,7 +46,7 @@ public class OverViewActivity extends AnalyticsActivity {
         this.analyticsName = "Overview";
         super.onCreate(savedInstanceState);
 
-        TextView loginButton = (TextView) this.findViewById(R.id.simpleVsSelection);
+        ImageView loginButton = (ImageView) this.findViewById(R.id.simpleVsSelection);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
 
