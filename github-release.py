@@ -20,6 +20,10 @@ release_assets = [{"filename_pre_version": "mal-tournament-java-",
                   {"filename_pre_version": "mal-tournament-android-release-",
                    "filename_post_version": ".apk",
                    "filepath": "mal-tournament-android/build/outputs/apk/",
+                   "content_type": "application/vnd.android.package-archive"},
+                  {"filename_pre_version": "mal-tournament-android-release-noanalytics",
+                   "filename_post_version": ".apk",
+                   "filepath": "mal-tournament-android/build/outputs/apk/",
                    "content_type": "application/vnd.android.package-archive"}]
 
 # Don't edit past here!

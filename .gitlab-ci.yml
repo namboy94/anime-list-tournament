@@ -26,6 +26,13 @@ build_release:
       Pandroid.injected.signing.store.password=$ANDROIDKEY_PASS
       Pandroid.injected.signing.key.alias=$ANDROIDKEY_ALIAS
       Pandroid.injected.signing.key.password=$ANDROIDKEY_PASS
+    - python noanalytics.py stash
+    - python noanalytics.py deactivate
+    - ./gradlew assembleRelease -Pandroid.injected.signing.store.file=$ANDROIDKEY_LOCATION
+      Pandroid.injected.signing.store.password=$ANDROIDKEY_PASS
+      Pandroid.injected.signing.key.alias=$ANDROIDKEY_ALIAS
+      Pandroid.injected.signing.key.password=$ANDROIDKEY_PASS
+    - python noanalytics.py restore
     - python github-release.py $GITHUBAUTH
 
   artifacts:
