@@ -24,8 +24,6 @@ apk_noanalytics_file = apk_output_dir + apk_name_pre_version + "noanalytics-" + 
 
 if sys.argv[1] == "stash":
     os.rename(apk_file, apk_temp_file)
-
-elif sys.argv[1] == "deactivate":
     with open(analyticsfile, 'r') as analytics:
         content = analytics.read()
     content = content.replace("protected boolean analyticsActive = true;", "protected boolean analyticsActive = false;")
