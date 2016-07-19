@@ -1,9 +1,4 @@
 .gradle
-.idea/workspace.xml
+build
 out
-mal-tournament-java/build
-.idea/gradle.xml
-.idea/libraries/
-.idea/modules/
-.idea/uiDesigner.xml
-lib/
+mal-tournament-android/google-services.json

@@ -1,0 +1,38 @@
+<!-->
+Copyright 2016 Hermann Krumrey
+
+This file is part of mal-tournament.
+
+    mal-tournament is a program that lets a user pit his watched anime series
+    from myanimelist.net against each other in an attempt to determine relative scores
+    between the shows.
+
+    mal-tournament is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    mal-tournament is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with mal-tournament. If not, see <http://www.gnu.org/licenses/>.
+<-->
+<resources>
+    <!-- Activity/View Names  -->
+    <string name="app_name">MAL Tournament</string>
+    <string name="login_login">Login</string>
+    <string name="login_username">Username</string>
+    <string name="login_password">password</string>
+    <string name="login_loginbutton">Log In</string>
+    <string name="selection_simplevsrater">VS</string>
+    <string name="more_modes_soon">More modes coming soon!</string>
+    <string name="top_competitor_desc">The top competitor</string>
+    <string name="bottom_competitor_desc">Bottom Competitor</string>
+    <string name="draw_text">Draw</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="confirm_text">Confirm</string>
+    <string name="score_label">Score</string>
+</resources>

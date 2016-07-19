@@ -3,6 +3,12 @@ stages:
   - build
   - docstats
 
+variables:
+  ANDROID_HOME: "/opt/android-sdk"
+  ANDROIDKEY_ALIAS: "$ANDROIDKEY_ALIAS"
+  ANDROIDKEY_PASS: "$ANDROIDKEY_PASS"
+  ANDROIDKEY_LOCATION: "$ANDROIDKEY_LOCATION"
+
 mirror_repo:
   stage: mirror
   only:
@@ -16,14 +22,18 @@ mirror_repo:
     - git pull origin develop
     - git push git@github.com:namboy94/mal-tournament.git develop --force
 
-build_jar:
+build_release:
   stage: build
   only:
     - master
+    - test_build
   script:
-    - cd mal-tournament-java
+    - cp $GOOGLESERVICES_JSON mal-tournament-android/google-services.json
+    - python signed_apk_enabler.py
     - gradle build
-    - cd ..
+    - python noanalytics.py stash
+    - ./gradlew assembleRelease
+    - python noanalytics.py restore
     - python github-release.py $GITHUBAUTH
 
   artifacts:

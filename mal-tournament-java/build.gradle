@@ -24,17 +24,18 @@ This file is part of mal-tournament.
 //noinspection GrUnresolvedAccess
 apply plugin: 'java'
 
-//noinspection GroovyUnusedAssignment
-version = "0.3"
+version = rootProject.ext.version
 
 //noinspection GroovyAssignabilityCheck
 jar {
     manifest {
         attributes 'Main-Class': 'net.namibsun.maltourn.java.Main'
     }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }
 
 //noinspection GroovyAssignabilityCheck
 dependencies {
     testCompile 'junit:junit:4.12'
+    compile project(':mal-tournament-lib')
 }

@@ -2,25 +2,59 @@
 
 import os
 import sys
+from subprocess import check_output
+
+# Change project specific stuff here
+root_gradle_file = "build.gradle"
+repoowner = "namboy94"
+reponame = "mal-tournament"
+
+release_assets = [{"filename_pre_version": "mal-tournament-java-",
+                   "filename_post_version": ".jar",
+                   "filepath": "mal-tournament-java/build/libs/",
+                   "content_type": "application/java-archive"},
+                  {"filename_pre_version": "mal-tournament-lib-",
+                   "filename_post_version": ".jar",
+                   "filepath": "mal-tournament-lib/build/libs/",
+                   "content_type": "application/java-archive"},
+                  {"filename_pre_version": "mal-tournament-android-release-",
+                   "filename_post_version": ".apk",
+                   "filepath": "mal-tournament-android/build/outputs/apk/",
+                   "content_type": "application/vnd.android.package-archive"},
+                  {"filename_pre_version": "mal-tournament-android-release-noanalytics-",
+                   "filename_post_version": ".apk",
+                   "filepath": "mal-tournament-android/build/outputs/apk/",
+                   "content_type": "application/vnd.android.package-archive"}]
+
+# Don't edit past here!
+
 
 oauth_token = sys.argv[1]
 version = ""
 
-java_gradle_build_file = open("mal-tournament-java/build.gradle", 'r')
-java_gradle_build = java_gradle_build_file.read().split("\n")
-java_gradle_build_file.close()
+repopath = "repos/" + repoowner + "/" + reponame + "/releases"
+api_repo_url = "https://api.github.com/" + repopath
+upload_repo_url = "https://uploads.github.com/" + repopath
+oauth_param = "access_token=" + oauth_token
 
-for line in java_gradle_build:
-    if line.startswith("version = \""):
-        version = line.split("version = \"")[1].split("\"")[0]
-        break
+with open(root_gradle_file, 'r') as gradlefile:
+    for line in gradlefile.read().split("\n"):
+        if line.startswith("    version = \""):
+            version = line.split("version = \"")[1].split("\"")[0]
 
-create_repo_command = "curl -X POST https://api.github.com/repos/namboy94/mal-tournament/releases?access_token="
-create_repo_command += oauth_token
-create_repo_command += " -d '{\"tag_name\": \"" + version + "\", \"target_commitish\": \"master\", "
-create_repo_command += "\"name\":\"" + version + "\", \"body\": \"Automatic Release Build\", \"draft\": false, \"prerelease\": false}'"
+create_release = ["curl",
+                  "-X",
+                  "POST",
+                  api_repo_url + "?" + oauth_param,
+                  "-d",
+                  "{\"tag_name\": \"" + version + "\"," +
+                  " \"target_commitish\": \"master\"," +
+                  "\"name\":\"" + version + "\"," +
+                  "\"body\": \"Automatic Release Build\"," +
+                  "\"draft\": false," +
+                  "\"prerelease\": false}"]
 
-response = os.popen(create_repo_command).read()
+response = check_output(create_release).decode()
 tag_id = response.split("\"id\": ")[1].split(",")[0]
 
 jarfilename = "mal-tournament-java-" + version + ".jar"
@@ -32,4 +66,28 @@ uploaded_binary_command = "curl -X POST --header \"Content-Type:application/java
 uploaded_binary_command += " 'https://uploads.github.com/repos/namboy94/mal-tournament/releases/" + tag_id + "/assets?name=" + jarfilename
 uploaded_binary_command += "&access_token=" + oauth_token + "'"
 
-os.popen(uploaded_binary_command)
+
+print(uploaded_binary_command)
+
+
+
+for asset in release_assets:
+    filename = asset["filename_pre_version"] + version + asset["filename_post_version"]
+    filepath = asset["filepath"] + filename
+    content_type = asset["content_type"]
+
+    upload_binary = ["curl",
+                     "-X",
+                     "POST",
+                     "--header",
+                     "\"Content-Type:" + content_type + "\"",
+                     "--data-binary",
+                     "@" + filepath,
+                     "'" + upload_repo_url + "/" + tag_id + "/assets?name=" + filename + "&" + oauth_param + "'"]
+
+    params = ""
+    for param in upload_binary:
+        params += param + " "
+    params = params[0:-1]
+
+    os.system(params)

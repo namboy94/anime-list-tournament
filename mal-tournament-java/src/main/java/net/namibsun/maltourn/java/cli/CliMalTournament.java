@@ -27,12 +27,12 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
-import net.namibsun.maltourn.java.gets.Authenticator;
-import net.namibsun.maltourn.java.gets.ListGetter;
-import net.namibsun.maltourn.java.matchup.Competitor;
-import net.namibsun.maltourn.java.matchup.Matchup;
-import net.namibsun.maltourn.java.matchup.Tournament;
-import net.namibsun.maltourn.java.objects.AnimeSeries;
+import net.namibsun.maltourn.lib.gets.Authenticator;
+import net.namibsun.maltourn.lib.gets.ListGetter;
+import net.namibsun.maltourn.lib.matchup.Competitor;
+import net.namibsun.maltourn.lib.matchup.Matchup;
+import net.namibsun.maltourn.lib.matchup.Tournament;
+import net.namibsun.maltourn.lib.objects.AnimeSeries;
 
 /**
  * Class that creates a CLI for the MAL tournament
