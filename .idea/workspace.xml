@@ -11,14 +11,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3a908e12-dcc6-4b20-8731-1f7c175dfbd7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/art_assets/banner.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/art_assets/banner.xcf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/art_assets/malcolor_inverted_vs_logo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/art_assets/malcolor_inverted_vs_logo.xcf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/art_assets/malcolor_vs_logo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/art_assets/malcolor_vs_logo.xcf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/art_assets/transparent_vs_logo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/art_assets/transparent_vs_logo.xcf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/screenshots/mobile/loading_simple_vs.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/screenshots/mobile/login.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/screenshots/mobile/overview.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/screenshots/mobile/simplevs_edit_bottom.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/screenshots/mobile/simplevs_edit_top.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/screenshots/mobile/simplevs_matchup_post_decision.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/screenshots/mobile/simplevs_matchup_pre_decision.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mal-tournament.iws" />
@@ -76,37 +75,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="noanalytics.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/noanalytics.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="17" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="local.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/local.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="33" selection-start-line="0" selection-start-column="33" selection-end-line="0" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mal-tournament-android/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="576">
-              <caret line="70" column="53" selection-start-line="70" selection-start-column="53" selection-end-line="70" selection-end-column="53" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="store_entry" pinned="false" current-in-tab="true">
+      <file leaf-file-name="store_entry" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mal-tournament-android/playstore/store_entry">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="450">
@@ -116,61 +85,67 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="malcolor_vs_logo.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mal-tournament-android/playstore/art_assets/malcolor_vs_logo.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="login.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mal-tournament-android/playstore/screenshots/mobile/login.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="overview.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mal-tournament-android/playstore/screenshots/mobile/overview.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="simplevs_matchup_pre_decision.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mal-tournament-android/playstore/screenshots/mobile/simplevs_matchup_pre_decision.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="simplevs_edit_bottom.png" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mal-tournament-android/playstore/screenshots/mobile/simplevs_edit_bottom.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="simplevs_matchup_post_decision.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mal-tournament-android/playstore/screenshots/mobile/simplevs_matchup_post_decision.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="simplevs_edit_top.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mal-tournament-android/playstore/screenshots/mobile/simplevs_edit_top.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="loading_simple_vs.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mal-tournament-android/playstore/screenshots/mobile/loading_simple_vs.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="privacy_statement" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mal-tournament-android/playstore/privacy_statement">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="306">
               <caret line="17" column="60" selection-start-line="17" selection-start-column="60" selection-end-line="17" selection-end-column="60" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CHANGELOG" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CHANGELOG">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HttpHandler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mal-tournament-lib/src/main/java/net/namibsun/maltourn/lib/http/HttpHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="954">
-              <caret line="53" column="12" selection-start-line="53" selection-start-column="12" selection-end-line="59" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Competitor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mal-tournament-lib/src/main/java/net/namibsun/maltourn/lib/matchup/Competitor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="21" column="2" selection-start-line="21" selection-start-column="2" selection-end-line="21" selection-end-column="2" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Tournament.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mal-tournament-lib/src/main/java/net/namibsun/maltourn/lib/matchup/Tournament.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="576">
-              <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Matchup.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mal-tournament-lib/src/main/java/net/namibsun/maltourn/lib/matchup/Matchup.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -2611,8 +2586,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
+    <option name="y" value="-1" />
     <option name="width" value="1920" />
-    <option name="height" value="1080" />
+    <option name="height" value="1081" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -2789,6 +2765,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="screenshots" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mobile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mal-tournament" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mal-tournament" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mal-tournament-android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="playstore" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="art_assets" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -2933,21 +2935,21 @@
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_5_API_15" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="net.namibsun.maltourn.lib" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/mal-tournament-android/playstore/screenshots/mobile" />
+      <recent name="$PROJECT_DIR$/mal-tournament-android/src" />
+      <recent name="$PROJECT_DIR$/mal-tournament-android" />
+      <recent name="$PROJECT_DIR$/mal-tournament-android/src/main/res/layout" />
+      <recent name="$PROJECT_DIR$/mal-tournament-android/src/main/res/values-w820dp" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/mal-tournament-lib/src/main/java" />
       <recent name="$PROJECT_DIR$/mal-tournament-android" />
       <recent name="$PROJECT_DIR$/mal-tournament-java" />
       <recent name="$PROJECT_DIR$/mal-tournament-java/src" />
-    </key>
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="net.namibsun.maltourn.lib" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/mal-tournament-android/src" />
-      <recent name="$PROJECT_DIR$/mal-tournament-android" />
-      <recent name="$PROJECT_DIR$/mal-tournament-android/src/main/res/layout" />
-      <recent name="$PROJECT_DIR$/mal-tournament-android/src/main/res/values-w820dp" />
-      <recent name="$PROJECT_DIR$/mal-tournament-android/src/main/res/values-v21" />
     </key>
   </component>
   <component name="RestClientSettings">
@@ -3810,14 +3812,7 @@
       <workItem from="1468912551151" duration="21132000" />
       <workItem from="1468957022248" duration="4673000" />
       <workItem from="1468962998189" duration="76000" />
-      <workItem from="1468964380709" duration="2444000" />
-    </task>
-    <task id="LOCAL-00050" summary="Fixed some minor UI issues">
-      <created>1468770593373</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1468770593374</updated>
+      <workItem from="1468964380709" duration="2921000" />
     </task>
     <task id="LOCAL-00051" summary="Updated readme file">
       <created>1468771396384</created>
@@ -4155,15 +4150,22 @@
       <option name="project" value="LOCAL" />
       <updated>1468965594482</updated>
     </task>
-    <option name="localTasksCounter" value="99" />
+    <task id="LOCAL-00099" summary="Created logo and banner art assets">
+      <created>1468967496908</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1468967496908</updated>
+    </task>
+    <option name="localTasksCounter" value="100" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="142738000" />
+    <option name="totallyTimeSpent" value="143215000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
-    <editor active="false" />
+    <frame x="0" y="-1" width="1920" height="1081" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -4174,11 +4176,11 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32928064" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17831814" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3059777" sideWeight="0.49791667" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30566803" sideWeight="0.49791667" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.040625" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -4211,7 +4213,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Improved the layout of the simple vs rater" />
     <MESSAGE value="Added score fields" />
     <MESSAGE value="Implemented working simple vs getter" />
     <MESSAGE value="Fixed integer parsing issues in confirm method" />
@@ -4236,7 +4237,8 @@
     <MESSAGE value="Finally fixed missing lib source code" />
     <MESSAGE value="Removed unnecessary entries in .gitignore" />
     <MESSAGE value="Wrote store entry file and privacy statement" />
-    <option name="LAST_COMMIT_MESSAGE" value="Wrote store entry file and privacy statement" />
+    <MESSAGE value="Created logo and banner art assets" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created logo and banner art assets" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -4249,50 +4251,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/mal-tournament-android/src/main/res/values-w820dp/dimens.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mal-tournament-android/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mal-tournament-android/src/main/res/layout/activity_main.xml" />
-    <entry file="file://$PROJECT_DIR$/mal-tournament-android/proguard-rules.pro">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-895">
-          <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mal-tournament-android/src/main/java/net/namibsun/maltourn/android/activities/MainActivity.java" />
-    <entry file="file://$PROJECT_DIR$/mal-tournament-android/src/test/java/net/namibsun/maltourn/android/MainActivityTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="25" column="31" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mal-tournament-android/src/main/res/values-v21/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mal-tournament-android/src/main/res/values/dimens.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mal-tournament-java/src/main/java/net/namibsun/maltourn/java/cli/CliSimpleVsRater.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -4612,6 +4570,46 @@
           <caret line="25" column="142" selection-start-line="25" selection-start-column="142" selection-end-line="25" selection-end-column="142" />
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mal-tournament-android/playstore/art_assets/malcolor_vs_logo.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mal-tournament-android/playstore/screenshots/mobile/login.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mal-tournament-android/playstore/screenshots/mobile/overview.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mal-tournament-android/playstore/screenshots/mobile/loading_simple_vs.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mal-tournament-android/playstore/screenshots/mobile/simplevs_matchup_pre_decision.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mal-tournament-android/playstore/screenshots/mobile/simplevs_matchup_post_decision.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mal-tournament-android/playstore/screenshots/mobile/simplevs_edit_top.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mal-tournament-android/playstore/screenshots/mobile/simplevs_edit_bottom.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
       </provider>
     </entry>
   </component>
