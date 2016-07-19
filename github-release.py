@@ -2,7 +2,7 @@
 
 import os
 import sys
-from subprocess import check_output, Popen
+from subprocess import check_output
 
 # Change project specific stuff here
 root_gradle_file = "build.gradle"
@@ -34,7 +34,7 @@ version = ""
 
 repopath = "repos/" + repoowner + "/" + reponame + "/releases"
 api_repo_url = "https://api.github.com/" + repopath
-upload_repo_url = "https://upload.github.com/" + repopath
+upload_repo_url = "https://uploads.github.com/" + repopath
 oauth_param = "access_token=" + oauth_token
 
 with open(root_gradle_file, 'r') as gradlefile:
@@ -57,9 +57,21 @@ create_release = ["curl",
 response = check_output(create_release).decode()
 tag_id = response.split("\"id\": ")[1].split(",")[0]
 
+jarfilename = "mal-tournament-java-" + version + ".jar"
+jarfile = "mal-tournament-java/build/libs/" + jarfilename
+
+uploaded_binary_command = "curl -X POST --header \"Content-Type:application/java-archive\" --data-binary @" + jarfile
+
+
+uploaded_binary_command += " 'https://uploads.github.com/repos/namboy94/mal-tournament/releases/" + tag_id + "/assets?name=" + jarfilename
+uploaded_binary_command += "&access_token=" + oauth_token + "'"
+
+
+print(uploaded_binary_command)
+
+
 
 for asset in release_assets:
-    print("asset " + asset["filename_pre_version"])
     filename = asset["filename_pre_version"] + version + asset["filename_post_version"]
     filepath = asset["filepath"] + filename
     content_type = asset["content_type"]
@@ -71,7 +83,11 @@ for asset in release_assets:
                      "\"Content-Type:" + content_type + "\"",
                      "--data-binary",
                      "@" + filepath,
-                     upload_repo_url + "/" + tag_id + "/assets?name=" + filename + "&" + oauth_param]
-    print(upload_binary)
-    print(check_output(upload_binary).decode())
-    print("\n\n\n\n\n\n")
+                     "'" + upload_repo_url + "/" + tag_id + "/assets?name=" + filename + "&" + oauth_param + "'"]
+
+    params = ""
+    for param in upload_binary:
+        params += param + " "
+    params = params[0:-1]
+
+    os.system(params)
