@@ -44,6 +44,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Set;
 
+/**
+ * Activity that offers the user the possibility to change his rating according to a tertiary choice
+ * between two anime series and a draw
+ */
 public class SimpleVsActivity extends AnalyticsActivity {
 
     /**
@@ -51,8 +55,19 @@ public class SimpleVsActivity extends AnalyticsActivity {
      */
     private ArrayList<AnimeSeries> animeList = new ArrayList<>();
 
+    /**
+     * The competitor at the top
+     */
     private AnimeSeries topCompetitor = null;
+
+    /**
+     * The competitor at the bottom
+     */
     private AnimeSeries bottomCompetitor = null;
+
+    /**
+     * Flag to see if the user has already made his decision
+     */
     private boolean decided = false;
 
     /**
@@ -60,6 +75,10 @@ public class SimpleVsActivity extends AnalyticsActivity {
      */
     private ScoreSetter scoreSetter;
 
+    /**
+     * Creates the activity, downloads the MAL list and creates a score setter object
+     * @param savedInstanceState the saved instance sent by the Android OS
+     */
     protected void onCreate(Bundle savedInstanceState) {
 
         // this.analyticsActive = false;
@@ -74,14 +93,27 @@ public class SimpleVsActivity extends AnalyticsActivity {
         new MalListGetter().execute();
     }
 
+    /**
+     * Initializes all the listeners. Should be done AFTER the anime list was successfully fetched
+     */
     private void initializeListeners() {
         this.findViewById(R.id.drawResultCard).setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Evaluates the matchup as a draw
+             * @param v the draw card
+             */
             @Override
             public void onClick(View v) {
                 SimpleVsActivity.this.evaluateDraw();
             }
         });
         this.findViewById(R.id.topCompetitorCard).setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Evaluates the matchup with the top competitor as the winner
+             * @param v the top competitor card
+             */
             @Override
             public void onClick(View v) {
                 SimpleVsActivity.this.evaluate(SimpleVsActivity.this.topCompetitor,
@@ -89,6 +121,11 @@ public class SimpleVsActivity extends AnalyticsActivity {
             }
         });
         this.findViewById(R.id.bottomCompetitorCard).setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Evaluates the matchup with the bottom competitor as the winner
+             * @param v the bottom competitor card
+             */
             @Override
             public void onClick(View v) {
                 SimpleVsActivity.this.evaluate(SimpleVsActivity.this.bottomCompetitor,
@@ -96,12 +133,22 @@ public class SimpleVsActivity extends AnalyticsActivity {
             }
         });
         this.findViewById(R.id.confirmResultCard).setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Confirms the currently entered scores
+             * @param v the confirm card
+             */
             @Override
             public void onClick(View v) {
                 SimpleVsActivity.this.confirmScores();
             }
         });
         this.findViewById(R.id.cancelResultCard).setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Cancels the current matchup
+             * @param v the cancel card
+             */
             @Override
             public void onClick(View v) {
                 SimpleVsActivity.this.nextRound();
@@ -109,6 +156,10 @@ public class SimpleVsActivity extends AnalyticsActivity {
         });
     }
 
+    /**
+     * Starts the next round of matchups. Resets all scores, and gets two new random
+     * series from the anime list
+     */
     private void nextRound() {
 
         this.decided = false;
@@ -133,6 +184,9 @@ public class SimpleVsActivity extends AnalyticsActivity {
 
     }
 
+    /**
+     * Sets the current scores of the series into their respective edittexts
+     */
     @SuppressLint("SetTextI18n")
     private void evaluate() {
         this.decided = true;
@@ -140,6 +194,11 @@ public class SimpleVsActivity extends AnalyticsActivity {
         ((EditText) this.findViewById(R.id.bottomScore)).setText("" + this.bottomCompetitor.myScore);
     }
 
+    /**
+     * Evaluates a matchup with a winner and loser
+     * @param winner the winner
+     * @param loser the loser
+     */
     private void evaluate(AnimeSeries winner, AnimeSeries loser) {
         if (winner.myScore > loser.myScore && !this.decided) {
             this.nextRound();
@@ -149,6 +208,9 @@ public class SimpleVsActivity extends AnalyticsActivity {
         }
     }
 
+    /**
+     * Evaluates a draw
+     */
     private void evaluateDraw() {
         if (this.topCompetitor.myScore != this.bottomCompetitor.myScore) {
             this.evaluate();
@@ -158,6 +220,10 @@ public class SimpleVsActivity extends AnalyticsActivity {
         }
     }
 
+    /**
+     * Sets the currently entered scores for their respective anime series if theses
+     * scores are valid
+     */
     private void confirmScores() {
         try {
             int topScore = Integer.parseInt(((EditText) this.findViewById(R.id.topScore)).getText().toString());
@@ -171,7 +237,17 @@ public class SimpleVsActivity extends AnalyticsActivity {
         }
     }
 
+    /**
+     * Async Task that sets the scores of the anime series
+     */
     private class AsyncScoreSetter extends AsyncTask<Integer, Void, Void> {
+
+        /**
+         * This sets the anime scores, only if the scores differ from the current ones
+         * @param params expects two integer values, one for the top competitor, one for the bottom competitor,
+         *                  in exactly that sequence
+         * @return nothing
+         */
         protected Void doInBackground(Integer... params) {
             if (params[0] != SimpleVsActivity.this.topCompetitor.myScore) {
                 SimpleVsActivity.this.scoreSetter.setScore(SimpleVsActivity.this.topCompetitor, params[0]);
@@ -183,7 +259,16 @@ public class SimpleVsActivity extends AnalyticsActivity {
         }
     }
 
+    /**
+     * Async Task that loads the cover images from myanimelist.net
+     */
     private class ImageLoader extends AsyncTask<Void, Void, Void> {
+
+        /**
+         * Loads the cover images
+         * @param params nothing
+         * @return nothing
+         */
         protected Void doInBackground(Void... params) {
             try {
                 URL topUrl = new URL(SimpleVsActivity.this.topCompetitor.seriesImage);
@@ -209,7 +294,16 @@ public class SimpleVsActivity extends AnalyticsActivity {
         }
     }
 
+    /**
+     * Async Task that fetches the anime list of the user
+     */
     private class MalListGetter extends AsyncTask<Void, Void, Void> {
+
+        /**
+         * Fetches the anime list
+         * @param params nothing
+         * @return nothing
+         */
         protected Void doInBackground(Void... params) {
             String username = SimpleVsActivity.this.getIntent().getExtras().getString("username");
             Set<AnimeSeries> animeSeries = ListGetter.getList(username);
@@ -217,6 +311,10 @@ public class SimpleVsActivity extends AnalyticsActivity {
                 SimpleVsActivity.this.animeList.add(anime);
             }
             runOnUiThread(new Runnable() {
+
+                /**
+                 * Remove the loading bar, populate the first matchup and initialize the listeners.
+                 */
                 @Override
                 public void run() {
                     ProgressBar progressBar = (ProgressBar) SimpleVsActivity.this.findViewById(R.id.loadingSimpleVs);
