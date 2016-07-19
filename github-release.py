@@ -12,7 +12,15 @@ reponame = "mal-tournament"
 release_assets = [{"filename_pre_version": "mal-tournament-java-",
                    "filename_post_version": ".jar",
                    "filepath": "mal-tournament-java/build/libs/",
-                   "content_type": "Content-Type:application/java-archive"}]
+                   "content_type": "application/java-archive"},
+                  {"filename_pre_version": "mal-tournament-lib-",
+                   "filename_post_version": ".jar",
+                   "filepath": "mal-tournament-lib/build/libs/",
+                   "content_type": "application/java-archive"},
+                  {"filename_pre_version": "mal-tournament-android-release-",
+                   "filename_post_version": ".apk",
+                   "filepath": "mal-tournament-android/build/outputs/apk/",
+                   "content_type": "application/vnd.android.package-archive"}]
 
 # Don't edit past here!
 
@@ -55,7 +63,7 @@ for asset in release_assets:
                      "-X",
                      "POST",
                      "--header",
-                     "\"" + content_type + "\"",
+                     "\"Content-Type:" + content_type + "\"",
                      "--data-binary",
                      "@" + filepath,
                      upload_repo_url + "/" + tag_id + "/assets?name=" + filename + "&" + oauth_param]
