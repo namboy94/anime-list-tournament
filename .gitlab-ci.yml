@@ -29,10 +29,9 @@ build_release:
     - test_build
   script:
     - cp $GOOGLESERVICES_JSON mal-tournament-android/google-services.json
+    - python signed_apk_enabler.py
     - gradle build
-    - ./gradlew assembleRelease
     - python noanalytics.py stash
-    - python noanalytics.py deactivate
     - ./gradlew assembleRelease
     - python noanalytics.py restore
     - python github-release.py $GITHUBAUTH

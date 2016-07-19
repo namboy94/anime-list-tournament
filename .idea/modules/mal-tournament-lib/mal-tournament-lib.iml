@@ -18,10 +18,10 @@
     <output-test url="file://$MODULE_DIR$/../../../mal-tournament-lib/build/classes/test" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../mal-tournament-lib">
+      <sourceFolder url="file://$MODULE_DIR$/../../../mal-tournament-lib/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../../mal-tournament-lib/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../../../mal-tournament-lib/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../mal-tournament-lib/src/test/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../mal-tournament-lib/src/main/java" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/../../../mal-tournament-lib/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../mal-tournament-lib/build" />
     </content>
