@@ -67,11 +67,13 @@ This file is part of mal-tournament.
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="20dp"
                             android:text="@string/score_label"
+                            android:textColor="@color/colorAccent"
                             android:layout_gravity="center"/>
                     <EditText
                             android:id="@+id/topScore"
                             android:layout_width="30dp"
                             android:maxLength="2"
+                            android:textColor="@color/colorAccent"
                             android:layout_height="wrap_content"
                             android:inputType="number"/>
                 </LinearLayout>
@@ -188,12 +190,14 @@ This file is part of mal-tournament.
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="20dp"
                             android:text="@string/score_label"
+                            android:textColor="@color/colorAccent"
                             android:layout_gravity="center"/>
                     <EditText
                             android:id="@+id/bottomScore"
                             android:layout_width="30dp"
                             android:maxLength="2"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/colorAccent"
                             android:inputType="number"/>
                 </LinearLayout>
 
