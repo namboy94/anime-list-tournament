@@ -21,7 +21,7 @@ release_assets = [{"filename_pre_version": "mal-tournament-java-",
                    "filename_post_version": ".apk",
                    "filepath": "mal-tournament-android/build/outputs/apk/",
                    "content_type": "application/vnd.android.package-archive"},
-                  {"filename_pre_version": "mal-tournament-android-release-noanalytics",
+                  {"filename_pre_version": "mal-tournament-android-release-noanalytics-",
                    "filename_post_version": ".apk",
                    "filepath": "mal-tournament-android/build/outputs/apk/",
                    "content_type": "application/vnd.android.package-archive"}]
@@ -39,7 +39,7 @@ oauth_param = "access_token=" + oauth_token
 
 with open(root_gradle_file, 'r') as gradlefile:
     for line in gradlefile.read().split("\n"):
-        if line.startswith("version = \""):
+        if line.startswith("    version = \""):
             version = line.split("version = \"")[1].split("\"")[0]
 
 create_release = ["curl",
@@ -54,11 +54,12 @@ create_release = ["curl",
                   "\"draft\": false," +
                   "\"prerelease\": false}"]
 
-response = check_output(create_release)
+response = check_output(create_release).decode()
 tag_id = response.split("\"id\": ")[1].split(",")[0]
 
 
 for asset in release_assets:
+    print("asset " + asset["filename_pre_version"])
     filename = asset["filename_pre_version"] + version + asset["filename_post_version"]
     filepath = asset["filepath"] + filename
     content_type = asset["content_type"]
@@ -71,5 +72,6 @@ for asset in release_assets:
                      "--data-binary",
                      "@" + filepath,
                      upload_repo_url + "/" + tag_id + "/assets?name=" + filename + "&" + oauth_param]
-
-    Popen(upload_binary).wait()
+    print(upload_binary)
+    print(check_output(upload_binary).decode())
+    print("\n\n\n\n\n\n")

@@ -35,6 +35,15 @@ android {
         versionName rootProject.ext.version
     }
 
+    signingConfigs {
+        release {
+            storeFile file(System.getenv("ANDROIDKEY_LOCATION"))
+            storePassword System.getenv("ANDROIDKEY_PASS")
+            keyAlias System.getenv("ANDROIDKEY_ALIAS")
+            keyPassword System.getenv("ANDROIDKEY_PASS")
+        }
+    }
+
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             //noinspection GroovyAssignabilityCheck
@@ -49,6 +58,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }

@@ -3,6 +3,12 @@ stages:
   - build
   - docstats
 
+variables:
+  ANDROID_HOME: "/opt/android-sdk"
+  ANDROIDKEY_ALIAS: "$ANDROIDKEY_ALIAS"
+  ANDROIDKEY_PASS: "$ANDROIDKEY_PASS"
+  ANDROIDKEY_LOCATION: "$ANDROIDKEY_LOCATION"
+
 mirror_repo:
   stage: mirror
   only:
@@ -22,16 +28,10 @@ build_release:
     - master
   script:
     - gradle build
-    - ./gradlew assembleRelease -Pandroid.injected.signing.store.file=$ANDROIDKEY_LOCATION
-      Pandroid.injected.signing.store.password=$ANDROIDKEY_PASS
-      Pandroid.injected.signing.key.alias=$ANDROIDKEY_ALIAS
-      Pandroid.injected.signing.key.password=$ANDROIDKEY_PASS
+    - ./gradlew assembleRelease
     - python noanalytics.py stash
     - python noanalytics.py deactivate
-    - ./gradlew assembleRelease -Pandroid.injected.signing.store.file=$ANDROIDKEY_LOCATION
-      Pandroid.injected.signing.store.password=$ANDROIDKEY_PASS
-      Pandroid.injected.signing.key.alias=$ANDROIDKEY_ALIAS
-      Pandroid.injected.signing.key.password=$ANDROIDKEY_PASS
+    - ./gradlew assembleRelease
     - python noanalytics.py restore
     - python github-release.py $GITHUBAUTH
 
