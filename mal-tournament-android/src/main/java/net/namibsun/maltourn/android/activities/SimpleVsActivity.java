@@ -317,8 +317,7 @@ public class SimpleVsActivity extends AnalyticsActivity {
                  */
                 @Override
                 public void run() {
-                    ProgressBar progressBar = (ProgressBar) SimpleVsActivity.this.findViewById(R.id.loadingSimpleVs);
-                    progressBar.setVisibility(View.GONE);
+                    SimpleVsActivity.this.findViewById(R.id.loadingSimpleVs).setVisibility(View.GONE);
                     SimpleVsActivity.this.nextRound();
                     SimpleVsActivity.this.initializeListeners();
                 }
