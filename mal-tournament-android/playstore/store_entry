@@ -1,0 +1,53 @@
+# Title
+
+MAL Tournament
+
+------------------------------------------------------------------------------------------------------------------------
+# Short Description
+
+An app to determine scores for your completed anime list on myanimelist.net
+
+------------------------------------------------------------------------------------------------------------------------
+# Full Description
+
+This app allows you to play rating tournaments using your list of completed anime series from
+myanimelist.net. Different series will be pitted against each other in different styles of rating contests
+and the scores of the shows will be adjusted accordingly.
+
+You will have to enter your username and password for myanimelist.net. This information will not be
+stored locally on your device nor will it be used for anything other than authenticating your device
+with the myanimelist.net servers.
+
+A privacy statement can be read at
+http://gitlab.namibsun.net/namboy94/mal-tournament/raw/master/mal-tournament-android/playstore/privacy_statement.
+
+We also offer separate apk builds on our github release page:
+https://github.com/namboy94/mal-tournament/releases
+
+It also offers a graphical Java program for desktop operating systems that has roughly the same feature set as
+the android app
+
+This app is completely open source under the GPLv3 license. Check out the source code for this project at its
+github page: https://github.com/namboy94/mal-tournament
+
+or if you want to contribute, join us on our privately hosted gitlab instance:
+http://gitlab.namibsun.net/namboy94/mal-tournament
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+# Categorization
+
+Application Type:             Applications
+Category:                     Entertainment
+Content rating:               Everyone
+
+------------------------------------------------------------------------------------------------------------------------
+# Contact Details
+
+Website:                      http://gitlab.namibsun.net/namboy94/mal-tournament
+Email:                        hermann@krumreyh.com
+Phone:
+
+-----------------------------------------------------------------------------------------------------------------------
+# Privacy Policy              http://gitlab.namibsun.net/namboy94/mal-tournament/raw/master/mal-tournament-android/playstore/privacy_statement
