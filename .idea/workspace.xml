@@ -11,12 +11,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3a908e12-dcc6-4b20-8731-1f7c175dfbd7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mal-tournament-android/src/main/res/mipmap-hdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/mal-tournament-android/src/main/res/mipmap-hdpi/ic_launcher.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mal-tournament-android/src/main/res/mipmap-mdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/mal-tournament-android/src/main/res/mipmap-mdpi/ic_launcher.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mal-tournament-android/src/main/res/mipmap-xhdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/mal-tournament-android/src/main/res/mipmap-xhdpi/ic_launcher.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mal-tournament-android/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/mal-tournament-android/src/main/res/mipmap-xxhdpi/ic_launcher.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mal-tournament-android/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/mal-tournament-android/src/main/res/mipmap-xxxhdpi/ic_launcher.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mal-tournament-android/playstore/store_entry" afterPath="$PROJECT_DIR$/mal-tournament-android/playstore/store_entry" />
     </list>
     <ignored path="mal-tournament.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -94,10 +90,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ic_launcher.png" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ic_launcher.png" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mal-tournament-android/src/main/res/mipmap-xxhdpi/ic_launcher.png">
           <provider selected="true" editor-type-id="images">
             <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="store_entry" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mal-tournament-android/playstore/store_entry">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="14" column="57" selection-start-line="14" selection-start-column="57" selection-end-line="14" selection-end-column="57" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
@@ -131,13 +137,6 @@
       </file>
       <file leaf-file-name="simplevs_edit_top.png" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mal-tournament-android/playstore/screenshots/mobile/simplevs_edit_top.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="loading_simple_vs.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mal-tournament-android/playstore/screenshots/mobile/loading_simple_vs.png">
           <provider selected="true" editor-type-id="images">
             <state />
           </provider>
@@ -2559,8 +2558,8 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/.gitlab-ci.yml" />
         <option value="$PROJECT_DIR$/noanalytics.py" />
-        <option value="$PROJECT_DIR$/mal-tournament-android/playstore/store_entry" />
         <option value="$PROJECT_DIR$/mal-tournament-android/playstore/privacy_statement" />
+        <option value="$PROJECT_DIR$/mal-tournament-android/playstore/store_entry" />
       </list>
     </option>
   </component>
@@ -2952,54 +2951,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="playstore" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mal-tournament" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mal-tournament" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mal-tournament-android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="playstore" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="screenshots" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mobile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mal-tournament" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mal-tournament" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mal-tournament-android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="playstore" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="art_assets" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -4020,14 +3971,7 @@
       <workItem from="1468912551151" duration="21132000" />
       <workItem from="1468957022248" duration="4673000" />
       <workItem from="1468962998189" duration="76000" />
-      <workItem from="1468964380709" duration="3182000" />
-    </task>
-    <task id="LOCAL-00052" summary="Version bump to 0.3">
-      <created>1468771580381</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1468771580382</updated>
+      <workItem from="1468964380709" duration="3371000" />
     </task>
     <task id="LOCAL-00053" summary="Added barebones android structure">
       <created>1468786957167</created>
@@ -4365,11 +4309,18 @@
       <option name="project" value="LOCAL" />
       <updated>1468967970599</updated>
     </task>
-    <option name="localTasksCounter" value="101" />
+    <task id="LOCAL-00101" summary="Created new IC launcher icons">
+      <created>1468968238052</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1468968238052</updated>
+    </task>
+    <option name="localTasksCounter" value="102" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="143476000" />
+    <option name="totallyTimeSpent" value="143665000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-1" width="1920" height="1081" extended-state="6" />
@@ -4421,7 +4372,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Implemented working simple vs getter" />
     <MESSAGE value="Fixed integer parsing issues in confirm method" />
     <MESSAGE value="Added docstrings to all methods in SimpleVsActivity" />
     <MESSAGE value="Made loading animation better" />
@@ -4446,7 +4396,8 @@
     <MESSAGE value="Wrote store entry file and privacy statement" />
     <MESSAGE value="Created logo and banner art assets" />
     <MESSAGE value="Added mobile Screenshots" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added mobile Screenshots" />
+    <MESSAGE value="Created new IC launcher icons" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created new IC launcher icons" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -4736,14 +4687,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mal-tournament-android/playstore/store_entry">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="25" column="142" selection-start-line="25" selection-start-column="142" selection-end-line="25" selection-end-column="142" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mal-tournament-android/playstore/art_assets/malcolor_vs_logo.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -4807,6 +4750,14 @@
     <entry file="file://$PROJECT_DIR$/mal-tournament-android/src/main/res/mipmap-xxhdpi/ic_launcher.png">
       <provider selected="true" editor-type-id="images">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mal-tournament-android/playstore/store_entry">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="14" column="57" selection-start-line="14" selection-start-column="57" selection-end-line="14" selection-end-column="57" />
+          <folding />
+        </state>
       </provider>
     </entry>
   </component>

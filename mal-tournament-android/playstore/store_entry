@@ -5,8 +5,14 @@ MAL Tournament
 ------------------------------------------------------------------------------------------------------------------------
 # Short Description
 
+An app to determine scores for your list on myanimelist.net
+
 ------------------------------------------------------------------------------------------------------------------------
 # Full Description
+
+This app allows you to play rating tournaments using your list of completed anime series from
+myanimelist.net. Different series will be pitted against each other in different styles of rating contests
+and the scores of the shows will be adjusted accordingly.
 
 ------------------------------------------------------------------------------------------------------------------------
 # Categorization
