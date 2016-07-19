@@ -25,5 +25,5 @@ This file is part of mal-tournament.
     <color name="colorPrimary">#2E51A2</color>
     <color name="colorPrimaryDark">#2E51A2</color>
     <color name="colorAccent">#2E51A2</color>
-    <color name="colorLoginBG">#e1e7f5</color>
+    <color name="colorDefaultBG">#e1e7f5</color>
 </resources>

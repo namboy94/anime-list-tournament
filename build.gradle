@@ -21,6 +21,10 @@ This file is part of mal-tournament.
     along with mal-tournament. If not, see <http://www.gnu.org/licenses/>.
 */
 
+ext {
+    version = "0.4"
+    versionCode = 1
+}
 
 buildscript {
     repositories {

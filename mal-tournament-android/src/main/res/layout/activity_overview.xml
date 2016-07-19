@@ -21,9 +21,40 @@ This file is part of mal-tournament.
     You should have received a copy of the GNU General Public License
     along with mal-tournament. If not, see <http://www.gnu.org/licenses/>.
 <-->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:background="@color/colorDefaultBG"
+                android:id="@+id/overViewLayout"
+                tools:context="net.namibsun.maltourn.android.activities.OverViewActivity">
+    <android.support.v7.widget.CardView android:layout_width="400dp"
+                                        android:layout_height="300dp"
+                                        android:id="@+id/overviewSelectionCard"
+                                        android:layout_centerInParent="true">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="150sp"
+                android:id="@+id/simpleVsSelection"
+                android:textColor="@color/colorAccent"
+                android:layout_gravity="center"
+                android:text="@string/selection_simplevsrater"/>
 
-</LinearLayout>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView android:layout_width="match_parent"
+                                        android:layout_height="100dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_below="@+id/overviewSelectionCard">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
+                android:text="@string/more_modes_soon"/>
+
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

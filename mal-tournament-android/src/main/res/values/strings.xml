@@ -27,4 +27,12 @@ This file is part of mal-tournament.
     <string name="login_username">Username</string>
     <string name="login_password">password</string>
     <string name="login_loginbutton">Log In</string>
+    <string name="selection_simplevsrater">VS</string>
+    <string name="more_modes_soon">More modes coming soon!</string>
+    <string name="top_competitor_desc">The top competitor</string>
+    <string name="bottom_competitor_desc">Bottom Competitor</string>
+    <string name="draw_text">Draw</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="confirm_text">Confirm</string>
+    <string name="score_label">Score</string>
 </resources>
