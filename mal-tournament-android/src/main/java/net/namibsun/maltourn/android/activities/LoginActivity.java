@@ -40,7 +40,14 @@ import net.namibsun.maltourn.lib.gets.Authenticator;
  */
 public class LoginActivity extends AnalyticsActivity {
 
+    /**
+     * The myanimelist.net username of the user
+     */
     private String username;
+
+    /**
+     * The myanimelist.net password of the user
+     */
     private String password;
 
     /**
@@ -58,6 +65,11 @@ public class LoginActivity extends AnalyticsActivity {
         Button loginButton = (Button) this.findViewById(R.id.loginButton);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Reads the user input username/password and then tries to log in
+             * @param v the login button
+             */
             @Override
             public void onClick(View v) {
                 LoginActivity.this.getLoginData();
@@ -91,6 +103,12 @@ public class LoginActivity extends AnalyticsActivity {
         errorDialogBuilder.setCancelable(true);
 
         errorDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+            /**
+             * Sets the dialog's OK button behaviour
+             * @param dialog the dialog
+             * @param id the ID of something, don't know what
+             */
             public void onClick(DialogInterface dialog, int id) {
                 dialog.cancel();
             }
@@ -130,6 +148,10 @@ public class LoginActivity extends AnalyticsActivity {
                 LoginActivity.this.startOverViewActivity();
             } else {
                 runOnUiThread(new Runnable() {
+                    /**
+                     * Shows the user an authentication error dialog because the
+                     * credentials were invalid
+                     */
                     @Override
                     public void run() {
                         LoginActivity.this.showAuthenticationErrorDialog();

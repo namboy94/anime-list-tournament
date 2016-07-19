@@ -49,6 +49,11 @@ public class OverViewActivity extends AnalyticsActivity {
         TextView loginButton = (TextView) this.findViewById(R.id.simpleVsSelection);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Starts the simple VS activity
+             * @param v the simple vs button
+             */
             @Override
             public void onClick(View v) {
                 OverViewActivity.this.startSimpleVsActivity();
