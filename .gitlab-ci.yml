@@ -27,6 +27,7 @@ build_release:
   only:
     - master
   script:
+    - cp $GOOGLESERVICES_JSON mal-tournament-android/google-services.json
     - gradle build
     - ./gradlew assembleRelease
     - python noanalytics.py stash
