@@ -40,7 +40,6 @@ public class OverViewActivity extends AnalyticsActivity {
      */
     protected void onCreate(Bundle savedInstanceState) {
 
-        // this.analyticsActive = false;
         this.layoutFile = R.layout.activity_overview;
         this.screenName = "Overview";
         this.analyticsName = "Overview";

@@ -56,7 +56,6 @@ public class LoginActivity extends AnalyticsActivity {
      */
     protected void onCreate(Bundle savedInstanceState) {
 
-        // this.analyticsActive = false;
         this.layoutFile = R.layout.activity_login;
         this.screenName = "Login";
         this.analyticsName = "MAL-Login";

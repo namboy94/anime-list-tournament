@@ -80,7 +80,6 @@ public class SimpleVsActivity extends AnalyticsActivity {
      */
     protected void onCreate(Bundle savedInstanceState) {
 
-        // this.analyticsActive = false;
         this.layoutFile = R.layout.activity_simplevs;
         this.screenName = "Simple VS Rater";
         this.analyticsName = "Simple Vs Rater";
