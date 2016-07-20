@@ -49,9 +49,7 @@ public class ScoreSetter {
      * @param score the new score, an integer value between 1 and 10
      */
     public void setScore(AnimeSeries series, int score) {
-        String url = "http://myanimelist.net/api/animelist/update/" + series.seriesAnimedbId + ".xml";
-        String payload = "data=%3Centry%3E%3Cscore%3E" + score + "%3C%2Fscore%3E%3C%2Fentry%3E";
-        HttpHandler.postWithAuth(url, authentication, payload);
+
     }
 
 }
