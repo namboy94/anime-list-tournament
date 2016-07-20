@@ -37,8 +37,10 @@ build_release:
     - python github-release.py $GITHUBAUTH
 
   artifacts:
-    paths:
-      - java/build/libs
+      paths:
+        - mal-tournament-java/build/libs
+        - mal-tournament-lib/build/libs
+        - mal-tournament-android/build/outputs/apk
 
 generate_git_stats:
   stage: docstats
