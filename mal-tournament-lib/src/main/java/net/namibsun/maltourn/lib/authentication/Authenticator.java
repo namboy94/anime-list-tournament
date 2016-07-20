@@ -23,17 +23,20 @@ This file is part of mal-tournament.
 
 package net.namibsun.maltourn.lib.authentication;
 
+import java.io.IOException;
+
 /**
  * Interface that defines how an authentication handler should be defined
  */
-public interface Authenticator {
+public interface Authenticator{
 
     /**
      * Checks if a user is authenticated by a service
      * @param username the user's username
      * @param password the user's password
      * @return true, if the user is authenticated, false otherwise
+     * @throws IOException if a connection error instead of an authentication error occured
      */
-    boolean isAuthenticated(String username, String password);
+    boolean isAuthenticated(String username, String password) throws IOException;
 
 }

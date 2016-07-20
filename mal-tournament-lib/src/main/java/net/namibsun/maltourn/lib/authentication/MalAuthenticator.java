@@ -25,6 +25,8 @@ package net.namibsun.maltourn.lib.authentication;
 
 import net.namibsun.maltourn.lib.http.HttpHandler;
 
+import java.io.IOException;
+
 /**
  * Authenticator that handles the authentication with myanimelist.net
  */
@@ -35,11 +37,13 @@ public class MalAuthenticator implements Authenticator{
      * @param username the user's username
      * @param password the user's password
      * @return true if the user is authenticated, false otherwise
+     * @throws IOException if a connection error instead of an authentication error occured
      */
-    public boolean isAuthenticated(String username, String password) {
-        String authUrl = "http://myanimelist.net/api/account/verify_credentials.xml";
-        String authenticationResponse = HttpHandler.getWithAuth(authUrl, username, password);
-        return !authenticationResponse.equals("");
+    public boolean isAuthenticated(String username, String password) throws IOException {
+        HttpHandler handler = new HttpHandler("http://myanimelist.net/api/account/verify_credentials.xml");
+        handler.setBasicAuthentication(username, password);
+        handler.setMethod("GET");
+        handler.connect();
+        return !handler.getResponse().equals("");
     }
-
 }

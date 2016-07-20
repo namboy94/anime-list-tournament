@@ -107,6 +107,19 @@ public class HttpHandler {
     }
 
     /**
+     * Sets the content type of the request
+     * @param contentType the content type
+     */
+    public void setContentType(final String contentType) {
+        this.addConnectionOption(new Runnable() {
+            @Override
+            public void run() {
+                HttpHandler.this.connection.setRequestProperty("Content-Type", contentType);
+            }
+        });
+    }
+
+    /**
      * Sets the HTTP request method (commonly POST or GET)
      * @param method the method used
      */
@@ -167,7 +180,7 @@ public class HttpHandler {
      * Reads the Server Response to the HTTP request and turns it into a string
      * @return the received string
      */
-    private String readResponse() {
+    public String getResponse() {
 
         String response = "";
         try {
@@ -188,7 +201,7 @@ public class HttpHandler {
      * @param payload the bytes to send.
      *                <joke>Only send the best bytes, otherwise the server won't be happy</joke>
      */
-    private void writeContent(byte[] payload) {
+    public void postContent(byte[] payload) {
         try {
             OutputStream out = connection.getOutputStream();
             out.write(payload);
@@ -201,18 +214,7 @@ public class HttpHandler {
 
 
 
-
-
-
-
-
-
-    /**
-     * Sends a GET command with basic authentication
-     * @param target the target URL
-     * @param authentication the authentication string ('username:password')
-     * @return the GET response
-     */
+    /*
     public static String getWithAuth(String target, String authentication) {
 
         try {
@@ -235,15 +237,6 @@ public class HttpHandler {
             return "";
         }
     }
-
-
-
-    /**
-     * Sends a POST request with basic authentication and a URLencoded payload
-     * @param target the target URL
-     * @param authentication the authentication string('username: password')
-     * @param payload the urlencoded payload
-     */
     public static void postWithAuth(String target, String authentication, String payload) {
 
         try {
@@ -270,6 +263,6 @@ public class HttpHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
 }
