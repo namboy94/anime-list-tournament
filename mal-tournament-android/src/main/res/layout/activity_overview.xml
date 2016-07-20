@@ -41,7 +41,7 @@ This file is part of mal-tournament.
                 android:layout_height="wrap_content"
                 android:id="@+id/simpleVsSelection"
                 android:layout_gravity="center"
-                android:src="@drawable/malcolor_vs_logo"
+                android:src="@drawable/transparent_vs_logo"
                 android:text="@string/selection_simplevsrater"
                 android:contentDescription="@string/simple_vs_rater_desc"/>
 

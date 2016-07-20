@@ -2,3 +2,5 @@
 build
 out
 mal-tournament-android/google-services.json
+local.properties
+.idea
