@@ -23,11 +23,13 @@ This file is part of mal-tournament.
 
 package net.namibsun.maltourn.java.cli;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
-import net.namibsun.maltourn.lib.gets.ListGetter;
+import net.namibsun.maltourn.lib.lists.MalListGetter;
+import net.namibsun.maltourn.lib.authentication.MalAuthenticator;
 import net.namibsun.maltourn.lib.matchup.Competitor;
 import net.namibsun.maltourn.lib.matchup.Matchup;
 import net.namibsun.maltourn.lib.matchup.Tournament;
@@ -46,19 +48,19 @@ public class CliMalTournament {
     /**
      * Constructor that asks for authentication and starts the tournament procedure
      */
-    public CliMalTournament() {
+    public CliMalTournament() throws IOException {
 
         System.out.println("Please enter your username");
         String username = this.inputScanner.nextLine();
         System.out.println("Please enter your password");
         String password = this.inputScanner.nextLine();
 
-        if (!Authenticator.isAuthenticated(username, password)) {
+        if (!new MalAuthenticator().isAuthenticated(username, password)) {
             System.out.println("Invalid username/password");
             System.exit(1);
         }
 
-        Set<AnimeSeries> completedSeries = ListGetter.getList(username);
+        Set<AnimeSeries> completedSeries = new MalListGetter().getCompletedList(username);
         Tournament tournament = new Tournament(completedSeries, 8);
 
         int matchupCount = 0;
@@ -76,7 +78,7 @@ public class CliMalTournament {
                 AnimeSeries seriesOne = (AnimeSeries) competitorOne.getObject();
                 AnimeSeries seriesTwo = (AnimeSeries) competitorTwo.getObject();
 
-                System.out.println("1: " + seriesOne.seriesTitle + "  vs.  2: " + seriesTwo.seriesTitle);
+                System.out.println("1: " + seriesOne.getTitle() + "  vs.  2: " + seriesTwo.getTitle());
                 String userResponse = "";
                 while (!userResponse.equals("1") && !userResponse.equals("2")) {
                     userResponse = this.inputScanner.nextLine();
