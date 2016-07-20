@@ -53,4 +53,19 @@ public abstract class AnimeSeries {
      */
     public abstract void setScore(int score, String username, String password) throws IOException;
 
+    /**
+     * @return the series' title
+     */
+    public abstract String getTitle();
+
+    /**
+     * @return the series' score
+     */
+    public abstract int getScore();
+
+    /**
+     * @return the series' cover image URL
+     */
+    public abstract String getImageUrl();
+
 }

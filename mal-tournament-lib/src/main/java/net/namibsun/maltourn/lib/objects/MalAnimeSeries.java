@@ -98,4 +98,28 @@ public class MalAnimeSeries extends AnimeSeries{
         handler.postContent(payload.getBytes());
     }
 
+    /**
+     * @return the series' title
+     */
+    @Override
+    public String getTitle() {
+        return this.seriesTitle;
+    }
+
+    /**
+     * @return the series' score
+     */
+    @Override
+    public int getScore() {
+        return this.myScore;
+    }
+
+    /**
+     * @return the series' image URL
+     */
+    @Override
+    public String getImageUrl() {
+        return this.seriesImage;
+    }
+
 }
