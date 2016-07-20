@@ -47,6 +47,11 @@ public class HttpHandler {
     private HttpURLConnection connection;
 
     /**
+     * Flag that is set whenever the connection has been established
+     */
+    private boolean isConnected = false;
+
+    /**
      * Used to check if a ? or & has to be prepended to a new URL parameter
      */
     private boolean alreadyHasParameter = false;
@@ -70,12 +75,28 @@ public class HttpHandler {
     }
 
     /**
+     * Connects the HTTP connection
+     * @throws IOException in case the connection fails
+     */
+    public void connect() throws IOException{
+        URL url = new URL(this.url);
+        this.connection = (HttpURLConnection) url.openConnection();
+        for (Runnable option: this.connectionOptions) {
+            option.run();
+        }
+        if (!this.connectionErrors.equals("")) {
+            throw new IOException(this.connectionErrors);
+        }
+        this.isConnected = true;
+    }
+
+    /**
      * Sets a basic authentication header
      * @param username the username to be used
      * @param password the password to be used
      */
     public void setBasicAuthentication(final String username, final String password) {
-        this.connectionOptions.add(new Runnable() {
+        this.addConnectionOption(new Runnable() {
             @Override
             public void run() {
                 String authentication = username + ":" + password;
@@ -90,7 +111,7 @@ public class HttpHandler {
      * @param method the method used
      */
     public void setMethod(final String method){
-        this.connectionOptions.add(new Runnable() {
+        this.addConnectionOption(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -124,6 +145,22 @@ public class HttpHandler {
      */
     private void addError(Exception error) {
         this.connectionErrors += error.toString() + "\nENDOFERROR\n";
+    }
+
+    /**
+     * Sets a new connection option.
+     * If the connection has bee established already, the option will be set automatically,
+     * otherwise it will be stored in the connection options array list and set once the connection
+     * has been established
+     * @param option the runnable option to set
+     */
+    private void addConnectionOption(Runnable option) {
+        if (this.isConnected) {
+            option.run();
+        }
+        else {
+            this.connectionOptions.add(option);
+        }
     }
 
     /**
