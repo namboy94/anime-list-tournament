@@ -23,6 +23,8 @@ This file is part of mal-tournament.
 
 package net.namibsun.maltourn.lib.authentication;
 
+import net.namibsun.maltourn.lib.http.HttpHandler;
+
 /**
  * Authenticator that handles the authentication with hummingbird.me
  */
@@ -35,7 +37,9 @@ public class HummingBirdAuthenticator implements Authenticator{
      * @return true if the user is authenticated, false otherwise
      */
     public boolean isAuthenticated(String username, String password) {
-
+        String authUrl = "http://myanimelist.net/api/account/verify_credentials.xml";
+        String authenticationResponse = HttpHandler.getWithAuth(authUrl, username, password);
+        return !authenticationResponse.equals("");
     }
 
 }
