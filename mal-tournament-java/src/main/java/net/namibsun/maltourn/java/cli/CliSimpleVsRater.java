@@ -23,7 +23,6 @@ This file is part of mal-tournament.
 
 package net.namibsun.maltourn.java.cli;
 
-import net.namibsun.maltourn.lib.gets.Authenticator;
 import net.namibsun.maltourn.lib.gets.ListGetter;
 import net.namibsun.maltourn.lib.objects.AnimeSeries;
 import net.namibsun.maltourn.lib.posts.ScoreSetter;

@@ -27,7 +27,6 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
-import net.namibsun.maltourn.lib.gets.Authenticator;
 import net.namibsun.maltourn.lib.gets.ListGetter;
 import net.namibsun.maltourn.lib.matchup.Competitor;
 import net.namibsun.maltourn.lib.matchup.Matchup;
