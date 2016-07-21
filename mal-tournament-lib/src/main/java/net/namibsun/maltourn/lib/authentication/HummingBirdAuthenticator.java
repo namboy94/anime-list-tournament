@@ -49,4 +49,13 @@ public class HummingBirdAuthenticator implements Authenticator{
         return !handler.getResponse().equals("");
     }
 
+    public String getAuthToken(String username, String password) throws IOException {
+        HttpHandler handler = new HttpHandler("http://hummingbird.me/api/v1/users/authenticate");
+        handler.setMethod("POST");
+        handler.setContentType("application/x-www-form-urlencoded");
+        handler.connect();
+        handler.postContent(("username=" + username + "&password=" + password).getBytes());
+        return handler.getResponse();
+    }
+
 }

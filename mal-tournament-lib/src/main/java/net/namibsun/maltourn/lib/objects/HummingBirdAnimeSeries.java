@@ -1,6 +1,10 @@
 package net.namibsun.maltourn.lib.objects;
 
+import net.namibsun.maltourn.lib.authentication.HummingBirdAuthenticator;
+import net.namibsun.maltourn.lib.http.HttpHandler;
+
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 /**
@@ -103,6 +107,18 @@ public class HummingBirdAnimeSeries extends AnimeSeries {
 
     @Override
     public void setScore(int score, String username, String password) throws IOException {
+
+        String rating = String.format(java.util.Locale.US,"%.1f", (float)(score / 2));
+
+        HttpHandler handler = new HttpHandler("http://hummingbird.me/api/v1/libraries/" + this.animeId);
+        handler.setMethod("POST");
+        handler.setContentType("application/x-www-form-urlencoded");
+
+        String authToken = new HummingBirdAuthenticator().getAuthToken(username, password);
+        String payload = "{\"auth_token\": \"" + authToken + "\",\"rating\":" + rating + "}";
+        payload = URLEncoder.encode(payload, "UTF-8");
+
+        System.out.println(handler.postContent(payload.getBytes()));
 
     }
 
