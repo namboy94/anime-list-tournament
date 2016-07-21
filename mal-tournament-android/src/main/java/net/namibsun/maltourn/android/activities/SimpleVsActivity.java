@@ -33,6 +33,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import net.namibsun.maltourn.android.R;
+import net.namibsun.maltourn.lib.lists.HummingBirdListGetter;
 import net.namibsun.maltourn.lib.lists.MalListGetter;
 import net.namibsun.maltourn.lib.matchup.SimpleVs;
 import net.namibsun.maltourn.lib.objects.AnimeSeries;
@@ -68,7 +69,7 @@ public class SimpleVsActivity extends AnalyticsActivity {
         this.analyticsName = "Simple Vs Rater";
         super.onCreate(savedInstanceState);
 
-        new AsyncMalListGetter().execute();
+        new AsyncListGetter().execute();
     }
 
     /**
@@ -270,7 +271,7 @@ public class SimpleVsActivity extends AnalyticsActivity {
     /**
      * Async Task that fetches the anime list of the user
      */
-    private class AsyncMalListGetter extends AsyncTask<Void, Void, Void> {
+    private class AsyncListGetter extends AsyncTask<Void, Void, Void> {
 
         /**
          * Fetches the anime list
@@ -281,9 +282,17 @@ public class SimpleVsActivity extends AnalyticsActivity {
 
             String username = SimpleVsActivity.this.getIntent().getExtras().getString("username");
             String password = SimpleVsActivity.this.getIntent().getExtras().getString("password");
+            String service = SimpleVsActivity.this.getIntent().getExtras().getString("service");
+            assert service != null;
 
             try {
-                Set<AnimeSeries> animeSeries = new MalListGetter().getCompletedList(username);
+                Set<AnimeSeries> animeSeries = null;
+                if (service.equals("MyAnimeList")) {
+                    animeSeries = new MalListGetter().getCompletedList(username);
+                }
+                else if (service.equals("Hummingbird")) {
+                    animeSeries = new HummingBirdListGetter().getCompletedList(username);
+                }
                 SimpleVsActivity.this.simpleVs = new SimpleVs(animeSeries, username, password);
             } catch (IOException e) {
                 e.printStackTrace();
