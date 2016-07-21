@@ -26,6 +26,7 @@ package net.namibsun.maltourn.android.activities;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -227,7 +228,7 @@ public class SimpleVsActivity extends AnalyticsActivity {
             try {
                 SimpleVsActivity.this.simpleVs.setScores(params[0], params[1]);
             } catch (IOException e) {
-                e.printStackTrace();
+                SimpleVsActivity.this.showErrorDialog("Connection Error", "Failed to set score");
             }
             return null;
         }
@@ -244,6 +245,11 @@ public class SimpleVsActivity extends AnalyticsActivity {
          * @return nothing
          */
         protected Void doInBackground(Void... params) {
+            final ImageView topCompetitorImage =
+                    (ImageView) SimpleVsActivity.this.findViewById(R.id.topCompetitorImage);
+            final ImageView bottomCompetitorImage =
+                    (ImageView) SimpleVsActivity.this.findViewById(R.id.bottomCompetitorImage);
+
             try {
                 URL topUrl = new URL(SimpleVsActivity.this.simpleVs.getCoverUrls()[0]);
                 final Bitmap topBitmap = BitmapFactory.decodeStream(topUrl.openConnection().getInputStream());
@@ -253,16 +259,18 @@ public class SimpleVsActivity extends AnalyticsActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ImageView topCompetitorImage =
-                                (ImageView) SimpleVsActivity.this.findViewById(R.id.topCompetitorImage);
-                        ImageView bottomCompetitorImage =
-                                (ImageView) SimpleVsActivity.this.findViewById(R.id.bottomCompetitorImage);
                         topCompetitorImage.setImageBitmap(topBitmap);
                         bottomCompetitorImage.setImageBitmap(bottomBitmap);
                     }
                 });
             } catch (IOException e) {
-                // Do nothing
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        topCompetitorImage.setImageDrawable(new ColorDrawable(0xffffff00));
+                        bottomCompetitorImage.setImageDrawable(new ColorDrawable(0xffffff00));
+                    }
+                });
             }
             return null;
         }
@@ -295,7 +303,12 @@ public class SimpleVsActivity extends AnalyticsActivity {
                 }
                 SimpleVsActivity.this.simpleVs = new SimpleVs(animeSeries, username, password);
             } catch (IOException e) {
-                e.printStackTrace();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        SimpleVsActivity.this.showErrorDialog("Connection Error", "Failed to fetch list");
+                    }
+                });
             }
 
             runOnUiThread(new Runnable() {

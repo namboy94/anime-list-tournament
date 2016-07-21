@@ -114,33 +114,6 @@ public class LoginActivity extends AnalyticsActivity {
     }
 
     /**
-     * Shows an authentication error dialog notifying the user that the entered credentials
-     * were not accepted by myanimelist.net
-     */
-    private void showAuthenticationErrorDialog(){
-
-        AlertDialog.Builder errorDialogBuilder = new AlertDialog.Builder(this);
-        errorDialogBuilder.setTitle("Authentication Error");
-        errorDialogBuilder.setMessage("Wrong username/password");
-        errorDialogBuilder.setCancelable(true);
-
-        errorDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-
-            /**
-             * Sets the dialog's OK button behaviour
-             * @param dialog the dialog
-             * @param id the ID of something, don't know what
-             */
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-
-        errorDialogBuilder.create();
-        errorDialogBuilder.show();
-    }
-
-    /**
      * Starts the overview activity and gives it the username and password
      */
     private void startOverViewActivity() {
@@ -151,7 +124,6 @@ public class LoginActivity extends AnalyticsActivity {
         bundle.putString("service", this.selectedService);
         overViewActivity.putExtras(bundle);
         this.startActivity(overViewActivity);
-
     }
 
     /**
@@ -189,12 +161,21 @@ public class LoginActivity extends AnalyticsActivity {
                          */
                         @Override
                         public void run() {
-                            LoginActivity.this.showAuthenticationErrorDialog();
+                            LoginActivity.this.showErrorDialog("Authentication Error", "Wrong username/password");
                         }
                     });
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                runOnUiThread(new Runnable() {
+                    /**
+                     * Shows the user an authentication error dialog because the
+                     * credentials were invalid
+                     */
+                    @Override
+                    public void run() {
+                        LoginActivity.this.showErrorDialog("Connection Error", "Connection to Server failed");
+                    }
+                });
             }
             return null;
         }
