@@ -24,6 +24,7 @@ This file is part of mal-tournament.
 package net.namibsun.maltourn.java;
 
 import net.namibsun.maltourn.java.gui.SimpleVsRaterGui;
+import net.namibsun.maltourn.lib.authentication.HummingBirdAuthenticator;
 import net.namibsun.maltourn.lib.lists.HummingBirdListGetter;
 import net.namibsun.maltourn.lib.objects.AnimeSeries;
 
@@ -41,14 +42,20 @@ public class Main {
         //new CliSimpleVsRater();
         //new SimpleVsRaterGui();
         try {
+
+            if (!new HummingBirdAuthenticator().isAuthenticated("namboy94", "")) {
+                System.out.println("OK");
+                System.exit(1);
+            }
+            /*
+
             Set<AnimeSeries> series = new HummingBirdListGetter().getCompletedList("namboy94");
             for (AnimeSeries serie: series) {
-                if (serie == null) {
-                    System.out.println("null");
-                    continue;
-                }
                 System.out.println(serie.getTitle() + ":     " + serie.getImageUrl() + "       " + serie.getScore());
+                serie.setScore(5, "namboy94", "HuMFcb1900@com1RDNaM");
+                System.exit(1);
                             }
+                            */
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -136,6 +136,8 @@ public class HummingBirdAnimeSeries extends AnimeSeries {
         String payload = "{\"auth_token\": \"" + authToken + "\",\"rating\":" + rating + "}";
         payload = URLEncoder.encode(payload, "UTF-8");
 
+        handler.connect();
+        System.out.println(authToken);
         System.out.println(handler.postContent(payload.getBytes()));
 
     }
