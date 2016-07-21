@@ -44,10 +44,25 @@ public class HummingBirdAuthenticator implements Authenticator{
         return !this.tryToAuthenticate(username, password).equals("");
     }
 
+    /**
+     * Gets the authentication token for a username and password
+     * It should be checked if the username/password authenticates correctly using isAuthenticated
+     * @param username the username
+     * @param password the password
+     * @return the authentication token
+     * @throws IOException in case a connection error occurs
+     */
     public String getAuthToken(String username, String password) throws IOException {
         return this.tryToAuthenticate(username, password).split("\"")[1];
     }
 
+    /**
+     * Handles the authentication HTTP request
+     * @param username the username to check authentication for
+     * @param password the user's password
+     * @return the HTTP response
+     * @throws IOException in case a connection error occurs
+     */
     private String tryToAuthenticate(String username, String password) throws IOException {
         HttpHandler handler = new HttpHandler("http://hummingbird.me/api/v1/users/authenticate");
         handler.setMethod("POST");
@@ -55,5 +70,4 @@ public class HummingBirdAuthenticator implements Authenticator{
         handler.connect();
         return handler.postContent(("username=" + username + "&password=" + password).getBytes());
     }
-
 }

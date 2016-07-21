@@ -4,11 +4,10 @@ import net.namibsun.maltourn.lib.authentication.HummingBirdAuthenticator;
 import net.namibsun.maltourn.lib.http.HttpHandler;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 /**
- * Class that models a Hummingbird Series
+ * Class that models a Hummingbird Anime Series
  */
 public class HummingBirdAnimeSeries extends AnimeSeries {
 
@@ -25,7 +24,6 @@ public class HummingBirdAnimeSeries extends AnimeSeries {
     private String watchingStatus;
     private boolean isPrivate;
     private boolean isRewatching;
-
     private int animeId;
     private int malId;
     private String slug;
@@ -45,6 +43,10 @@ public class HummingBirdAnimeSeries extends AnimeSeries {
     private ArrayList<String> genres = new ArrayList<>();
     private float rating;
 
+    /**
+     * Constructor that parses a hummingbird JSON element
+     * @param jsonData the JSON data fetched from hummingbird.me
+     */
     public HummingBirdAnimeSeries(String jsonData) {
 
         String hummingBirdMetaData = jsonData.split("\\{")[1];
@@ -91,6 +93,12 @@ public class HummingBirdAnimeSeries extends AnimeSeries {
         }
     }
 
+    /**
+     * Parses a JSON string value
+     * @param value the value to get
+     * @param jsonData the JSON string
+     * @return the JSON String value
+     */
     private String parseJsonString(String value, String jsonData) {
         try {
             return jsonData.split("\"" + value + "\":\"")[1].split("\",")[0];
@@ -99,10 +107,22 @@ public class HummingBirdAnimeSeries extends AnimeSeries {
         }
     }
 
+    /**
+     * Parses a JSON boolean value
+     * @param value the value to get
+     * @param jsonData the JSON string
+     * @return the JSON boolean value
+     */
     private boolean parseJsonBoolean(String value, String jsonData) {
         return Boolean.parseBoolean(jsonData.split("\"" + value + "\":")[1].split(",")[0]);
     }
 
+    /**
+     * Parses a JSON int value
+     * @param value the value to get
+     * @param jsonData the JSON string
+     * @return the JSON int value (or -1 if no entry)
+     */
     private int parseJsonInteger(String value, String jsonData) {
         try {
             return Integer.parseInt(jsonData.split("\"" + value + "\":")[1].split(",")[0]);
@@ -111,6 +131,12 @@ public class HummingBirdAnimeSeries extends AnimeSeries {
         }
     }
 
+    /**
+     * Parses a JSON float value
+     * @param value the value to get
+     * @param jsonData the JSON string
+     * @return the JSON float value (or -1.0f if no entry)
+     */
     private float parseJsonFloat(String value, String jsonData, String end) {
         try {
             try {
@@ -123,6 +149,13 @@ public class HummingBirdAnimeSeries extends AnimeSeries {
         }
     }
 
+    /**
+     * Sets the score of the series on hummingbird.net
+     * @param score the score
+     * @param username the user whose score should be change
+     * @param password the user's password
+     * @throws IOException in case the connection to the server failed
+     */
     @Override
     public void setScore(int score, String username, String password) throws IOException {
 
@@ -141,21 +174,34 @@ public class HummingBirdAnimeSeries extends AnimeSeries {
 
     }
 
+    /**
+     * @return the title of the show
+     */
     @Override
     public String getTitle() {
         return this.title;
     }
 
+    /**
+     * @return the current score of the show. Converts Hummingbird-style ratings (0.5 - 5.0) to
+     *          MyAnimeList-style scores (1-10)
+     */
     @Override
     public int getScore() {
         return Math.round(this.rating * 2);
     }
 
+    /**
+     * @return the URL to the cover image
+     */
     @Override
     public String getImageUrl() {
         return this.coverImage;
     }
 
+    /**
+     * @return the current watching status of the series
+     */
     public String getWatchingStatus() {
         return this.watchingStatus;
     }

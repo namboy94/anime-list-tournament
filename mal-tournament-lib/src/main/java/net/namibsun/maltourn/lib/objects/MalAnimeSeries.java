@@ -10,7 +10,7 @@ import java.io.IOException;
 public class MalAnimeSeries extends AnimeSeries{
 
     /**
-     * THe data from the XML returned by myanimelist.net
+     * The data from the XML returned by myanimelist.net
      */
     private String xmlData;
     private int seriesAnimedbId;

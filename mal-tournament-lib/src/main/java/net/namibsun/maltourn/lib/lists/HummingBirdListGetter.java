@@ -29,6 +29,7 @@ public class HummingBirdListGetter implements ListGetter{
         handler.connect();
         String response = handler.getResponse();
         String[] shows = response.split("}}");
+
         for (int i = 0; i < shows.length - 1; i++) {
             String show = shows[i] + "}}";
             HummingBirdAnimeSeries series = new HummingBirdAnimeSeries(show);
