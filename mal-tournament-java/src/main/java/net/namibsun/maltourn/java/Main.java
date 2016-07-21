@@ -23,13 +23,10 @@ This file is part of mal-tournament.
 
 package net.namibsun.maltourn.java;
 
+import net.namibsun.maltourn.java.cli.CliSimpleVsRater;
 import net.namibsun.maltourn.java.gui.SimpleVsRaterGui;
-import net.namibsun.maltourn.lib.authentication.HummingBirdAuthenticator;
-import net.namibsun.maltourn.lib.lists.HummingBirdListGetter;
-import net.namibsun.maltourn.lib.objects.AnimeSeries;
 
 import java.io.IOException;
-import java.util.Set;
 
 /**
  * Main class that starts the program
@@ -38,8 +35,19 @@ public class Main {
 
     public static void main(String[] args) {
 
+        if (args.length > 1 && args[1].equals("-cli")) {
+            try {
+                new CliSimpleVsRater();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            new SimpleVsRaterGui();
+        }
+
         //new CliMalTournament();
         //new CliSimpleVsRater();
-        //new SimpleVsRaterGui();
+        //
     }
 }

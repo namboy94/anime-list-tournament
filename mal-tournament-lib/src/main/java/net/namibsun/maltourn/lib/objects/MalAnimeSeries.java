@@ -82,6 +82,8 @@ public class MalAnimeSeries extends AnimeSeries{
      * @throws IOException in case the connection fails
      */
     public void setScore(int score, String username, String password) throws IOException {
+        this.myScore = score;
+
         String payload = "data=%3Centry%3E%3Cscore%3E" + score + "%3C%2Fscore%3E%3C%2Fentry%3E";
         String scoreSetUrl = "http://myanimelist.net/api/animelist/update/" + this.seriesAnimedbId + ".xml";
 

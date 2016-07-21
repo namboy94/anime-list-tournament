@@ -145,7 +145,11 @@ public class SimpleVs {
      * @throws IOException in case a connection error occurs
      */
     public void setScores(int scoreOne, int scoreTwo) throws IOException {
-        this.competitorOne.setScore(scoreOne, this.username, this.password);
-        this.competitorTwo.setScore(scoreTwo, this.username, this.password);
+        if (scoreOne > 0 && scoreOne <= 10 && scoreOne != this.competitorOne.getScore()) {
+            this.competitorOne.setScore(scoreOne, this.username, this.password);
+        }
+        if (scoreTwo > 0 && scoreTwo <= 10 && scoreTwo != this.competitorTwo.getScore()) {
+            this.competitorTwo.setScore(scoreTwo, this.username, this.password);
+        }
     }
 }

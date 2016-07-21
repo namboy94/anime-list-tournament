@@ -25,6 +25,7 @@ package net.namibsun.maltourn.java.gui;
 
 import net.namibsun.maltourn.lib.authentication.MalAuthenticator;
 import net.namibsun.maltourn.lib.lists.MalListGetter;
+import net.namibsun.maltourn.lib.matchup.SimpleVs;
 import net.namibsun.maltourn.lib.objects.AnimeSeries;
 
 import javax.imageio.ImageIO;
@@ -35,8 +36,6 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Set;
 
 /**
@@ -46,14 +45,9 @@ import java.util.Set;
 public class SimpleVsRaterGui extends JFrame {
 
     /**
-     * The entered username
+     * The generic simple vs structure
      */
-    private String username;
-
-    /**
-     * The entered password
-     */
-    private String password;
+    private SimpleVs simpleVs;
 
     /**
      * A label with the series title for the left contestant
@@ -84,36 +78,6 @@ public class SimpleVsRaterGui extends JFrame {
      * A field that displays the score of the right contestant
      */
     private JTextField rightContestantScore;
-
-    /**
-     * A button that sets the currently entered scores
-     */
-    private JButton scoreConfirmer;
-
-    /**
-     * Cancels the current matchup and goes to the next one, changing nothing
-     */
-    private JButton scoreCancler;
-
-    /**
-     * Button that can be pressed in case of a draw
-     */
-    private JButton drawButton;
-
-    /**
-     * The left contestant
-     */
-    private AnimeSeries leftContestant;
-
-    /**
-     * The right contestant
-     */
-    private AnimeSeries rightContestant;
-
-    /**
-     * An Array List of completed anime series of the user
-     */
-    private ArrayList<AnimeSeries> series = new ArrayList<>();
 
     /**
      * A flag set whenever the user decided on an outcome;
@@ -166,19 +130,17 @@ public class SimpleVsRaterGui extends JFrame {
      * Prompts the user to log in. If the login attempt fails, the program is closed
      */
     private void login() {
-        this.username = JOptionPane.showInputDialog(null, "Username");
-        this.password = JOptionPane.showInputDialog(null, "Password");
+        String username = JOptionPane.showInputDialog(null, "Username");
+        String password = JOptionPane.showInputDialog(null, "Password");
 
         try {
-            if (!new MalAuthenticator().isAuthenticated(this.username, this.password)) {
+            if (!new MalAuthenticator().isAuthenticated(username, password)) {
                 JOptionPane.showMessageDialog(null, "Invalid Username/Password");
                 System.exit(1);
             }
             else {
-                Set<AnimeSeries> series = new MalListGetter().getCompletedList(this.username);
-                for (AnimeSeries anime: series) {
-                    this.series.add(anime);
-                }
+                Set<AnimeSeries> series = new MalListGetter().getCompletedList(username);
+                this.simpleVs = new SimpleVs(series, username, password);
             }
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Connection Error");
@@ -216,8 +178,8 @@ public class SimpleVsRaterGui extends JFrame {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
                 super.mouseClicked(mouseEvent);
-                SimpleVsRaterGui.this.evaluateBets(SimpleVsRaterGui.this.leftContestant,
-                                                   SimpleVsRaterGui.this.rightContestant);
+                SimpleVsRaterGui.this.setWinner(SimpleVsRaterGui.this.leftContestantLabel,
+                                                SimpleVsRaterGui.this.rightContestantLabel);
             }
         });
         this.add(this.leftContestantImage);
@@ -243,8 +205,8 @@ public class SimpleVsRaterGui extends JFrame {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
                 super.mouseClicked(mouseEvent);
-                SimpleVsRaterGui.this.evaluateBets(SimpleVsRaterGui.this.rightContestant,
-                                                   SimpleVsRaterGui.this.leftContestant);
+                SimpleVsRaterGui.this.setWinner(SimpleVsRaterGui.this.rightContestantLabel,
+                                                SimpleVsRaterGui.this.leftContestantLabel);
             }
         });
         this.add(this.rightContestantImage);
@@ -255,26 +217,26 @@ public class SimpleVsRaterGui extends JFrame {
         this.rightContestantScore.setLocation(580, 425);
         this.add(this.rightContestantScore);
 
-        // Draw Button
-        this.drawButton = new JButton("Draw");
-        this.drawButton.setSize(buttonWidth, buttonHeight);
-        this.drawButton.setLocation(325, 175);
-        this.drawButton.addActionListener(actionEvent -> SimpleVsRaterGui.this.evaluateBets(true));
-        this.add(this.drawButton);
+        JButton drawButton = new JButton("Draw");
+        drawButton.setSize(buttonWidth, buttonHeight);
+        drawButton.setLocation(325, 175);
+        drawButton.addActionListener(actionEvent -> {
+            SimpleVsRaterGui.this.simpleVs.setDrawDecision();
+            SimpleVsRaterGui.this.evaluate();
+        });
+        this.add(drawButton);
 
-        // Confirmation Button
-        this.scoreConfirmer = new JButton("Confirm");
-        this.scoreConfirmer.setSize(buttonWidth, buttonHeight);
-        this.scoreConfirmer.setLocation(400, 425);
-        this.scoreConfirmer.addActionListener(actionEvent -> SimpleVsRaterGui.this.confirmScores());
-        this.add(this.scoreConfirmer);
+        JButton scoreConfirmer = new JButton("Confirm");
+        scoreConfirmer.setSize(buttonWidth, buttonHeight);
+        scoreConfirmer.setLocation(400, 425);
+        scoreConfirmer.addActionListener(actionEvent -> SimpleVsRaterGui.this.confirmScores());
+        this.add(scoreConfirmer);
 
-        // Cancel Button
-        this.scoreCancler = new JButton("Cancel");
-        this.scoreCancler.setSize(buttonWidth, buttonHeight);
-        this.scoreCancler.setLocation(250, 425);
-        this.scoreCancler.addActionListener(actionEvent -> SimpleVsRaterGui.this.loadNextContestants());
-        this.add(this.scoreCancler);
+        JButton scoreCancler = new JButton("Cancel");
+        scoreCancler.setSize(buttonWidth, buttonHeight);
+        scoreCancler.setLocation(250, 425);
+        scoreCancler.addActionListener(actionEvent -> SimpleVsRaterGui.this.loadNextContestants());
+        this.add(scoreCancler);
 
     }
 
@@ -287,21 +249,14 @@ public class SimpleVsRaterGui extends JFrame {
         this.leftContestantScore.setText("");
         this.rightContestantScore.setText("");
 
-        if (this.leftContestant != null && this.rightContestant != null) {
-            this.series.add(this.leftContestant);
-            this.series.add(this.rightContestant);
-        }
-        Collections.shuffle(this.series);
-
-        this.leftContestant = this.series.remove(0);
-        this.rightContestant = this.series.remove(0);
-
         try {
-            URL leftImageUrl = new URL(this.leftContestant.getImageUrl());
+            String[] urls = this.simpleVs.getCoverUrls();
+
+            URL leftImageUrl = new URL(urls[0]);
             BufferedImage leftImage = ImageIO.read(leftImageUrl);
             ImageIcon leftIcon = new ImageIcon(leftImage);
 
-            URL rightImageUrl = new URL(this.rightContestant.getImageUrl());
+            URL rightImageUrl = new URL(urls[1]);
             BufferedImage rightImage = ImageIO.read(rightImageUrl);
             ImageIcon rightIcon = new ImageIcon(rightImage);
 
@@ -311,30 +266,22 @@ public class SimpleVsRaterGui extends JFrame {
             // Just don't display images if IOError
         }
 
+        String[] titles = this.simpleVs.getTitles();
+
         // HTML tags used for multi-line label
-        this.leftContestantLabel.setText("<html>" + this.leftContestant.getTitle() + "</html>");
-        this.rightContestantLabel.setText("<html>" + this.rightContestant.getTitle() + "</html>");
+        this.leftContestantLabel.setText("<html>" + titles[0] + "</html>");
+        this.rightContestantLabel.setText("<html>" + titles[1] + "</html>");
 
     }
 
     /**
-     * Confirms and input scores and sets them on the user's myanimelist.net account
+     * Confirms the input scores and sets them on the user's myanimelist.net account
      */
     private void confirmScores() {
         try {
             int leftScore = Integer.parseInt(this.leftContestantScore.getText());
             int rightScore = Integer.parseInt(this.rightContestantScore.getText());
-
-            // Check if values are legal
-            if (leftScore > 0 && leftScore <= 10 && rightScore > 0 && leftScore <= 10) {
-                if (leftScore != this.leftContestant.getScore()) {
-                    this.leftContestant.setScore(leftScore, this.username, this.password);
-                }
-                if (rightScore != this.rightContestant.getScore()) {
-                    this.rightContestant.setScore(rightScore, this.username, this.password);
-                }
-                this.loadNextContestants();  // Start the new round
-            }
+            this.simpleVs.setScores(leftScore, rightScore);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Invalid Input");
         } catch (IOException e) {
@@ -343,37 +290,30 @@ public class SimpleVsRaterGui extends JFrame {
     }
 
     /**
-     * Sets the current scores into the score fields
+     * Evaluates a user decision
      */
-    private void evaluateBets() {
-        this.decided = true;
-        this.leftContestantScore.setText("" + this.leftContestant.getScore());
-        this.rightContestantScore.setText("" + this.rightContestant.getScore());
-    }
-
-    /**
-     * Evaluates a draw
-     * @param drawn true if draw, false otherwise
-     */
-    private void evaluateBets(boolean drawn) {
-        if (this.leftContestant.getScore() != this.rightContestant.getScore()) {
-            this.evaluateBets();
-        } else if (!this.decided){
-            this.loadNextContestants();
-        }
-    }
-
-    /**
-     * Evaluates a win/loss
-     * @param winner the winning competitor
-     * @param loser the losing competitor
-     */
-    private void evaluateBets(AnimeSeries winner, AnimeSeries loser) {
-        if (winner.getScore() > loser.getScore()&& !this.decided) {
+    private void evaluate() {
+        if (this.simpleVs.isDecisionAcceptable()) {
             this.loadNextContestants();
         }
         else {
-            this.evaluateBets();
+            this.decided = true;
+            int[] scores = this.simpleVs.getCurrentScores();
+            this.leftContestantScore.setText("" + scores[0]);
+            this.rightContestantScore.setText("" + scores[1]);
+            this.decided = true;
         }
+    }
+
+    /**
+     * Sets the winner
+     * @param winner the title label of the winner
+     * @param loser the title label of the loser
+     */
+    private void setWinner(JLabel winner, JLabel loser) {
+        String winnerTitle = winner.getText().split("<html>")[1].split("</html>")[0];
+        String loserTitle = loser.getText().split("<html>")[1].split("</html>")[0];
+        this.simpleVs.setWinningDecision(winnerTitle, loserTitle);
+        this.evaluate();
     }
 }
