@@ -21,196 +21,203 @@ This file is part of mal-tournament.
     You should have received a copy of the GNU General Public License
     along with mal-tournament. If not, see <http://www.gnu.org/licenses/>.
 <-->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:background="@color/colorDefaultBG"
-                android:id="@+id/overViewLayout"
                 tools:context="net.namibsun.maltourn.android.activities.SimpleVsActivity">
+    <LinearLayout android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:focusable="true"
+                  android:focusableInTouchMode="true"
+                  android:id="@+id/overViewLayout">
 
-
-    <android.support.v7.widget.CardView android:layout_width="fill_parent"
-                                        android:layout_height="200dp"
-                                        android:layout_marginBottom="10dp"
-                                        android:id="@+id/topCompetitorCard"
-                                        android:layout_centerInParent="false">
-        <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorAccent"
-                    android:id="@+id/topCompetitorTitle"
-                    android:layout_centerHorizontal="true"
-                    android:text=""/>
-            <LinearLayout
+        <android.support.v7.widget.CardView android:layout_width="fill_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_marginBottom="10dp"
+                                            android:layout_weight="45"
+                                            android:id="@+id/topCompetitorCard">
+            <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/topCompetitorTitle">
-                <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_marginRight="75dp"
-                        android:layout_marginEnd="75dp"
-                        android:layout_marginStart="50dp"
-                        android:layout_marginLeft="50dp"
+                    android:layout_height="match_parent">
+                <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center">
-                    <TextView
+                        android:textColor="@color/colorAccent"
+                        android:gravity="center_horizontal"
+                        android:id="@+id/topCompetitorTitle"
+                        android:layout_centerHorizontal="true"
+                        android:text=""/>
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/topCompetitorTitle">
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_marginRight="60dp"
+                            android:layout_marginEnd="60dp"
+                            android:layout_marginStart="75dp"
+                            android:layout_marginLeft="75dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="20dp"
-                            android:text="@string/score_label"
-                            android:textColor="@color/colorAccent"
-                            android:layout_gravity="center"/>
-                    <EditText
-                            android:id="@+id/topScore"
-                            android:layout_width="30dp"
-                            android:maxLength="2"
-                            android:textColor="@color/colorAccent"
-                            android:layout_height="wrap_content"
-                            android:inputType="number"/>
+                            android:layout_gravity="center">
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="20dp"
+                                android:text="@string/score_label"
+                                android:textColor="@color/colorAccent"
+                                android:layout_gravity="center"/>
+                        <EditText
+                                android:id="@+id/topScore"
+                                android:layout_width="30dp"
+                                android:maxLength="2"
+                                android:textColor="@color/colorAccent"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"/>
+                    </LinearLayout>
+                    <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:adjustViewBounds="true"
+                            android:paddingBottom="10dp"
+                            android:id="@+id/topCompetitorImage"
+                            android:contentDescription="@string/top_competitor_desc"/>
                 </LinearLayout>
-                <ImageView
-                        android:layout_width="110dp"
-                        android:layout_height="160dp"
-                        android:scaleType="fitXY"
-                        android:id="@+id/topCompetitorImage"
-                        android:contentDescription="@string/top_competitor_desc"/>
-            </LinearLayout>
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
-
-
-
-
-
-
-    <LinearLayout android:layout_width="match_parent"
-                  android:layout_height="100dp"
-                  android:layout_marginBottom="10dp"
-                  android:layout_centerHorizontal="true"
-                  android:id="@+id/metaButtons"
-                  android:layout_below="@+id/topCompetitorCard"
-                  android:layout_centerInParent="false">
-        <android.support.v7.widget.CardView android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_gravity="center_vertical"
-                                            android:id="@+id/cancelResultCard"
-                                            android:layout_weight="30">
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/cancelResultText"
-                    android:gravity="center"
-                    android:textSize="30sp"
-                    android:textColor="@color/colorAccent"
-                    android:text="@string/cancel_text"/>
+            </RelativeLayout>
         </android.support.v7.widget.CardView>
-        <android.support.v7.widget.CardView android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:id="@+id/drawResultCard"
-                                            android:layout_gravity="center_vertical"
-                                            android:layout_marginLeft="3dp"
-                                            android:layout_marginStart="3dp"
-                                            android:layout_marginRight="3dp"
-                                            android:layout_marginEnd="3dp"
-                                            android:layout_weight="30">
-            <TextView
+
+
+
+
+
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="0dp"
+                      android:layout_weight="10"
+                      android:layout_marginBottom="10dp"
+                      android:id="@+id/metaButtons">
+            <android.support.v7.widget.CardView android:layout_width="0dp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center_vertical"
+                                                android:id="@+id/cancelResultCard"
+                                                android:layout_weight="30">
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/cancelResultText"
+                        android:gravity="center"
+                        android:textSize="30sp"
+                        android:textColor="@color/colorAccent"
+                        android:text="@string/cancel_text"/>
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView android:layout_width="0dp"
+                                                android:layout_height="wrap_content"
+                                                android:id="@+id/drawResultCard"
+                                                android:layout_gravity="center_vertical"
+                                                android:layout_marginLeft="3dp"
+                                                android:layout_marginStart="3dp"
+                                                android:layout_marginRight="3dp"
+                                                android:layout_marginEnd="3dp"
+                                                android:layout_weight="30">
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:id="@+id/drawResultText"
+                        android:textSize="30sp"
+                        android:textColor="@color/colorAccent"
+                        android:text="@string/draw_text"/>
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView android:layout_width="0dp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center_vertical"
+                                                android:id="@+id/confirmResultCard"
+                                                android:layout_weight="30">
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/confirmResultText"
+                        android:gravity="center"
+                        android:textSize="30sp"
+                        android:textColor="@color/colorAccent"
+                        android:text="@string/confirm_text"/>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+        <android.support.v7.widget.CardView android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="45"
+                                            android:id="@+id/bottomCompetitorCard"
+                                            android:background="@color/colorDefaultBG">
+            <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:id="@+id/drawResultText"
-                    android:textSize="30sp"
-                    android:textColor="@color/colorAccent"
-                    android:text="@string/draw_text"/>
-        </android.support.v7.widget.CardView>
-        <android.support.v7.widget.CardView android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_gravity="center_vertical"
-                                            android:id="@+id/confirmResultCard"
-                                            android:layout_weight="30">
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/confirmResultText"
-                    android:gravity="center"
-                    android:textSize="30sp"
-                    android:textColor="@color/colorAccent"
-                    android:text="@string/confirm_text"/>
+                    android:layout_height="match_parent">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/bottomCompetitorTitle"
+                        android:textColor="@color/colorAccent"
+                        android:text=""/>
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/bottomCompetitorTitle">
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_marginRight="60dp"
+                            android:layout_marginEnd="60dp"
+                            android:layout_marginStart="75dp"
+                            android:layout_marginLeft="75dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center">
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="20dp"
+                                android:text="@string/score_label"
+                                android:textColor="@color/colorAccent"
+                                android:layout_gravity="center"/>
+                        <EditText
+                                android:id="@+id/bottomScore"
+                                android:layout_width="30dp"
+                                android:maxLength="2"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/colorAccent"
+                                android:inputType="number"/>
+                    </LinearLayout>
+
+                    <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:adjustViewBounds="true"
+                            android:paddingBottom="10dp"
+                            android:id="@+id/bottomCompetitorImage"
+                            android:contentDescription="@string/bottom_competitor_desc"/>
+                </LinearLayout>
+            </RelativeLayout>
         </android.support.v7.widget.CardView>
     </LinearLayout>
-
-
-
-
-
-
-
-
-
-    <android.support.v7.widget.CardView android:layout_width="match_parent"
-                                        android:layout_height="200dp"
-                                        android:id="@+id/bottomCompetitorCard"
-                                        android:background="@color/colorDefaultBG"
-                                        android:layout_below="@+id/metaButtons"
-                                        android:layout_centerInParent="false">
-        <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:id="@+id/bottomCompetitorTitle"
-                    android:textColor="@color/colorAccent"
-                    android:text=""/>
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/bottomCompetitorTitle">
-                <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_marginRight="75dp"
-                        android:layout_marginEnd="75dp"
-                        android:layout_marginStart="50dp"
-                        android:layout_marginLeft="50dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center">
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="20dp"
-                            android:text="@string/score_label"
-                            android:textColor="@color/colorAccent"
-                            android:layout_gravity="center"/>
-                    <EditText
-                            android:id="@+id/bottomScore"
-                            android:layout_width="30dp"
-                            android:maxLength="2"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/colorAccent"
-                            android:inputType="number"/>
-                </LinearLayout>
-
-                <ImageView
-                        android:layout_width="110dp"
-                        android:layout_height="160dp"
-                        android:scaleType="fitXY"
-                        android:id="@+id/bottomCompetitorImage"
-                        android:contentDescription="@string/bottom_competitor_desc"/>
-            </LinearLayout>
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
-
     <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
