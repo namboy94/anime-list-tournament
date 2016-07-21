@@ -32,7 +32,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.content.DialogInterface;
+import android.widget.Spinner;
 import net.namibsun.maltourn.android.R;
+import net.namibsun.maltourn.lib.authentication.HummingBirdAuthenticator;
 import net.namibsun.maltourn.lib.authentication.MalAuthenticator;
 
 import java.io.IOException;
@@ -53,6 +55,11 @@ public class LoginActivity extends AnalyticsActivity {
     private String password;
 
     /**
+     * The currently selected anime list service
+     */
+    private String selectedService;
+
+    /**
      * Creates the login activity and sets the login button
      * @param savedInstanceState the saved instance sent by the Android OS
      */
@@ -60,7 +67,7 @@ public class LoginActivity extends AnalyticsActivity {
 
         this.layoutFile = R.layout.activity_login;
         this.screenName = "Login";
-        this.analyticsName = "MAL-Login";
+        this.analyticsName = "Login";
         super.onCreate(savedInstanceState);
 
         Button loginButton = (Button) this.findViewById(R.id.loginButton);
@@ -127,6 +134,7 @@ public class LoginActivity extends AnalyticsActivity {
         Bundle bundle = new Bundle();
         bundle.putString("username", this.username);
         bundle.putString("password", this.password);
+        bundle.putString("service", this.selectedService);
         overViewActivity.putExtras(bundle);
         this.startActivity(overViewActivity);
 
@@ -145,8 +153,27 @@ public class LoginActivity extends AnalyticsActivity {
          * @return nothing
          */
         protected Void doInBackground(Void... params) {
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Spinner serviceSelector = (Spinner) LoginActivity.this.findViewById(R.id.serviceSelector);
+                    LoginActivity.this.selectedService = serviceSelector.getSelectedItem().toString();
+                }
+            });
+
             try {
-                if (new MalAuthenticator().isAuthenticated(LoginActivity.this.username, LoginActivity.this.password)) {
+                boolean authenticated = false;
+                if (LoginActivity.this.selectedService.equals("MyAnimeList")) {
+                    authenticated = new MalAuthenticator().isAuthenticated(
+                            LoginActivity.this.username, LoginActivity.this.password);
+                }
+                else if (LoginActivity.this.selectedService.equals("Hummingbird")) {
+                    authenticated = new HummingBirdAuthenticator().isAuthenticated(
+                            LoginActivity.this.username, LoginActivity.this.password);
+                }
+
+                if (authenticated) {
                     LoginActivity.this.startOverViewActivity();
                 } else {
                     runOnUiThread(new Runnable() {
