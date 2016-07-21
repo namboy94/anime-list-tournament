@@ -1,3 +1,7 @@
+V 0.6
+  - Better Connection Error handling
+  - Added Hummingbird Support
+  - Made horizontal layouts work better
 V 0.5.1
   - Replaced all art assets with original content
   - Censored copyrighted material used in screenshots
