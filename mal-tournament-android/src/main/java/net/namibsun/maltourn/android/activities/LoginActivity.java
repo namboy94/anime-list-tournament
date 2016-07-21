@@ -29,6 +29,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.content.DialogInterface;
@@ -82,6 +83,19 @@ public class LoginActivity extends AnalyticsActivity {
             public void onClick(View v) {
                 LoginActivity.this.getLoginData();
                 new AsyncLogin().execute();
+            }
+        });
+
+        final Spinner serviceSelector = (Spinner) LoginActivity.this.findViewById(R.id.serviceSelector);
+        serviceSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                LoginActivity.this.selectedService = serviceSelector.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                LoginActivity.this.selectedService = serviceSelector.getSelectedItem().toString();
             }
         });
     }
@@ -153,14 +167,6 @@ public class LoginActivity extends AnalyticsActivity {
          * @return nothing
          */
         protected Void doInBackground(Void... params) {
-
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Spinner serviceSelector = (Spinner) LoginActivity.this.findViewById(R.id.serviceSelector);
-                    LoginActivity.this.selectedService = serviceSelector.getSelectedItem().toString();
-                }
-            });
 
             try {
                 boolean authenticated = false;

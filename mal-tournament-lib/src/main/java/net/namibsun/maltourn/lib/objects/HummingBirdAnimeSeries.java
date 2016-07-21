@@ -5,6 +5,7 @@ import net.namibsun.maltourn.lib.http.HttpHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 /**
  * Class that models a Hummingbird Anime Series
@@ -51,7 +52,7 @@ public class HummingBirdAnimeSeries extends AnimeSeries {
 
         String hummingBirdMetaData = jsonData.split("\\{")[1];
         String showData = jsonData.split(hummingBirdMetaData)[1];
-        String[] genres = showData.split("\"genres\":")[1].split("]")[0].split("\\{");
+        String[] genres = showData.split("\"genres\":")[1].split("]")[0].split(Pattern.quote("{"));
 
         this.baseId = this.parseJsonInteger("id", hummingBirdMetaData);
         this.episodesWatched = this.parseJsonInteger("episodes_watched", hummingBirdMetaData);
@@ -80,7 +81,7 @@ public class HummingBirdAnimeSeries extends AnimeSeries {
         this.finishedAiring = this.parseJsonString("finished_airing", showData);
         this.communityRating = this.parseJsonFloat("community_rating", showData, ",");
         this.ageRating = this.parseJsonString("age_rating", showData);
-        this.rating = this.parseJsonFloat("value", showData, "}");
+        this.rating = this.parseJsonFloat("value", showData, "\\}");
 
         boolean first = true;
         for (String genre: genres) {

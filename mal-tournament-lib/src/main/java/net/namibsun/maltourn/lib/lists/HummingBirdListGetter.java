@@ -7,6 +7,7 @@ import net.namibsun.maltourn.lib.objects.HummingBirdAnimeSeries;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 /**
  * Class that handles fetching of hummingbird.me anime lists
@@ -28,7 +29,7 @@ public class HummingBirdListGetter implements ListGetter{
         handler.setMethod("GET");
         handler.connect();
         String response = handler.getResponse();
-        String[] shows = response.split("}}");
+        String[] shows = response.split(Pattern.quote("}}"));
 
         for (int i = 0; i < shows.length - 1; i++) {
             String show = shows[i] + "}}";
