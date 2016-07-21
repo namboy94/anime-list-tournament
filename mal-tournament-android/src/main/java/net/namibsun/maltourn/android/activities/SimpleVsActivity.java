@@ -26,9 +26,12 @@ package net.namibsun.maltourn.android.activities;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -172,7 +175,7 @@ public class SimpleVsActivity extends AnalyticsActivity {
                 this.nextRound();
             }
         } catch (NumberFormatException e) {
-            // Skip it
+            this.showErrorDialog("Invalid number", "Please enter a score from 1-10");
         }
     }
 
@@ -267,8 +270,9 @@ public class SimpleVsActivity extends AnalyticsActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        topCompetitorImage.setImageDrawable(new ColorDrawable(0xffffff00));
-                        bottomCompetitorImage.setImageDrawable(new ColorDrawable(0xffffff00));
+                        int fallbackColor = ContextCompat.getColor(SimpleVsActivity.this, R.color.colorDefaultBG);
+                        topCompetitorImage.setImageDrawable(new ColorDrawable(fallbackColor));
+                        bottomCompetitorImage.setImageDrawable(new ColorDrawable(fallbackColor));
                     }
                 });
             }
@@ -302,27 +306,28 @@ public class SimpleVsActivity extends AnalyticsActivity {
                     animeSeries = new HummingBirdListGetter().getCompletedList(username);
                 }
                 SimpleVsActivity.this.simpleVs = new SimpleVs(animeSeries, username, password);
-            } catch (IOException e) {
+
+                runOnUiThread(new Runnable() {
+                    /**
+                     * Remove the loading bar, populate the first matchup and initialize the listeners.
+                     */
+                    @Override
+                    public void run() {
+                        SimpleVsActivity.this.findViewById(R.id.loadingSimpleVs).setVisibility(View.GONE);
+                        SimpleVsActivity.this.nextRound();
+                        SimpleVsActivity.this.initializeListeners();
+                    }
+                });
+
+            } catch (IOException | IndexOutOfBoundsException e) {
+                Log.e("Exep", "exp");
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        SimpleVsActivity.this.showErrorDialog("Connection Error", "Failed to fetch list");
+                        SimpleVsActivity.this.showFatalErrorDialog("Connection Error", "Failed to fetch list");
                     }
                 });
             }
-
-            runOnUiThread(new Runnable() {
-
-                /**
-                 * Remove the loading bar, populate the first matchup and initialize the listeners.
-                 */
-                @Override
-                public void run() {
-                    SimpleVsActivity.this.findViewById(R.id.loadingSimpleVs).setVisibility(View.GONE);
-                    SimpleVsActivity.this.nextRound();
-                    SimpleVsActivity.this.initializeListeners();
-                }
-            });
             return null;
         }
     }
