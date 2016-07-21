@@ -283,10 +283,12 @@ public class SimpleVsRaterGui extends JFrame {
      */
     private void confirmScores() {
         try {
-            int leftScore = Integer.parseInt(this.leftContestantScore.getText());
-            int rightScore = Integer.parseInt(this.rightContestantScore.getText());
-            this.simpleVs.setScores(leftScore, rightScore);
-            this.loadNextContestants();
+            if (this.decided) {
+                int leftScore = Integer.parseInt(this.leftContestantScore.getText());
+                int rightScore = Integer.parseInt(this.rightContestantScore.getText());
+                this.simpleVs.setScores(leftScore, rightScore);
+                this.loadNextContestants();
+            }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Invalid Input");
         } catch (IOException e) {
@@ -306,7 +308,6 @@ public class SimpleVsRaterGui extends JFrame {
             int[] scores = this.simpleVs.getCurrentScores();
             this.leftContestantScore.setText("" + scores[0]);
             this.rightContestantScore.setText("" + scores[1]);
-            this.decided = true;
         }
     }
 

@@ -33,6 +33,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.content.DialogInterface;
 import net.namibsun.maltourn.android.R;
+import net.namibsun.maltourn.lib.authentication.MalAuthenticator;
+
+import java.io.IOException;
 
 /**
  * Activity that handles the login of the user to myanimelist.net
@@ -142,19 +145,23 @@ public class LoginActivity extends AnalyticsActivity {
          * @return nothing
          */
         protected Void doInBackground(Void... params) {
-            if (Authenticator.isAuthenticated(LoginActivity.this.username, LoginActivity.this.password)) {
-                LoginActivity.this.startOverViewActivity();
-            } else {
-                runOnUiThread(new Runnable() {
-                    /**
-                     * Shows the user an authentication error dialog because the
-                     * credentials were invalid
-                     */
-                    @Override
-                    public void run() {
-                        LoginActivity.this.showAuthenticationErrorDialog();
-                    }
-                });
+            try {
+                if (new MalAuthenticator().isAuthenticated(LoginActivity.this.username, LoginActivity.this.password)) {
+                    LoginActivity.this.startOverViewActivity();
+                } else {
+                    runOnUiThread(new Runnable() {
+                        /**
+                         * Shows the user an authentication error dialog because the
+                         * credentials were invalid
+                         */
+                        @Override
+                        public void run() {
+                            LoginActivity.this.showAuthenticationErrorDialog();
+                        }
+                    });
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
             return null;
         }

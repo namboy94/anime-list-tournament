@@ -33,14 +33,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import net.namibsun.maltourn.android.R;
-import net.namibsun.maltourn.lib.gets.ListGetter;
+import net.namibsun.maltourn.lib.lists.MalListGetter;
+import net.namibsun.maltourn.lib.matchup.SimpleVs;
 import net.namibsun.maltourn.lib.objects.AnimeSeries;
-import net.namibsun.maltourn.lib.posts.ScoreSetter;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Set;
 
 /**
@@ -50,29 +48,14 @@ import java.util.Set;
 public class SimpleVsActivity extends AnalyticsActivity {
 
     /**
-     * The list of completed anime series of the user
+     * The Simple VS structure
      */
-    private ArrayList<AnimeSeries> animeList = new ArrayList<>();
-
-    /**
-     * The competitor at the top
-     */
-    private AnimeSeries topCompetitor = null;
-
-    /**
-     * The competitor at the bottom
-     */
-    private AnimeSeries bottomCompetitor = null;
+    private SimpleVs simpleVs;
 
     /**
      * Flag to see if the user has already made his decision
      */
     private boolean decided = false;
-
-    /**
-     * The MAL score setter
-     */
-    private ScoreSetter scoreSetter;
 
     /**
      * Creates the activity, downloads the MAL list and creates a score setter object
@@ -85,10 +68,7 @@ public class SimpleVsActivity extends AnalyticsActivity {
         this.analyticsName = "Simple Vs Rater";
         super.onCreate(savedInstanceState);
 
-        Bundle bundle = this.getIntent().getExtras();
-        this.scoreSetter = new ScoreSetter(bundle.getString("username"), bundle.getString("password"));
-
-        new MalListGetter().execute();
+        new AsyncMalListGetter().execute();
     }
 
     /**
@@ -114,8 +94,9 @@ public class SimpleVsActivity extends AnalyticsActivity {
              */
             @Override
             public void onClick(View v) {
-                SimpleVsActivity.this.evaluate(SimpleVsActivity.this.topCompetitor,
-                                               SimpleVsActivity.this.bottomCompetitor);
+                SimpleVsActivity.this.setWinner(
+                        (TextView) SimpleVsActivity.this.findViewById(R.id.topCompetitorTitle),
+                        (TextView) SimpleVsActivity.this.findViewById(R.id.bottomCompetitorTitle));
             }
         });
         this.findViewById(R.id.bottomCompetitorCard).setOnClickListener(new View.OnClickListener() {
@@ -126,8 +107,9 @@ public class SimpleVsActivity extends AnalyticsActivity {
              */
             @Override
             public void onClick(View v) {
-                SimpleVsActivity.this.evaluate(SimpleVsActivity.this.bottomCompetitor,
-                                               SimpleVsActivity.this.topCompetitor);
+                SimpleVsActivity.this.setWinner(
+                        (TextView) SimpleVsActivity.this.findViewById(R.id.bottomCompetitorTitle),
+                        (TextView) SimpleVsActivity.this.findViewById(R.id.topCompetitorTitle));
             }
         });
         this.findViewById(R.id.confirmResultCard).setOnClickListener(new View.OnClickListener() {
@@ -164,58 +146,15 @@ public class SimpleVsActivity extends AnalyticsActivity {
         ((EditText)this.findViewById(R.id.topScore)).setText("");
         ((EditText)this.findViewById(R.id.bottomScore)).setText("");
 
-        if (this.topCompetitor != null && this.bottomCompetitor != null) {
-            this.animeList.add(this.topCompetitor);
-            this.animeList.add(this.topCompetitor);
-            Collections.shuffle(this.animeList);
-        }
-
-        this.topCompetitor = this.animeList.remove(0);
-        this.bottomCompetitor = this.animeList.remove(0);
+        this.simpleVs.nextRound();
 
         TextView topCompetitorText = (TextView) this.findViewById(R.id.topCompetitorTitle);
         TextView bottomCompetitorText = (TextView) this.findViewById(R.id.bottomCompetitorTitle);
-        topCompetitorText.setText(this.topCompetitor.seriesTitle);
-        bottomCompetitorText.setText(this.bottomCompetitor.seriesTitle);
+        topCompetitorText.setText(this.simpleVs.getTitles()[0]);
+        bottomCompetitorText.setText(this.simpleVs.getTitles()[1]);
 
         new ImageLoader().execute();
 
-    }
-
-    /**
-     * Sets the current scores of the series into their respective edittexts
-     */
-    @SuppressLint("SetTextI18n")
-    private void evaluate() {
-        this.decided = true;
-        ((EditText) this.findViewById(R.id.topScore)).setText("" + this.topCompetitor.myScore);
-        ((EditText) this.findViewById(R.id.bottomScore)).setText("" + this.bottomCompetitor.myScore);
-    }
-
-    /**
-     * Evaluates a matchup with a winner and loser
-     * @param winner the winner
-     * @param loser the loser
-     */
-    private void evaluate(AnimeSeries winner, AnimeSeries loser) {
-        if (winner.myScore > loser.myScore && !this.decided) {
-            this.nextRound();
-        }
-        else {
-            this.evaluate();
-        }
-    }
-
-    /**
-     * Evaluates a draw
-     */
-    private void evaluateDraw() {
-        if (this.topCompetitor.myScore != this.bottomCompetitor.myScore) {
-            this.evaluate();
-        }
-        else if (!this.decided) {
-            this.nextRound();
-        }
     }
 
     /**
@@ -226,12 +165,49 @@ public class SimpleVsActivity extends AnalyticsActivity {
         try {
             int topScore = Integer.parseInt(((EditText) this.findViewById(R.id.topScore)).getText().toString());
             int bottomScore = Integer.parseInt(((EditText) this.findViewById(R.id.bottomScore)).getText().toString());
-            if (this.decided && topScore > 0 && topScore <= 10 && bottomScore > 0 && bottomScore <= 10) {
+            if (this.decided) {
                 new AsyncScoreSetter().execute(topScore, bottomScore);
                 this.nextRound();
             }
         } catch (NumberFormatException e) {
             // Skip it
+        }
+    }
+
+    /**
+     * Sets the current scores of the series into their respective edittexts
+     */
+    @SuppressLint("SetTextI18n")
+    private void evaluate() {
+        if (this.simpleVs.isDecisionAcceptable()) {
+            this.nextRound();
+        }
+        else {
+            this.decided = true;
+            ((EditText) this.findViewById(R.id.topScore)).setText("" + this.simpleVs.getCurrentScores()[0]);
+            ((EditText) this.findViewById(R.id.bottomScore)).setText("" + this.simpleVs.getCurrentScores()[1]);
+        }
+    }
+
+    /**
+     * Evaluates a matchup with a winner and loser
+     * @param winner the winner
+     * @param loser the loser
+     */
+    private void setWinner(TextView winner, TextView loser) {
+        if (!this.decided) {
+            this.simpleVs.setWinningDecision(winner.getText().toString(), loser.getText().toString());
+            this.evaluate();
+        }
+    }
+
+    /**
+     * Evaluates a draw
+     */
+    private void evaluateDraw() {
+        if (!this.decided) {
+            this.simpleVs.setDrawDecision();
+            this.evaluate();
         }
     }
 
@@ -247,11 +223,10 @@ public class SimpleVsActivity extends AnalyticsActivity {
          * @return nothing
          */
         protected Void doInBackground(Integer... params) {
-            if (params[0] != SimpleVsActivity.this.topCompetitor.myScore) {
-                SimpleVsActivity.this.scoreSetter.setScore(SimpleVsActivity.this.topCompetitor, params[0]);
-            }
-            if (params[1] != SimpleVsActivity.this.bottomCompetitor.myScore) {
-                SimpleVsActivity.this.scoreSetter.setScore(SimpleVsActivity.this.bottomCompetitor, params[1]);
+            try {
+                SimpleVsActivity.this.simpleVs.setScores(params[0], params[1]);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
             return null;
         }
@@ -269,9 +244,9 @@ public class SimpleVsActivity extends AnalyticsActivity {
          */
         protected Void doInBackground(Void... params) {
             try {
-                URL topUrl = new URL(SimpleVsActivity.this.topCompetitor.seriesImage);
+                URL topUrl = new URL(SimpleVsActivity.this.simpleVs.getCoverUrls()[0]);
                 final Bitmap topBitmap = BitmapFactory.decodeStream(topUrl.openConnection().getInputStream());
-                URL bottomUrl = new URL(SimpleVsActivity.this.bottomCompetitor.seriesImage);
+                URL bottomUrl = new URL(SimpleVsActivity.this.simpleVs.getCoverUrls()[1]);
                 final Bitmap bottomBitmap = BitmapFactory.decodeStream(bottomUrl.openConnection().getInputStream());
 
                 runOnUiThread(new Runnable() {
@@ -295,7 +270,7 @@ public class SimpleVsActivity extends AnalyticsActivity {
     /**
      * Async Task that fetches the anime list of the user
      */
-    private class MalListGetter extends AsyncTask<Void, Void, Void> {
+    private class AsyncMalListGetter extends AsyncTask<Void, Void, Void> {
 
         /**
          * Fetches the anime list
@@ -303,11 +278,17 @@ public class SimpleVsActivity extends AnalyticsActivity {
          * @return nothing
          */
         protected Void doInBackground(Void... params) {
+
             String username = SimpleVsActivity.this.getIntent().getExtras().getString("username");
-            Set<AnimeSeries> animeSeries = ListGetter.getList(username);
-            for (AnimeSeries anime: animeSeries) {
-                SimpleVsActivity.this.animeList.add(anime);
+            String password = SimpleVsActivity.this.getIntent().getExtras().getString("password");
+
+            try {
+                Set<AnimeSeries> animeSeries = new MalListGetter().getCompletedList(username);
+                SimpleVsActivity.this.simpleVs = new SimpleVs(animeSeries, username, password);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+
             runOnUiThread(new Runnable() {
 
                 /**

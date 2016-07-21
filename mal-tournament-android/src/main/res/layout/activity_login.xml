@@ -63,6 +63,11 @@ This file is part of mal-tournament.
                         android:inputType="textPassword"
                         android:id="@+id/passwordEntry"/>
             </android.support.design.widget.TextInputLayout>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                <Spinner android:layout_width="match_parent" android:layout_height="wrap_content">
+
+                </Spinner>
+            </LinearLayout>
             <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
