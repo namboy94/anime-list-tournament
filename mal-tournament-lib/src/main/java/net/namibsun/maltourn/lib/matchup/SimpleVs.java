@@ -60,6 +60,8 @@ public class SimpleVs {
         this.username = username;
         this.password = password;
 
+        this.nextRound();
+
     }
 
     /**

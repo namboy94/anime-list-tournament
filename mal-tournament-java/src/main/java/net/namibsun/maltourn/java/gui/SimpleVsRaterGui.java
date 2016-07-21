@@ -221,8 +221,10 @@ public class SimpleVsRaterGui extends JFrame {
         drawButton.setSize(buttonWidth, buttonHeight);
         drawButton.setLocation(325, 175);
         drawButton.addActionListener(actionEvent -> {
-            SimpleVsRaterGui.this.simpleVs.setDrawDecision();
-            SimpleVsRaterGui.this.evaluate();
+            if (!this.decided) {
+                SimpleVsRaterGui.this.simpleVs.setDrawDecision();
+                SimpleVsRaterGui.this.evaluate();
+            }
         });
         this.add(drawButton);
 
@@ -248,6 +250,8 @@ public class SimpleVsRaterGui extends JFrame {
         this.decided = false;
         this.leftContestantScore.setText("");
         this.rightContestantScore.setText("");
+
+        this.simpleVs.nextRound();
 
         try {
             String[] urls = this.simpleVs.getCoverUrls();
@@ -282,6 +286,7 @@ public class SimpleVsRaterGui extends JFrame {
             int leftScore = Integer.parseInt(this.leftContestantScore.getText());
             int rightScore = Integer.parseInt(this.rightContestantScore.getText());
             this.simpleVs.setScores(leftScore, rightScore);
+            this.loadNextContestants();
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Invalid Input");
         } catch (IOException e) {
@@ -296,7 +301,7 @@ public class SimpleVsRaterGui extends JFrame {
         if (this.simpleVs.isDecisionAcceptable()) {
             this.loadNextContestants();
         }
-        else {
+        else if (!this.decided){
             this.decided = true;
             int[] scores = this.simpleVs.getCurrentScores();
             this.leftContestantScore.setText("" + scores[0]);
@@ -311,9 +316,11 @@ public class SimpleVsRaterGui extends JFrame {
      * @param loser the title label of the loser
      */
     private void setWinner(JLabel winner, JLabel loser) {
-        String winnerTitle = winner.getText().split("<html>")[1].split("</html>")[0];
-        String loserTitle = loser.getText().split("<html>")[1].split("</html>")[0];
-        this.simpleVs.setWinningDecision(winnerTitle, loserTitle);
-        this.evaluate();
+        if (!this.decided) {
+            String winnerTitle = winner.getText().split("<html>")[1].split("</html>")[0];
+            String loserTitle = loser.getText().split("<html>")[1].split("</html>")[0];
+            this.simpleVs.setWinningDecision(winnerTitle, loserTitle);
+            this.evaluate();
+        }
     }
 }
