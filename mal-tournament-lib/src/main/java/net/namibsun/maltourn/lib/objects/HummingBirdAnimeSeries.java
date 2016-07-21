@@ -126,19 +126,18 @@ public class HummingBirdAnimeSeries extends AnimeSeries {
     @Override
     public void setScore(int score, String username, String password) throws IOException {
 
-        String rating = String.format(java.util.Locale.US,"%.1f", (float)(score / 2));
+        this.rating = score;
+        String rating = String.format(java.util.Locale.US,"%.1f", ((float)score / 2));
 
         HttpHandler handler = new HttpHandler("http://hummingbird.me/api/v1/libraries/" + this.animeId);
         handler.setMethod("POST");
         handler.setContentType("application/x-www-form-urlencoded");
 
         String authToken = new HummingBirdAuthenticator().getAuthToken(username, password);
-        String payload = "{\"auth_token\": \"" + authToken + "\",\"rating\":" + rating + "}";
-        payload = URLEncoder.encode(payload, "UTF-8");
+        String payload = "auth_token=" + authToken + "&sane_rating_update=" + rating;
 
         handler.connect();
-        System.out.println(authToken);
-        System.out.println(handler.postContent(payload.getBytes()));
+        handler.postContent(payload.getBytes());
 
     }
 

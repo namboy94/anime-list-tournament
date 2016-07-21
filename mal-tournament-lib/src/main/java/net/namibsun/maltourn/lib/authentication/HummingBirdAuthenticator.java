@@ -26,7 +26,6 @@ package net.namibsun.maltourn.lib.authentication;
 import net.namibsun.maltourn.lib.http.HttpHandler;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 
 /**
  * Authenticator that handles the authentication with hummingbird.me
@@ -42,10 +41,14 @@ public class HummingBirdAuthenticator implements Authenticator{
      */
     @Override
     public boolean isAuthenticated(String username, String password) throws IOException {
-        return !this.getAuthToken(username, password).equals("");
+        return !this.tryToAuthenticate(username, password).equals("");
     }
 
     public String getAuthToken(String username, String password) throws IOException {
+        return this.tryToAuthenticate(username, password).split("\"")[1];
+    }
+
+    private String tryToAuthenticate(String username, String password) throws IOException {
         HttpHandler handler = new HttpHandler("http://hummingbird.me/api/v1/users/authenticate");
         handler.setMethod("POST");
         handler.setContentType("application/x-www-form-urlencoded");

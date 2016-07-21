@@ -41,24 +41,6 @@ public class Main {
         //new CliMalTournament();
         //new CliSimpleVsRater();
         //new SimpleVsRaterGui();
-        try {
-
-            if (!new HummingBirdAuthenticator().isAuthenticated("namboy94", "")) {
-                System.out.println("OK");
-                System.exit(1);
-            }
-            /*
-
-            Set<AnimeSeries> series = new HummingBirdListGetter().getCompletedList("namboy94");
-            for (AnimeSeries serie: series) {
-                System.out.println(serie.getTitle() + ":     " + serie.getImageUrl() + "       " + serie.getScore());
-                serie.setScore(5, "namboy94", "HuMFcb1900@com1RDNaM");
-                System.exit(1);
-                            }
-                            */
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 }
