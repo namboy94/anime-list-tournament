@@ -203,8 +203,9 @@ public class HttpHandler {
      * Writes bytes to the connection
      * @param payload the bytes to send.
      *                <joke>Only send the best bytes, otherwise the server won't be happy</joke>
+     * @return the server response
      */
-    public void postContent(byte[] payload) {
+    public String postContent(byte[] payload) {
         try {
             OutputStream out = connection.getOutputStream();
             out.write(payload);
@@ -213,6 +214,6 @@ public class HttpHandler {
         } catch (IOException e) {
             this.addError(e);
         }
-        System.out.println(this.getResponse());
+        return this.getResponse();
     }
 }

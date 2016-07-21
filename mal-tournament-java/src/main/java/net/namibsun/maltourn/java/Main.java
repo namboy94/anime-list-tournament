@@ -24,6 +24,9 @@ This file is part of mal-tournament.
 package net.namibsun.maltourn.java;
 
 import net.namibsun.maltourn.java.gui.SimpleVsRaterGui;
+import net.namibsun.maltourn.lib.lists.HummingBirdListGetter;
+
+import java.io.IOException;
 
 /**
  * Main class that starts the program
@@ -34,7 +37,12 @@ public class Main {
 
         //new CliMalTournament();
         //new CliSimpleVsRater();
-        new SimpleVsRaterGui();
+        //new SimpleVsRaterGui();
+        try {
+            new HummingBirdListGetter().getCompletedList("namboy94");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -1,8 +1,11 @@
 package net.namibsun.maltourn.lib.lists;
 
+import net.namibsun.maltourn.lib.http.HttpHandler;
 import net.namibsun.maltourn.lib.objects.AnimeSeries;
+import net.namibsun.maltourn.lib.objects.HummingBirdAnimeSeries;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -18,6 +21,22 @@ public class HummingBirdListGetter implements ListGetter{
      */
     @Override
     public Set<AnimeSeries> getCompletedList(String username) throws IOException {
+        Set<AnimeSeries> animeSeries = new HashSet<>();
+
+        String listUrl = "http://hummingbird.me/api/v1/users/" + username + "/library";
+        HttpHandler handler = new HttpHandler(listUrl);
+        handler.setMethod("GET");
+        handler.connect();
+        String response = handler.getResponse();
+        String[] shows = response.split("}}");
+        for (String show: shows) {
+            show += "}}";
+            try {
+                animeSeries.add(new HummingBirdAnimeSeries(show));
+            } catch (ArrayIndexOutOfBoundsException e) {
+
+            }
+        }
         return null;
     }
 }

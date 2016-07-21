@@ -83,9 +83,9 @@ public class MalAnimeSeries extends AnimeSeries{
      */
     public void setScore(int score, String username, String password) throws IOException {
         String payload = "data=%3Centry%3E%3Cscore%3E" + score + "%3C%2Fscore%3E%3C%2Fentry%3E";
+        String scoreSetUrl = "http://myanimelist.net/api/animelist/update/" + this.seriesAnimedbId + ".xml";
 
-        HttpHandler handler =
-                new HttpHandler("http://myanimelist.net/api/animelist/update/" + this.seriesAnimedbId + ".xml");
+        HttpHandler handler = new HttpHandler(scoreSetUrl);
         handler.setBasicAuthentication(username, password);
         handler.setMethod("POST");
         handler.setContentType("application/x-www-form-urlencoded");
