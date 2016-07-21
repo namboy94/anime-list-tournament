@@ -19,7 +19,7 @@ public class HummingBirdAnimeSeries extends AnimeSeries {
     private int episodesWatched;
     private String lastWatched;
     private String updatedAt;
-    private String rewatchedTimes;
+    private int rewatchedTimes;
     private String notes;
     private boolean areNotesPresent;
     private String watchingStatus;
@@ -46,6 +46,7 @@ public class HummingBirdAnimeSeries extends AnimeSeries {
     private float rating;
 
     public HummingBirdAnimeSeries(String jsonData) {
+
         String hummingBirdMetaData = jsonData.split("\\{")[1];
         String showData = jsonData.split(hummingBirdMetaData)[1];
         String[] genres = showData.split("\"genres\":")[1].split("]")[0].split("\\{");
@@ -54,10 +55,10 @@ public class HummingBirdAnimeSeries extends AnimeSeries {
         this.episodesWatched = this.parseJsonInteger("episodes_watched", hummingBirdMetaData);
         this.lastWatched = this.parseJsonString("last_watched", hummingBirdMetaData);
         this.updatedAt = this.parseJsonString("updated_at", hummingBirdMetaData);
-        this.rewatchedTimes = this.parseJsonString("rewatched_times", hummingBirdMetaData);
+        this.rewatchedTimes = this.parseJsonInteger("rewatched_times", hummingBirdMetaData);
         this.notes = this.parseJsonString("notes", hummingBirdMetaData);
         this.areNotesPresent = this.parseJsonBoolean("notes_present", hummingBirdMetaData);
-        this.watchingStatus = this.parseJsonString("watching_status", hummingBirdMetaData);
+        this.watchingStatus = this.parseJsonString("status", hummingBirdMetaData);
         this.isPrivate = this.parseJsonBoolean("private", hummingBirdMetaData);
         this.isRewatching = this.parseJsonBoolean("rewatching", hummingBirdMetaData);
 
@@ -75,18 +76,27 @@ public class HummingBirdAnimeSeries extends AnimeSeries {
         this.showType = this.parseJsonString("show_type", showData);
         this.startedAiring = this.parseJsonString("started_airing", showData);
         this.finishedAiring = this.parseJsonString("finished_airing", showData);
-        this.communityRating = this.parseJsonFloat("community_rating", showData);
+        this.communityRating = this.parseJsonFloat("community_rating", showData, ",");
         this.ageRating = this.parseJsonString("age_rating", showData);
-        this.rating = this.parseJsonFloat("value", showData);
+        this.rating = this.parseJsonFloat("value", showData, "}");
 
+        boolean first = true;
         for (String genre: genres) {
-            this.genres.add(this.parseJsonString("name", genre));
+            if (first) {
+                first = false;
+            }
+            else {
+                this.genres.add(this.parseJsonString("name", genre));
+            }
         }
-
     }
 
     private String parseJsonString(String value, String jsonData) {
-        return jsonData.split("\"" + value + "\":\"")[1].split("\",")[0];
+        try {
+            return jsonData.split("\"" + value + "\":\"")[1].split("\",")[0];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return "";
+        }
     }
 
     private boolean parseJsonBoolean(String value, String jsonData) {
@@ -101,8 +111,16 @@ public class HummingBirdAnimeSeries extends AnimeSeries {
         }
     }
 
-    private float parseJsonFloat(String value, String jsonData) {
-        return Float.parseFloat(jsonData.split("\"" + value + "\":")[1].split(",")[0]);
+    private float parseJsonFloat(String value, String jsonData, String end) {
+        try {
+            try {
+                return Float.parseFloat(jsonData.split("\"" + value + "\":\"")[1].split("\"" + end)[0]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return Float.parseFloat(jsonData.split("\"" + value + "\":")[1].split(end)[0]);
+            }
+        } catch (NumberFormatException e) {
+            return -1.0f;
+        }
     }
 
     @Override
@@ -135,5 +153,9 @@ public class HummingBirdAnimeSeries extends AnimeSeries {
     @Override
     public String getImageUrl() {
         return this.coverImage;
+    }
+
+    public String getWatchingStatus() {
+        return this.watchingStatus;
     }
 }

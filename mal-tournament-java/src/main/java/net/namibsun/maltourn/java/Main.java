@@ -25,8 +25,10 @@ package net.namibsun.maltourn.java;
 
 import net.namibsun.maltourn.java.gui.SimpleVsRaterGui;
 import net.namibsun.maltourn.lib.lists.HummingBirdListGetter;
+import net.namibsun.maltourn.lib.objects.AnimeSeries;
 
 import java.io.IOException;
+import java.util.Set;
 
 /**
  * Main class that starts the program
@@ -39,7 +41,14 @@ public class Main {
         //new CliSimpleVsRater();
         //new SimpleVsRaterGui();
         try {
-            new HummingBirdListGetter().getCompletedList("namboy94");
+            Set<AnimeSeries> series = new HummingBirdListGetter().getCompletedList("namboy94");
+            for (AnimeSeries serie: series) {
+                if (serie == null) {
+                    System.out.println("null");
+                    continue;
+                }
+                System.out.println(serie.getTitle() + ":     " + serie.getImageUrl() + "       " + serie.getScore());
+                            }
         } catch (IOException e) {
             e.printStackTrace();
         }

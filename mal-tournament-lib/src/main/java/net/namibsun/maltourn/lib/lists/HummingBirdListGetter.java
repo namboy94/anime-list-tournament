@@ -29,14 +29,13 @@ public class HummingBirdListGetter implements ListGetter{
         handler.connect();
         String response = handler.getResponse();
         String[] shows = response.split("}}");
-        for (String show: shows) {
-            show += "}}";
-            try {
-                animeSeries.add(new HummingBirdAnimeSeries(show));
-            } catch (ArrayIndexOutOfBoundsException e) {
-
+        for (int i = 0; i < shows.length - 1; i++) {
+            String show = shows[i] + "}}";
+            HummingBirdAnimeSeries series = new HummingBirdAnimeSeries(show);
+            if (series.getWatchingStatus().equals("completed")) {
+                animeSeries.add(series);
             }
         }
-        return null;
+        return animeSeries;
     }
 }
