@@ -36,4 +36,8 @@ This file is part of mal-tournament.
     <string name="confirm_text">Confirm</string>
     <string name="score_label">Score</string>
     <string name="simple_vs_rater_desc">Simple VS Rater</string>
+    <string-array name="services">
+        <item>MyAnimeList</item>
+        <item>Hummingbird</item>
+    </string-array>
 </resources>
