@@ -23,11 +23,11 @@ This file is part of mal-tournament.
 
 package net.namibsun.maltourn.java.cli;
 
-import net.namibsun.maltourn.lib.gets.Authenticator;
-import net.namibsun.maltourn.lib.gets.ListGetter;
+import net.namibsun.maltourn.lib.authentication.MalAuthenticator;
+import net.namibsun.maltourn.lib.lists.MalListGetter;
 import net.namibsun.maltourn.lib.objects.AnimeSeries;
-import net.namibsun.maltourn.lib.posts.ScoreSetter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -39,6 +39,9 @@ import java.util.Set;
  */
 public class CliSimpleVsRater {
 
+    String username;
+    String password;
+    
     /**
      * A scanner that scans stdin for user input
      */
@@ -50,14 +53,9 @@ public class CliSimpleVsRater {
     private ArrayList<AnimeSeries> animeList = new ArrayList<>();
 
     /**
-     * An authenticated ScoreSetter object to change show scores
-     */
-    ScoreSetter scoreSetter;
-
-    /**
      * Starts the CLI loop. Asks for an checks user credentials
      */
-    public CliSimpleVsRater(){
+    public CliSimpleVsRater() throws IOException {
 
         System.out.println("Welcome to the Simple vs Rater CLI");
         System.out.println("Please enter your myanimelist.net account information");
@@ -67,17 +65,18 @@ public class CliSimpleVsRater {
         System.out.println("Please enter your password");
         String password = this.inputScanner.nextLine();
 
-        if (!Authenticator.isAuthenticated(username, password)) {
+        if (!new MalAuthenticator().isAuthenticated(username, password)) {
             System.out.println("Invalid username/password");
             System.exit(1);
         }
         else {
-            this.scoreSetter = new ScoreSetter(username, password);
+            this.username = username;
+            this.password = password;
             System.out.println("Authentication successful");
         }
 
         System.out.println("Fetching list data. This might take a while.");
-        Set<AnimeSeries> animeSet = ListGetter.getList(username);
+        Set<AnimeSeries> animeSet = new MalListGetter().getCompletedList(username);
         for (AnimeSeries anime: animeSet) {
             this.animeList.add(anime);
         }
@@ -102,11 +101,11 @@ public class CliSimpleVsRater {
     /**
      * Lets the user rate two shows
      */
-    private void ratingLoop() {
+    private void ratingLoop() throws IOException {
         AnimeSeries entrantOne = this.animeList.remove(0);
         AnimeSeries entrantTwo = this.animeList.remove(0);
 
-        System.out.println("1: " + entrantOne.seriesTitle + "  vs.  2: " + entrantTwo.seriesTitle);
+        System.out.println("1: " + entrantOne.getTitle() + "  vs.  2: " + entrantTwo.getTitle());
 
         String userRating = this.inputScanner.nextLine();
         while (!userRating.equals("1") &&
@@ -141,11 +140,11 @@ public class CliSimpleVsRater {
      * @param loser the loser of the rating
      * @param wasDraw true if it was a draw, false otherwise
      */
-    private void evaluateRating(AnimeSeries winner, AnimeSeries loser, boolean wasDraw) {
-        if ((!wasDraw && winner.myScore <= loser.myScore) || (wasDraw && winner.myScore != loser.myScore)) {
+    private void evaluateRating(AnimeSeries winner, AnimeSeries loser, boolean wasDraw) throws IOException {
+        if ((!wasDraw && winner.getScore() <= loser.getScore()) || (wasDraw && winner.getScore() != loser.getScore())) {
             System.out.println("Current scores for theses shows are:");
-            System.out.println(winner.myScore + "   " + winner.seriesTitle);
-            System.out.println(loser.myScore + "   " + loser.seriesTitle);
+            System.out.println(winner.getScore() + "   " + winner.getTitle());
+            System.out.println(loser.getScore() + "   " + loser.getTitle());
             System.out.println("Do you want to change these scores? (y/n)");
             String response = this.inputScanner.nextLine();
             while (!response.equals("y") && !response.equals("n")) {
@@ -154,12 +153,12 @@ public class CliSimpleVsRater {
             }
             if (response.equals("y")) {
                 System.out.println("Please enter the new scores for the shows:");
-                System.out.println(winner.seriesTitle);
+                System.out.println(winner.getTitle());
                 int winnerScore = Integer.parseInt(this.inputScanner.nextLine());
-                System.out.println(loser.seriesTitle);
+                System.out.println(loser.getTitle());
                 int loserScore = Integer.parseInt(this.inputScanner.nextLine());
-                this.scoreSetter.setScore(winner, winnerScore);
-                this.scoreSetter.setScore(loser, loserScore);
+                winner.setScore(winnerScore, this.username, this.password);
+                loser.setScore(loserScore, this.username, this.password);
                 System.out.println("Score set.");
             }
         }

@@ -21,25 +21,22 @@ This file is part of mal-tournament.
     along with mal-tournament. If not, see <http://www.gnu.org/licenses/>.
 */
 
-package net.namibsun.maltourn.lib.gets;
+package net.namibsun.maltourn.lib.authentication;
 
-import net.namibsun.maltourn.lib.http.HttpHandler;
+import java.io.IOException;
 
 /**
- * Class that checks if a user is authenticated on myanimelist.net
+ * Interface that defines how an authentication handler should be defined
  */
-public class Authenticator {
+public interface Authenticator{
 
     /**
-     * Chacks the authentication of the user
-     * @param username the user's user name
+     * Checks if a user is authenticated by a service
+     * @param username the user's username
      * @param password the user's password
-     * @return true if the user is authenticated, false otherwise
+     * @return true, if the user is authenticated, false otherwise
+     * @throws IOException if a connection error instead of an authentication error occured
      */
-    public static boolean isAuthenticated(String username, String password) {
-        String authUrl = "http://myanimelist.net/api/account/verify_credentials.xml";
-        String authenticationResponse = HttpHandler.getWithAuth(authUrl, username + ":" + password);
-        return !authenticationResponse.equals("");
-    }
+    boolean isAuthenticated(String username, String password) throws IOException;
 
 }

@@ -49,7 +49,7 @@ This file is part of mal-tournament.
     <android.support.v7.widget.CardView android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
-                                        android:layout_weight="30">
+                                        android:layout_weight="5">
 
         <TextView
                 android:layout_width="wrap_content"

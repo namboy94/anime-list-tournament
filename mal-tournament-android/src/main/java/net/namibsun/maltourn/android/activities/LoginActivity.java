@@ -29,11 +29,16 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.content.DialogInterface;
+import android.widget.Spinner;
 import net.namibsun.maltourn.android.R;
-import net.namibsun.maltourn.lib.gets.Authenticator;
+import net.namibsun.maltourn.lib.authentication.HummingBirdAuthenticator;
+import net.namibsun.maltourn.lib.authentication.MalAuthenticator;
+
+import java.io.IOException;
 
 /**
  * Activity that handles the login of the user to myanimelist.net
@@ -51,6 +56,11 @@ public class LoginActivity extends AnalyticsActivity {
     private String password;
 
     /**
+     * The currently selected anime list service
+     */
+    private String selectedService;
+
+    /**
      * Creates the login activity and sets the login button
      * @param savedInstanceState the saved instance sent by the Android OS
      */
@@ -58,7 +68,7 @@ public class LoginActivity extends AnalyticsActivity {
 
         this.layoutFile = R.layout.activity_login;
         this.screenName = "Login";
-        this.analyticsName = "MAL-Login";
+        this.analyticsName = "Login";
         super.onCreate(savedInstanceState);
 
         Button loginButton = (Button) this.findViewById(R.id.loginButton);
@@ -73,6 +83,19 @@ public class LoginActivity extends AnalyticsActivity {
             public void onClick(View v) {
                 LoginActivity.this.getLoginData();
                 new AsyncLogin().execute();
+            }
+        });
+
+        final Spinner serviceSelector = (Spinner) LoginActivity.this.findViewById(R.id.serviceSelector);
+        serviceSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                LoginActivity.this.selectedService = serviceSelector.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                LoginActivity.this.selectedService = serviceSelector.getSelectedItem().toString();
             }
         });
     }
@@ -91,33 +114,6 @@ public class LoginActivity extends AnalyticsActivity {
     }
 
     /**
-     * Shows an authentication error dialog notifying the user that the entered credentials
-     * were not accepted by myanimelist.net
-     */
-    private void showAuthenticationErrorDialog(){
-
-        AlertDialog.Builder errorDialogBuilder = new AlertDialog.Builder(this);
-        errorDialogBuilder.setTitle("Authentication Error");
-        errorDialogBuilder.setMessage("Wrong username/password");
-        errorDialogBuilder.setCancelable(true);
-
-        errorDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-
-            /**
-             * Sets the dialog's OK button behaviour
-             * @param dialog the dialog
-             * @param id the ID of something, don't know what
-             */
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-
-        errorDialogBuilder.create();
-        errorDialogBuilder.show();
-    }
-
-    /**
      * Starts the overview activity and gives it the username and password
      */
     private void startOverViewActivity() {
@@ -125,9 +121,9 @@ public class LoginActivity extends AnalyticsActivity {
         Bundle bundle = new Bundle();
         bundle.putString("username", this.username);
         bundle.putString("password", this.password);
+        bundle.putString("service", this.selectedService);
         overViewActivity.putExtras(bundle);
         this.startActivity(overViewActivity);
-
     }
 
     /**
@@ -143,9 +139,33 @@ public class LoginActivity extends AnalyticsActivity {
          * @return nothing
          */
         protected Void doInBackground(Void... params) {
-            if (Authenticator.isAuthenticated(LoginActivity.this.username, LoginActivity.this.password)) {
-                LoginActivity.this.startOverViewActivity();
-            } else {
+
+            try {
+                boolean authenticated = false;
+                if (LoginActivity.this.selectedService.equals("MyAnimeList")) {
+                    authenticated = new MalAuthenticator().isAuthenticated(
+                            LoginActivity.this.username, LoginActivity.this.password);
+                }
+                else if (LoginActivity.this.selectedService.equals("Hummingbird")) {
+                    authenticated = new HummingBirdAuthenticator().isAuthenticated(
+                            LoginActivity.this.username, LoginActivity.this.password);
+                }
+
+                if (authenticated) {
+                    LoginActivity.this.startOverViewActivity();
+                } else {
+                    runOnUiThread(new Runnable() {
+                        /**
+                         * Shows the user an authentication error dialog because the
+                         * credentials were invalid
+                         */
+                        @Override
+                        public void run() {
+                            LoginActivity.this.showErrorDialog("Authentication Error", "Wrong username/password");
+                        }
+                    });
+                }
+            } catch (IOException e) {
                 runOnUiThread(new Runnable() {
                     /**
                      * Shows the user an authentication error dialog because the
@@ -153,7 +173,7 @@ public class LoginActivity extends AnalyticsActivity {
                      */
                     @Override
                     public void run() {
-                        LoginActivity.this.showAuthenticationErrorDialog();
+                        LoginActivity.this.showErrorDialog("Connection Error", "Connection to Server failed");
                     }
                 });
             }

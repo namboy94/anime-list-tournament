@@ -21,9 +21,9 @@ This file is part of mal-tournament.
     You should have received a copy of the GNU General Public License
     along with mal-tournament. If not, see <http://www.gnu.org/licenses/>.
 <-->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:focusable="true"
@@ -31,14 +31,20 @@ This file is part of mal-tournament.
                 android:background="@color/colorDefaultBG"
                 android:id="@+id/loginLayout"
                 tools:context="net.namibsun.maltourn.android.activities.LoginActivity">
-    <android.support.v7.widget.CardView android:layout_width="400dp"
-                                        android:layout_height="150dp"
-                                        android:layout_centerInParent="false">
+    <android.support.v7.widget.CardView android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal">
+
+            <Spinner android:singleLine="true"
+                     android:layout_gravity="center"
+                     android:entries="@array/services"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:id="@+id/serviceSelector"/>
 
             <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -51,6 +57,7 @@ This file is part of mal-tournament.
                         android:gravity="center"
                         android:id="@+id/usernameEntry" />
             </android.support.design.widget.TextInputLayout>
+
             <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -63,13 +70,22 @@ This file is part of mal-tournament.
                         android:inputType="textPassword"
                         android:id="@+id/passwordEntry"/>
             </android.support.design.widget.TextInputLayout>
-            <Button
-                    android:layout_width="wrap_content"
+
+            <Button android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="3dp"
+                    android:paddingStart="3dp"
+                    android:paddingRight="3dp"
+                    android:paddingEnd="3dp"
                     android:text="@string/login_loginbutton"
                     android:gravity="center"
                     android:id="@+id/loginButton"
                     android:layout_gravity="center_horizontal"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
-</RelativeLayout>
+    <ImageView android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center_horizontal"
+               android:src="@drawable/logo"/>
+
+</LinearLayout>

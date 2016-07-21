@@ -22,7 +22,7 @@ This file is part of mal-tournament.
 <-->
 <resources>
     <!-- Activity/View Names  -->
-    <string name="app_name">MAL Tournament</string>
+    <string name="app_name">Anime List Tournament</string>
     <string name="login_login">Login</string>
     <string name="login_username">Username</string>
     <string name="login_password">password</string>
@@ -36,4 +36,8 @@ This file is part of mal-tournament.
     <string name="confirm_text">Confirm</string>
     <string name="score_label">Score</string>
     <string name="simple_vs_rater_desc">Simple VS Rater</string>
+    <string-array name="services">
+        <item>MyAnimeList</item>
+        <item>Hummingbird</item>
+    </string-array>
 </resources>

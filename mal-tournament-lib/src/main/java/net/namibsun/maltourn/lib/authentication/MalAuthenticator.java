@@ -21,37 +21,30 @@ This file is part of mal-tournament.
     along with mal-tournament. If not, see <http://www.gnu.org/licenses/>.
 */
 
-package net.namibsun.maltourn.lib.gets;
+package net.namibsun.maltourn.lib.authentication;
 
 import net.namibsun.maltourn.lib.http.HttpHandler;
-import net.namibsun.maltourn.lib.objects.AnimeSeries;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.io.IOException;
 
 /**
- * Class that handles fetching the user's anime list data.
+ * Authenticator that handles the authentication with myanimelist.net
  */
-public class ListGetter {
+public class MalAuthenticator implements Authenticator{
 
     /**
-     * Gets the list data for a myanimelist.net user
-     * @param username the username for which the list data should be fetched
-     * @return the list data as an ArrayList of AnimeSeries objects
+     * Checks if the user is authenticated on myanimelist.net
+     * @param username the user's username
+     * @param password the user's password
+     * @return true if the user is authenticated, false otherwise
+     * @throws IOException if a connection error instead of an authentication error occured
      */
-    public static Set<AnimeSeries> getList(String username) {
-        Set<AnimeSeries> series = new HashSet<>();
-
-        String list =  HttpHandler.getWithAuth(
-                "http://myanimelist.net/malappinfo.php?status=all&type=anime&u=" + username, username);
-
-        for (String xmlData: list.split("<anime>")) {
-            if (xmlData.contains("<my_status>2</my_status>")) {  //Status 2 = Completed
-                series.add(new AnimeSeries(xmlData.split("</anime>")[0]));  //Get XML data from inside <anime> tags
-            }
-        }
-
-        return series;
+    @Override
+    public boolean isAuthenticated(String username, String password) throws IOException {
+        HttpHandler handler = new HttpHandler("http://myanimelist.net/api/account/verify_credentials.xml");
+        handler.setBasicAuthentication(username, password);
+        handler.setMethod("GET");
+        handler.connect();
+        return !handler.getResponse().equals("");
     }
-
 }

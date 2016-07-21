@@ -23,6 +23,8 @@ This file is part of mal-tournament.
 
 package net.namibsun.maltourn.android.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import com.google.android.gms.analytics.HitBuilders;
@@ -106,5 +108,65 @@ public abstract class AnalyticsActivity extends AppCompatActivity {
             analyticsTracker.setScreenName(this.analyticsName);  //Set the name to be sent to the analytics service
             analyticsTracker.send(new HitBuilders.ScreenViewBuilder().build()); //And send it
         }
+    }
+
+    /**
+     * Shows an error dialog with a custom message
+     * @param errorMessage the primary error message to display
+     * @param secondaryText the secondary error message to display
+     */
+    protected void showErrorDialog(String errorMessage, String secondaryText){
+
+        AlertDialog.Builder errorDialogBuilder = new AlertDialog.Builder(this);
+        errorDialogBuilder.setTitle(errorMessage);
+        errorDialogBuilder.setMessage(secondaryText);
+        errorDialogBuilder.setCancelable(true);
+
+        errorDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+            /**
+             * Sets the dialog's OK button behaviour
+             * @param dialog the dialog
+             * @param id the ID of something, don't know what
+             */
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+
+        errorDialogBuilder.create();
+        errorDialogBuilder.show();
+    }
+
+    /**
+     * Shows an error dialog with a custom message that immediately closes the
+     * current activity once the OK button is pressed
+     * @param errorMessage the primary error message to display
+     * @param secondaryText the secondary error message to display
+     */
+    protected void showFatalErrorDialog(String errorMessage, String secondaryText){
+
+        AlertDialog.Builder errorDialogBuilder = new AlertDialog.Builder(this);
+        errorDialogBuilder.setTitle(errorMessage);
+        errorDialogBuilder.setMessage(secondaryText);
+        errorDialogBuilder.setCancelable(true);
+
+        final AppCompatActivity activity = this;
+
+        errorDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+            /**
+             * Sets the dialog's OK button behaviour
+             * @param dialog the dialog
+             * @param id the ID of something, don't know what
+             */
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+                activity.finish();
+            }
+        });
+
+        errorDialogBuilder.create();
+        errorDialogBuilder.show();
     }
 }
