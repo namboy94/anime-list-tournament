@@ -33,7 +33,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.content.DialogInterface;
 import net.namibsun.maltourn.android.R;
-import net.namibsun.maltourn.lib.gets.Authenticator;
 
 /**
  * Activity that handles the login of the user to myanimelist.net

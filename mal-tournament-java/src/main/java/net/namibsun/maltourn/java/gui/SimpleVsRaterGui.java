@@ -23,10 +23,9 @@ This file is part of mal-tournament.
 
 package net.namibsun.maltourn.java.gui;
 
-import net.namibsun.maltourn.lib.gets.Authenticator;
-import net.namibsun.maltourn.lib.gets.ListGetter;
+import net.namibsun.maltourn.lib.authentication.MalAuthenticator;
+import net.namibsun.maltourn.lib.lists.MalListGetter;
 import net.namibsun.maltourn.lib.objects.AnimeSeries;
-import net.namibsun.maltourn.lib.posts.ScoreSetter;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -47,74 +46,79 @@ import java.util.Set;
 public class SimpleVsRaterGui extends JFrame {
 
     /**
+     * The entered username
+     */
+    private String username;
+
+    /**
+     * The entered password
+     */
+    private String password;
+
+    /**
      * A label with the series title for the left contestant
      */
-    JLabel leftContestantLabel;
+    private JLabel leftContestantLabel;
 
     /**
      * A label with the series title for the right contestant
      */
-    JLabel rightContestantLabel;
+    private JLabel rightContestantLabel;
 
     /**
      * An image visualizing the left contestant
      */
-    JLabel leftContestantImage;
+    private JLabel leftContestantImage;
 
     /**
      * An image visualizing the right contestant
      */
-    JLabel rightContestantImage;
+    private JLabel rightContestantImage;
 
     /**
      * A field that displays the score of the left contestant
      */
-    JTextField leftContestantScore;
+    private JTextField leftContestantScore;
 
     /**
      * A field that displays the score of the right contestant
      */
-    JTextField rightContestantScore;
+    private JTextField rightContestantScore;
 
     /**
      * A button that sets the currently entered scores
      */
-    JButton scoreConfirmer;
+    private JButton scoreConfirmer;
 
     /**
      * Cancels the current matchup and goes to the next one, changing nothing
      */
-    JButton scoreCancler;
+    private JButton scoreCancler;
 
     /**
      * Button that can be pressed in case of a draw
      */
-    JButton drawButton;
+    private JButton drawButton;
 
     /**
      * The left contestant
      */
-    AnimeSeries leftContestant;
+    private AnimeSeries leftContestant;
 
     /**
      * The right contestant
      */
-    AnimeSeries rightContestant;
-
-    /**
-     * An authenticated score setter
-     */
-    ScoreSetter scoreSetter;
+    private AnimeSeries rightContestant;
 
     /**
      * An Array List of completed anime series of the user
      */
-    ArrayList<AnimeSeries> series = new ArrayList<>();
+    private ArrayList<AnimeSeries> series = new ArrayList<>();
 
     /**
      * A flag set whenever the user decided on an outcome;
      */
-    boolean decided;
+    private boolean decided;
 
     /**
      * Constructor that authenticates the user and creates the layout
@@ -162,19 +166,23 @@ public class SimpleVsRaterGui extends JFrame {
      * Prompts the user to log in. If the login attempt fails, the program is closed
      */
     private void login() {
-        String username = JOptionPane.showInputDialog(null, "Username");
-        String password = JOptionPane.showInputDialog(null, "Password");
+        this.username = JOptionPane.showInputDialog(null, "Username");
+        this.password = JOptionPane.showInputDialog(null, "Password");
 
-        if (!Authenticator.isAuthenticated(username, password)) {
-            JOptionPane.showMessageDialog(null, "Invalid Username/Password");
-            System.exit(1);
-        }
-        else {
-            this.scoreSetter = new ScoreSetter(username, password);
-            Set<AnimeSeries> series = ListGetter.getList(username);
-            for (AnimeSeries anime: series) {
-                this.series.add(anime);
+        try {
+            if (!new MalAuthenticator().isAuthenticated(this.username, this.password)) {
+                JOptionPane.showMessageDialog(null, "Invalid Username/Password");
+                System.exit(1);
             }
+            else {
+                Set<AnimeSeries> series = new MalListGetter().getCompletedList(this.username);
+                for (AnimeSeries anime: series) {
+                    this.series.add(anime);
+                }
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Connection Error");
+            System.exit(1);
         }
     }
 
@@ -289,11 +297,11 @@ public class SimpleVsRaterGui extends JFrame {
         this.rightContestant = this.series.remove(0);
 
         try {
-            URL leftImageUrl = new URL(this.leftContestant.seriesImage);
+            URL leftImageUrl = new URL(this.leftContestant.getImageUrl());
             BufferedImage leftImage = ImageIO.read(leftImageUrl);
             ImageIcon leftIcon = new ImageIcon(leftImage);
 
-            URL rightImageUrl = new URL(this.rightContestant.seriesImage);
+            URL rightImageUrl = new URL(this.rightContestant.getImageUrl());
             BufferedImage rightImage = ImageIO.read(rightImageUrl);
             ImageIcon rightIcon = new ImageIcon(rightImage);
 
@@ -304,8 +312,8 @@ public class SimpleVsRaterGui extends JFrame {
         }
 
         // HTML tags used for multi-line label
-        this.leftContestantLabel.setText("<html>" + this.leftContestant.seriesTitle + "</html>");
-        this.rightContestantLabel.setText("<html>" + this.rightContestant.seriesTitle + "</html>");
+        this.leftContestantLabel.setText("<html>" + this.leftContestant.getTitle() + "</html>");
+        this.rightContestantLabel.setText("<html>" + this.rightContestant.getTitle() + "</html>");
 
     }
 
@@ -319,17 +327,18 @@ public class SimpleVsRaterGui extends JFrame {
 
             // Check if values are legal
             if (leftScore > 0 && leftScore <= 10 && rightScore > 0 && leftScore <= 10) {
-                if (leftScore != this.leftContestant.myScore) {
-                    this.scoreSetter.setScore(this.leftContestant, leftScore);
+                if (leftScore != this.leftContestant.getScore()) {
+                    this.leftContestant.setScore(leftScore, this.username, this.password);
                 }
-                if (rightScore != this.rightContestant.myScore) {
-                    this.scoreSetter.setScore(this.rightContestant, rightScore);
+                if (rightScore != this.rightContestant.getScore()) {
+                    this.rightContestant.setScore(rightScore, this.username, this.password);
                 }
                 this.loadNextContestants();  // Start the new round
             }
-        }
-        catch (NumberFormatException e) {
-            // Don't do stuff
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Invalid Input");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Failed to set scores");
         }
     }
 
@@ -338,8 +347,8 @@ public class SimpleVsRaterGui extends JFrame {
      */
     private void evaluateBets() {
         this.decided = true;
-        this.leftContestantScore.setText("" + this.leftContestant.myScore);
-        this.rightContestantScore.setText("" + this.rightContestant.myScore);
+        this.leftContestantScore.setText("" + this.leftContestant.getScore());
+        this.rightContestantScore.setText("" + this.rightContestant.getScore());
     }
 
     /**
@@ -347,7 +356,7 @@ public class SimpleVsRaterGui extends JFrame {
      * @param drawn true if draw, false otherwise
      */
     private void evaluateBets(boolean drawn) {
-        if (this.leftContestant.myScore != this.rightContestant.myScore) {
+        if (this.leftContestant.getScore() != this.rightContestant.getScore()) {
             this.evaluateBets();
         } else if (!this.decided){
             this.loadNextContestants();
@@ -360,7 +369,7 @@ public class SimpleVsRaterGui extends JFrame {
      * @param loser the losing competitor
      */
     private void evaluateBets(AnimeSeries winner, AnimeSeries loser) {
-        if (winner.myScore > loser.myScore && !this.decided) {
+        if (winner.getScore() > loser.getScore()&& !this.decided) {
             this.loadNextContestants();
         }
         else {
