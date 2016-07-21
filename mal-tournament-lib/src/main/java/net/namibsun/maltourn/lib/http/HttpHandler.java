@@ -100,7 +100,7 @@ public class HttpHandler {
             @Override
             public void run() {
                 String authentication = username + ":" + password;
-                String authToken = Base64.encodeBytes(authentication.getBytes());
+                String authToken = "Basic " + Base64.encodeBytes(authentication.getBytes());
                 HttpHandler.this.connection.setRequestProperty("Authorization", authToken);
             }
         });
@@ -129,6 +129,9 @@ public class HttpHandler {
             public void run() {
                 try {
                     HttpHandler.this.connection.setRequestMethod(method);
+                    if (method.equals("POST")) {
+                        HttpHandler.this.connection.setDoOutput(true);
+                    }
                 } catch (ProtocolException e) {
                     HttpHandler.this.addError(e);
                 }
@@ -210,59 +213,6 @@ public class HttpHandler {
         } catch (IOException e) {
             this.addError(e);
         }
+        System.out.println(this.getResponse());
     }
-
-
-
-    /*
-    public static String getWithAuth(String target, String authentication) {
-
-        try {
-            String response = "";
-            URL url = new URL(target);
-
-            String authToken = "Basic " + Base64.encodeBytes(authentication.getBytes());
-
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.setRequestProperty("Authorization", authToken);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                response += line + "\n";
-            }
-            reader.close();
-            return response;
-        } catch (Exception e) {
-            return "";
-        }
-    }
-    public static void postWithAuth(String target, String authentication, String payload) {
-
-        try {
-            URL url = new URL(target);
-            String authToken = "Basic " + Base64.encodeBytes(authentication.getBytes());
-
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoOutput(true);
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Authorization", authToken);
-            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
-            OutputStream out = connection.getOutputStream();
-            out.write(payload.getBytes());
-            out.flush();
-            out.close();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
-            reader.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
-
 }

@@ -10,33 +10,28 @@ import java.io.IOException;
 public class MalAnimeSeries extends AnimeSeries{
 
     /**
-     * The service providing the information
-     */
-    public String service = "myanimelist.net";
-
-    /**
      * THe data from the XML returned by myanimelist.net
      */
-    public String xmlData;
-    public int seriesAnimedbId;
-    public String seriesTitle;
-    public String seriesSynonyms;
-    public int seriesType;
-    public int seriesEpisodes;
-    public int seriesStatus;
-    public String seriesStart;
-    public String seriesEnd;
-    public String seriesImage;
-    public int myId;
-    public int myWatchedEpisodes;
-    public String myStartDate;
-    public String myFinishDate;
-    public int myScore;
-    public int myStatus;
-    public int myRewatching;
-    public int myRewatchingEp;
-    public int myLastUpdated;
-    public String myTags;
+    private String xmlData;
+    private int seriesAnimedbId;
+    private String seriesTitle;
+    private String seriesSynonyms;
+    private int seriesType;
+    private int seriesEpisodes;
+    private int seriesStatus;
+    private String seriesStart;
+    private String seriesEnd;
+    private String seriesImage;
+    private int myId;
+    private int myWatchedEpisodes;
+    private String myStartDate;
+    private String myFinishDate;
+    private int myScore;
+    private int myStatus;
+    private int myRewatching;
+    private int myRewatchingEp;
+    private int myLastUpdated;
+    private String myTags;
 
     /**
      *  The Constructor takes an XML data string and parses it to get all the variable data
