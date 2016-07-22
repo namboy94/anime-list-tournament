@@ -26,7 +26,6 @@ package net.namibsun.maltourn.android.activities;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -55,12 +54,22 @@ public class SimpleVsActivity extends AnalyticsActivity {
     /**
      * The Simple VS structure
      */
-    private SimpleVs simpleVs;
+    protected SimpleVs simpleVs;
 
     /**
      * Flag to see if the user has already made his decision
      */
     private boolean decided = false;
+
+    /**
+     * The activity's screen name
+     */
+    String screenName = "Simple VS Rater";
+
+    /**
+     * The activity' analytics name
+     */
+    String analyticsName = "Simple Vs Rater";
 
     /**
      * Creates the activity, downloads the MAL list and creates a score setter object
@@ -69,10 +78,7 @@ public class SimpleVsActivity extends AnalyticsActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         this.layoutFile = R.layout.activity_simplevs;
-        this.screenName = "Simple VS Rater";
-        this.analyticsName = "Simple Vs Rater";
         super.onCreate(savedInstanceState);
-
         new AsyncListGetter().execute();
     }
 
@@ -217,6 +223,16 @@ public class SimpleVsActivity extends AnalyticsActivity {
     }
 
     /**
+     * Initializes the simple VS object
+     * @param series the series fetched from the user's anime list
+     * @param username the user's username
+     * @param password the user's password
+     */
+    protected void initializeSimpleVs(Set<AnimeSeries> series, String username, String password) {
+        this.simpleVs = new SimpleVs(series, username, password);
+    }
+
+    /**
      * Async Task that sets the scores of the anime series
      */
     private class AsyncScoreSetter extends AsyncTask<Integer, Void, Void> {
@@ -305,7 +321,7 @@ public class SimpleVsActivity extends AnalyticsActivity {
                 else if (service.equals("Hummingbird")) {
                     animeSeries = new HummingBirdListGetter().getCompletedList(username);
                 }
-                SimpleVsActivity.this.simpleVs = new SimpleVs(animeSeries, username, password);
+                SimpleVsActivity.this.initializeSimpleVs(animeSeries, username, password);
 
                 runOnUiThread(new Runnable() {
                     /**

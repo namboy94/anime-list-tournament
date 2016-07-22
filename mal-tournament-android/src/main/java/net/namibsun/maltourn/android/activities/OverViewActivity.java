@@ -26,7 +26,6 @@ package net.namibsun.maltourn.android.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import net.namibsun.maltourn.android.R;
 
 /**
@@ -45,9 +44,7 @@ public class OverViewActivity extends AnalyticsActivity {
         this.analyticsName = "Overview";
         super.onCreate(savedInstanceState);
 
-        ImageView loginButton = (ImageView) this.findViewById(R.id.simpleVsSelection);
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        this.findViewById(R.id.simpleVsSelection).setOnClickListener(new View.OnClickListener() {
 
             /**
              * Starts the simple VS activity
@@ -55,18 +52,24 @@ public class OverViewActivity extends AnalyticsActivity {
              */
             @Override
             public void onClick(View v) {
-                OverViewActivity.this.startSimpleVsActivity();
+                Intent simpleVsActivity = new Intent(OverViewActivity.this, SimpleVsActivity.class);
+                simpleVsActivity.putExtras(OverViewActivity.this.getIntent().getExtras());
+                OverViewActivity.this.startActivity(simpleVsActivity);
+            }
+        });
+
+        this.findViewById(R.id.winnerStaysSelection).setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Starts the simple VS activity
+             * @param v the simple vs button
+             */
+            @Override
+            public void onClick(View v) {
+                Intent winnerStaysActivity = new Intent(OverViewActivity.this, WinnerStaysActivity.class);
+                winnerStaysActivity.putExtras(OverViewActivity.this.getIntent().getExtras());
+                OverViewActivity.this.startActivity(winnerStaysActivity);
             }
         });
     }
-
-    /**
-     * Starts the Simple VS Activity and gives it the authentication bundle
-     */
-    private void startSimpleVsActivity() {
-        Intent simpleVsActivity = new Intent(this, SimpleVsActivity.class);
-        simpleVsActivity.putExtras(this.getIntent().getExtras());
-        this.startActivity(simpleVsActivity);
-    }
-
 }
