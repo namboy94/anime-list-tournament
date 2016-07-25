@@ -67,8 +67,7 @@ public class LoginActivity extends AnalyticsActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         this.layoutFile = R.layout.activity_login;
-        this.screenName = "Login";
-        this.analyticsName = "Login";
+        this.initializeName("Login", "Login");
         super.onCreate(savedInstanceState);
 
         Button loginButton = (Button) this.findViewById(R.id.loginButton);

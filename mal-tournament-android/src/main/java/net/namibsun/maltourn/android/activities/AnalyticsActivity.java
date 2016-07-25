@@ -55,12 +55,12 @@ public abstract class AnalyticsActivity extends AppCompatActivity {
     /**
      * The name to be displayed by the action bar
      */
-    protected String screenName = "";
+    private String screenName = "";
 
     /**
      * The name of the activity that will be logged by Google Analytics
      */
-    protected String analyticsName = "Generic Activity";
+    private String analyticsName = "Generic Activity";
 
     /**
      * The constructor (essentially) of the activity. It takes care of initializing the XML file,
@@ -108,6 +108,30 @@ public abstract class AnalyticsActivity extends AppCompatActivity {
             analyticsTracker.setScreenName(this.analyticsName);  //Set the name to be sent to the analytics service
             analyticsTracker.send(new HitBuilders.ScreenViewBuilder().build()); //And send it
         }
+    }
+
+    /**
+     * Sets the name of the activity
+     * @param analyticsName the name used by analytics
+     * @param screenName the name displayed on the top bar
+     */
+    protected void initializeName(String analyticsName, String screenName) {
+        this.analyticsName = analyticsName;
+        this.screenName = screenName;
+    }
+
+    /**
+     * Sends a Google analytics event
+     * @param category the event's category
+     * @param action the event's action
+     * @param label the event's label
+     */
+    protected void sendAnalyticsEvent(String category, String action, String label) {
+        this.analyticsTracker.send(new HitBuilders.EventBuilder()
+                .setCategory(category)
+                .setAction(action)
+                .setLabel(label)
+                .build());
     }
 
     /**

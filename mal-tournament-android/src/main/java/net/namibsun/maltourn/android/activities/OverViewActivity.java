@@ -40,8 +40,7 @@ public class OverViewActivity extends AnalyticsActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         this.layoutFile = R.layout.activity_overview;
-        this.screenName = "Overview";
-        this.analyticsName = "Overview";
+        this.initializeName("Overview", "Overview");
         super.onCreate(savedInstanceState);
 
         this.findViewById(R.id.simpleVsSelection).setOnClickListener(new View.OnClickListener() {

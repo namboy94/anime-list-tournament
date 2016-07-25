@@ -1,5 +1,6 @@
 package net.namibsun.maltourn.android.activities;
 
+import android.os.Bundle;
 import net.namibsun.maltourn.lib.matchup.WinnerStays;
 import net.namibsun.maltourn.lib.objects.AnimeSeries;
 
@@ -9,14 +10,14 @@ import java.util.Set;
 public class WinnerStaysActivity extends SimpleVsActivity {
 
     /**
-    * The activity's screen name
-            */
-    String screenName = "Winner Stays Rater";
-
-    /**
-     * The activity' analytics name
+     * Creates the activity, downloads the MAL list and initializes a Winner Stays rating game
+     * @param savedInstanceState the saved instance sent by the Android OS
      */
-    String analyticsName = "Winner Stays Rater";
+    protected void onCreate(Bundle savedInstanceState) {
+
+        this.activityName = "Winner Stays Rater";
+        super.onCreate(savedInstanceState);
+    }
 
     /**
      * Initializes the simple VS object

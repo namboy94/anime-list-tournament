@@ -64,12 +64,7 @@ public class SimpleVsActivity extends AnalyticsActivity {
     /**
      * The activity's screen name
      */
-    String screenName = "Simple VS Rater";
-
-    /**
-     * The activity' analytics name
-     */
-    String analyticsName = "Simple Vs Rater";
+    String activityName = "Simple VS Rater";
 
     /**
      * Creates the activity, downloads the MAL list and creates a score setter object
@@ -78,6 +73,7 @@ public class SimpleVsActivity extends AnalyticsActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         this.layoutFile = R.layout.activity_simplevs;
+        this.initializeName(this.activityName, this.activityName);
         super.onCreate(savedInstanceState);
         new AsyncListGetter().execute();
     }
