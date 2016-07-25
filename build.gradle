@@ -22,8 +22,8 @@ This file is part of mal-tournament.
 */
 
 ext {
-    version = "0.6"
-    versionCode = 3
+    version = "0.7"
+    versionCode = 4
 }
 
 buildscript {
