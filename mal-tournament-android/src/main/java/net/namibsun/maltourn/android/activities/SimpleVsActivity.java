@@ -138,6 +138,9 @@ public class SimpleVsActivity extends AnalyticsActivity {
              */
             @Override
             public void onClick(View v) {
+                String matchup = SimpleVsActivity.this.simpleVs.getTitles()[0] + " - "
+                        + SimpleVsActivity.this.simpleVs.getTitles()[1];
+                SimpleVsActivity.this.sendAnalyticsEvent(SimpleVsActivity.this.activityName, "Canceled", matchup);
                 SimpleVsActivity.this.nextRound();
             }
         });
@@ -162,6 +165,11 @@ public class SimpleVsActivity extends AnalyticsActivity {
 
         new ImageLoader().execute();
 
+        this.sendAnalyticsEvent(this.activityName, "New Matchup",
+                this.simpleVs.getTitles()[0] + " - " + this.simpleVs.getTitles()[1]);
+        this.sendAnalyticsEvent(this.activityName, "Displayed Series", this.simpleVs.getTitles()[0]);
+        this.sendAnalyticsEvent(this.activityName, "Displayed Series", this.simpleVs.getTitles()[1]);
+
     }
 
     /**
@@ -173,6 +181,11 @@ public class SimpleVsActivity extends AnalyticsActivity {
             int topScore = Integer.parseInt(((EditText) this.findViewById(R.id.topScore)).getText().toString());
             int bottomScore = Integer.parseInt(((EditText) this.findViewById(R.id.bottomScore)).getText().toString());
             if (this.decided) {
+
+                this.sendAnalyticsEvent(this.activityName, "Score Set", this.simpleVs.getTitles()[0] + ": " + topScore);
+                this.sendAnalyticsEvent(this.activityName, "Score Set",
+                        this.simpleVs.getTitles()[1] + ": " + bottomScore);
+
                 new AsyncScoreSetter().execute(topScore, bottomScore);
                 this.nextRound();
             }
@@ -187,10 +200,12 @@ public class SimpleVsActivity extends AnalyticsActivity {
     @SuppressLint("SetTextI18n")
     private void evaluate() {
         if (this.simpleVs.isDecisionAcceptable()) {
+            this.sendAnalyticsEvent(this.activityName, "Correct Decision", "correct");
             this.nextRound();
         }
         else {
             this.decided = true;
+            this.sendAnalyticsEvent(this.activityName, "Inorrect Decision", "incorrect");
             ((EditText) this.findViewById(R.id.topScore)).setText("" + this.simpleVs.getCurrentScores()[0]);
             ((EditText) this.findViewById(R.id.bottomScore)).setText("" + this.simpleVs.getCurrentScores()[1]);
         }
@@ -202,6 +217,8 @@ public class SimpleVsActivity extends AnalyticsActivity {
      * @param loser the loser
      */
     private void setWinner(TextView winner, TextView loser) {
+        this.sendAnalyticsEvent(this.activityName, "Winner Selected", winner.getText().toString());
+        this.sendAnalyticsEvent(this.activityName, "Loser Selected", loser.getText().toString());
         if (!this.decided) {
             this.simpleVs.setWinningDecision(winner.getText().toString(), loser.getText().toString());
             this.evaluate();
@@ -212,6 +229,8 @@ public class SimpleVsActivity extends AnalyticsActivity {
      * Evaluates a draw
      */
     private void evaluateDraw() {
+        this.sendAnalyticsEvent(this.activityName, "Draw Selected",
+                this.simpleVs.getTitles()[1] + " - " + this.simpleVs.getTitles()[1]);
         if (!this.decided) {
             this.simpleVs.setDrawDecision();
             this.evaluate();

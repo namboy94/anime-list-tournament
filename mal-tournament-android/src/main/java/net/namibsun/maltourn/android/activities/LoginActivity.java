@@ -23,7 +23,6 @@ This file is part of mal-tournament.
 
 package net.namibsun.maltourn.android.activities;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -32,7 +31,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.content.DialogInterface;
 import android.widget.Spinner;
 import net.namibsun.maltourn.android.R;
 import net.namibsun.maltourn.lib.authentication.HummingBirdAuthenticator;
@@ -151,6 +149,7 @@ public class LoginActivity extends AnalyticsActivity {
                 }
 
                 if (authenticated) {
+                    LoginActivity.this.sendAnalyticsEvent("Log In", "Succesful Log In", "success");
                     LoginActivity.this.startOverViewActivity();
                 } else {
                     runOnUiThread(new Runnable() {
@@ -160,6 +159,7 @@ public class LoginActivity extends AnalyticsActivity {
                          */
                         @Override
                         public void run() {
+                            LoginActivity.this.sendAnalyticsEvent("Log In", "Unuccesful Log In", "failure");
                             LoginActivity.this.showErrorDialog("Authentication Error", "Wrong username/password");
                         }
                     });

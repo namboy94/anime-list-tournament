@@ -1,3 +1,8 @@
+V 0.7
+  - Implemented Analytics Events
+  - Analytics now track login results
+  - Analytics now track matchup and result data
+  - Implemented 'Winner Stays' mode
 V 0.6
   - Better Connection Error handling
   - Added Hummingbird Support
