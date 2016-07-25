@@ -4,10 +4,23 @@ import net.namibsun.maltourn.lib.objects.AnimeSeries;
 
 import java.util.Set;
 
+/**
+ * Class tht models a 'Winner Stays' rating model
+ * It uses the SimpleVS model as a base
+ */
 public class WinnerStays extends SimpleVs {
 
+    /**
+     * A reference to the previous winner
+     */
     private AnimeSeries winner = null;
 
+    /**
+     * Constructor that acts the same as the constructor of simple VS
+     * @param series the completed series of the user
+     * @param username the user's username
+     * @param password the user's password
+     */
     public WinnerStays(Set<AnimeSeries> series, String username, String password) {
         super(series, username, password);
     }
