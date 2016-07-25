@@ -56,7 +56,7 @@ This file is part of mal-tournament.
                 android:layout_height="wrap_content"
                 android:id="@+id/winnerStaysSelection"
                 android:layout_gravity="center"
-                android:src="@drawable/transparent_vs_logo"
+                android:src="@drawable/transparent_winnerstays_logo"
                 android:text="@string/selection_simplevsrater"
                 android:contentDescription="@string/simple_vs_rater_desc"/>
 
