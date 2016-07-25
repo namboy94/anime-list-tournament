@@ -11,6 +11,14 @@ then run the following command (or double click the jar file on Windows):
 
     java -jar mal-tournament-java-<version>.jar
     
+## Android
+
+The Android Version of the program is published on Google Play.
+The App is currently in Beta, which means that it is only available
+through [this](https://play.google.com/apps/testing/net.namibsun.maltourn.android) link.
+
+[Store Page](https://play.google.com/store/apps/details?id=net.namibsun.maltourn.android)
+    
 ## How it works
 
 The program will initially ask you for a username and password. Enter your myanimelist.net username and password

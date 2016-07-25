@@ -4,6 +4,11 @@ of google analytics:
     - Every time a new screen is displayed, this change is sent to the analytics servers.
       It sends the name of the newly opened screen
 
+    - The app tracks the result of each login attempt. The only things reported are if the login was succesful or not,
+      the username and/or password are not sent
+
+    - The SimpleVs / WinnerStays Matchups and the corresponding rating results
+
 More analytics gathering methods are currently in planning, however not yet implemented.
 Such future changes will be added to this privacy statement as well as displayed in the changelog file
 
