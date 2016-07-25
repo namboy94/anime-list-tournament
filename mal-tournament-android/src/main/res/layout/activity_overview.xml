@@ -34,14 +34,29 @@ This file is part of mal-tournament.
     <android.support.v7.widget.CardView android:layout_width="wrap_content"
                                         android:layout_height="0dp"
                                         android:layout_gravity="center_horizontal"
-                                        android:layout_weight="50"
-                                        android:id="@+id/overviewSelectionCard">
+                                        android:layout_weight="25"
+                                        android:layout_marginBottom="5dp"
+                                        android:id="@+id/simpleVsSelectionCard">
         <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/simpleVsSelection"
                 android:layout_gravity="center"
                 android:src="@drawable/transparent_vs_logo"
+                android:text="@string/selection_simplevsrater"
+                android:contentDescription="@string/simple_vs_rater_desc"/>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView android:layout_width="wrap_content"
+                                        android:layout_height="0dp"
+                                        android:layout_gravity="center_horizontal"
+                                        android:layout_weight="25"
+                                        android:id="@+id/winnerStaysSelectionCard">
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/winnerStaysSelection"
+                android:layout_gravity="center"
+                android:src="@drawable/transparent_winnerstays_logo"
                 android:text="@string/selection_simplevsrater"
                 android:contentDescription="@string/simple_vs_rater_desc"/>
 

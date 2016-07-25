@@ -23,6 +23,8 @@ This file is part of mal-tournament.
 
 package net.namibsun.maltourn.lib.objects;
 
+import org.omg.CORBA.COMM_FAILURE;
+
 import java.io.IOException;
 
 /**
@@ -67,5 +69,18 @@ public abstract class AnimeSeries {
      * @return the series' cover image URL
      */
     public abstract String getImageUrl();
+
+    /**
+     * Checks if this object is equal to another animeseries object
+     * @param comparedObject the object to compare
+     * @return true if the object is the same, false otherwise
+     */
+    public boolean equals(Object comparedObject) {
+        try {
+            return (((AnimeSeries) comparedObject).getTitle().equals(this.getTitle()));
+        } catch (ClassCastException e) {
+            return false;
+        }
+    }
 
 }

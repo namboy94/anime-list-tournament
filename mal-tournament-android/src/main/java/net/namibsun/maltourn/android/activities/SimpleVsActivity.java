@@ -26,7 +26,6 @@ package net.namibsun.maltourn.android.activities;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -55,12 +54,17 @@ public class SimpleVsActivity extends AnalyticsActivity {
     /**
      * The Simple VS structure
      */
-    private SimpleVs simpleVs;
+    protected SimpleVs simpleVs;
 
     /**
      * Flag to see if the user has already made his decision
      */
     private boolean decided = false;
+
+    /**
+     * The activity's screen name
+     */
+    String activityName = "Simple VS Rater";
 
     /**
      * Creates the activity, downloads the MAL list and creates a score setter object
@@ -69,10 +73,8 @@ public class SimpleVsActivity extends AnalyticsActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         this.layoutFile = R.layout.activity_simplevs;
-        this.screenName = "Simple VS Rater";
-        this.analyticsName = "Simple Vs Rater";
+        this.initializeName(this.activityName, this.activityName);
         super.onCreate(savedInstanceState);
-
         new AsyncListGetter().execute();
     }
 
@@ -136,6 +138,9 @@ public class SimpleVsActivity extends AnalyticsActivity {
              */
             @Override
             public void onClick(View v) {
+                String matchup = SimpleVsActivity.this.simpleVs.getTitles()[0] + " - "
+                        + SimpleVsActivity.this.simpleVs.getTitles()[1];
+                SimpleVsActivity.this.sendAnalyticsEvent(SimpleVsActivity.this.activityName, "Canceled", matchup);
                 SimpleVsActivity.this.nextRound();
             }
         });
@@ -160,6 +165,11 @@ public class SimpleVsActivity extends AnalyticsActivity {
 
         new ImageLoader().execute();
 
+        this.sendAnalyticsEvent(this.activityName, "New Matchup",
+                this.simpleVs.getTitles()[0] + " - " + this.simpleVs.getTitles()[1]);
+        this.sendAnalyticsEvent(this.activityName, "Displayed Series", this.simpleVs.getTitles()[0]);
+        this.sendAnalyticsEvent(this.activityName, "Displayed Series", this.simpleVs.getTitles()[1]);
+
     }
 
     /**
@@ -171,6 +181,11 @@ public class SimpleVsActivity extends AnalyticsActivity {
             int topScore = Integer.parseInt(((EditText) this.findViewById(R.id.topScore)).getText().toString());
             int bottomScore = Integer.parseInt(((EditText) this.findViewById(R.id.bottomScore)).getText().toString());
             if (this.decided) {
+
+                this.sendAnalyticsEvent(this.activityName, "Score Set", this.simpleVs.getTitles()[0] + ": " + topScore);
+                this.sendAnalyticsEvent(this.activityName, "Score Set",
+                        this.simpleVs.getTitles()[1] + ": " + bottomScore);
+
                 new AsyncScoreSetter().execute(topScore, bottomScore);
                 this.nextRound();
             }
@@ -185,10 +200,12 @@ public class SimpleVsActivity extends AnalyticsActivity {
     @SuppressLint("SetTextI18n")
     private void evaluate() {
         if (this.simpleVs.isDecisionAcceptable()) {
+            this.sendAnalyticsEvent(this.activityName, "Correct Decision", "correct");
             this.nextRound();
         }
         else {
             this.decided = true;
+            this.sendAnalyticsEvent(this.activityName, "Inorrect Decision", "incorrect");
             ((EditText) this.findViewById(R.id.topScore)).setText("" + this.simpleVs.getCurrentScores()[0]);
             ((EditText) this.findViewById(R.id.bottomScore)).setText("" + this.simpleVs.getCurrentScores()[1]);
         }
@@ -200,6 +217,8 @@ public class SimpleVsActivity extends AnalyticsActivity {
      * @param loser the loser
      */
     private void setWinner(TextView winner, TextView loser) {
+        this.sendAnalyticsEvent(this.activityName, "Winner Selected", winner.getText().toString());
+        this.sendAnalyticsEvent(this.activityName, "Loser Selected", loser.getText().toString());
         if (!this.decided) {
             this.simpleVs.setWinningDecision(winner.getText().toString(), loser.getText().toString());
             this.evaluate();
@@ -210,10 +229,22 @@ public class SimpleVsActivity extends AnalyticsActivity {
      * Evaluates a draw
      */
     private void evaluateDraw() {
+        this.sendAnalyticsEvent(this.activityName, "Draw Selected",
+                this.simpleVs.getTitles()[1] + " - " + this.simpleVs.getTitles()[1]);
         if (!this.decided) {
             this.simpleVs.setDrawDecision();
             this.evaluate();
         }
+    }
+
+    /**
+     * Initializes the simple VS object
+     * @param series the series fetched from the user's anime list
+     * @param username the user's username
+     * @param password the user's password
+     */
+    protected void initializeSimpleVs(Set<AnimeSeries> series, String username, String password) {
+        this.simpleVs = new SimpleVs(series, username, password);
     }
 
     /**
@@ -305,7 +336,7 @@ public class SimpleVsActivity extends AnalyticsActivity {
                 else if (service.equals("Hummingbird")) {
                     animeSeries = new HummingBirdListGetter().getCompletedList(username);
                 }
-                SimpleVsActivity.this.simpleVs = new SimpleVs(animeSeries, username, password);
+                SimpleVsActivity.this.initializeSimpleVs(animeSeries, username, password);
 
                 runOnUiThread(new Runnable() {
                     /**

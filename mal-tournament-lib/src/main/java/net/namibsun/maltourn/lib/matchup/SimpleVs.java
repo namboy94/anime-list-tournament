@@ -16,32 +16,32 @@ public class SimpleVs {
     /**
      * The user's completed anime list
      */
-    private ArrayList<AnimeSeries> animeSeries = new ArrayList<>();
+    protected ArrayList<AnimeSeries> animeSeries = new ArrayList<>();
 
     /**
      * The user's username
      */
-    private String username;
+    protected String username;
 
     /**
      * The user's password
      */
-    private String password;
+    protected String password;
 
     /**
      * One of two competitors in the current round
      */
-    private AnimeSeries competitorOne = null;
+    protected AnimeSeries competitorOne = null;
 
     /**
      * One of two competitors in the current round
      */
-    private AnimeSeries competitorTwo = null;
+    protected AnimeSeries competitorTwo = null;
 
     /**
      * Flag that gets set whenever the user's decision is not in line with the current scores
      */
-    private boolean decisionDiscepancy = false;
+    protected boolean decisionDiscepancy = false;
 
     /**
      * Constructor that stores the username and password of the user as well as the previously
@@ -102,7 +102,7 @@ public class SimpleVs {
         };
     }
 
-    /**
+    /** 
      * Sets the decision of the user (in case a winner was selected)
      * @param winnerTitle the title of the winning competitor
      * @param loserTitle the title of the losing competitor
