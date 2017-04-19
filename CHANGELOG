@@ -1,3 +1,8 @@
+V 0.8.0:
+  - Implemented Remind-Me Functionality for login credentials
+  - Switched from Google Analytics to Firebase
+  - Fixed Myanimelist.net login issues
+  - Removed Hummingbird (no kitsu.io) functionality for the time being
 V 0.7
   - Implemented Analytics Events
   - Analytics now track login results
