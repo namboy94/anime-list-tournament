@@ -1,5 +1,5 @@
 MAL Tournament tracks some non-identifiable user behaviour data. Currently, the following is tracked with the help
-of google analytics:
+of firebase analytics:
 
     - Every time a new screen is displayed, this change is sent to the analytics servers.
       It sends the name of the newly opened screen
@@ -12,12 +12,7 @@ of google analytics:
 More analytics gathering methods are currently in planning, however not yet implemented.
 Such future changes will be added to this privacy statement as well as displayed in the changelog file
 
-    http://gitlab.namibsun.net/namboy94/mal-tournament/raw/master/CHANGELOG
+    https://gitlab.namibsun.net/namboy94/mal-tournament/raw/master/CHANGELOG
 
 
 The application does NOT collect any PERSONAL data, including the myanimelist.net username and password.
-
-In case an application build without the analytics tracking enabled is required/desired, there is an application
-build available at https://github.com/namboy94/mal-tournament/releases, named
-
-    mal-tournament-android-release-noanalytics-<version>.apk
