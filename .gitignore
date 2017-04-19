@@ -1,7 +1,8 @@
-.gradle
-build
-out
-mal-tournament-android/google-services.json
+.gradle/
+gradle/
+build/
+out/
+google-services.json
 local.properties
-.idea/workspace.xml
-.idea/libraries
+.idea/
+*.iml

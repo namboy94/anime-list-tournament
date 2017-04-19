@@ -76,7 +76,8 @@ public class Tournament {
      * Calculates a set of Matchup objects of the next matchups
      * This is trivial if there are 2^n competitors left, then it will just return
      * the entire competitorsLeft set
-     * Otherwise, a subset of competitorsLeft is returned that ensures that the next matchup will be 2^n
+     * Otherwise, a subset of competitorsLeft is returned that ensures that the next
+     * matchup will be 2^n
      * @return The set of matchups
      */
     public Set<Matchup> getNextMatchups() {

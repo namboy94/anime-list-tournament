@@ -22,8 +22,8 @@ This file is part of mal-tournament.
 */
 
 ext {
-    version = "0.7"
-    versionCode = 4
+    version = "0.8.0"
+    versionCode = 080
 }
 
 buildscript {
@@ -31,7 +31,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath 'com.android.tools.build:gradle:2.3.1'
         classpath 'com.google.gms:google-services:3.0.0'
     }
 }
@@ -42,6 +42,6 @@ allprojects {
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+task version() {
+    println rootProject.ext.version
 }

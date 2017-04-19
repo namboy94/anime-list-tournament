@@ -83,8 +83,8 @@ public class CliSimpleVsRater {
         Collections.shuffle(this.animeList);
         System.out.println("Fetched list data");
 
-        System.out.println("To select the better of the two shows, enter the number to the left of" +
-                "the title. If you think both shows are equally good, enter '='." +
+        System.out.println("To select the better of the two shows, enter the number to the " +
+                "left of the title. If you think both shows are equally good, enter '='." +
                 "\nTo skip a matchup, just press enter/return without entering anything.");
 
         boolean running = true;
@@ -140,8 +140,11 @@ public class CliSimpleVsRater {
      * @param loser the loser of the rating
      * @param wasDraw true if it was a draw, false otherwise
      */
-    private void evaluateRating(AnimeSeries winner, AnimeSeries loser, boolean wasDraw) throws IOException {
-        if ((!wasDraw && winner.getScore() <= loser.getScore()) || (wasDraw && winner.getScore() != loser.getScore())) {
+    private void evaluateRating(AnimeSeries winner, AnimeSeries loser, boolean wasDraw)
+            throws IOException {
+
+        if ((!wasDraw && winner.getScore() <= loser.getScore()) ||
+                (wasDraw && winner.getScore() != loser.getScore())) {
             System.out.println("Current scores for theses shows are:");
             System.out.println(winner.getScore() + "   " + winner.getTitle());
             System.out.println(loser.getScore() + "   " + loser.getTitle());

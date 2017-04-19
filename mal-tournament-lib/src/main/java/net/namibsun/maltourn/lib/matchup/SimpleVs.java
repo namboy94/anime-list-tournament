@@ -109,9 +109,11 @@ public class SimpleVs {
      */
     public void setWinningDecision(String winnerTitle, String loserTitle) {
         if (winnerTitle.equals(this.competitorOne.getTitle())) {
-            this.decisionDiscepancy = !(this.competitorOne.getScore() > this.competitorTwo.getScore());
+            this.decisionDiscepancy =
+                    !(this.competitorOne.getScore() > this.competitorTwo.getScore());
         } else {
-            this.decisionDiscepancy = !(this.competitorTwo.getScore() > this.competitorOne.getScore());
+            this.decisionDiscepancy =
+                    !(this.competitorTwo.getScore() > this.competitorOne.getScore());
         }
     }
 

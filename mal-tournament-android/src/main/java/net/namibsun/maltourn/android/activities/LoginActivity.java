@@ -23,13 +23,15 @@ This file is part of mal-tournament.
 
 package net.namibsun.maltourn.android.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import net.namibsun.maltourn.android.R;
@@ -59,6 +61,11 @@ public class LoginActivity extends AnalyticsActivity {
     private String selectedService;
 
     /**
+     * The shared preferences of the app to store the username and password
+     */
+    private SharedPreferences prefs;
+
+    /**
      * Creates the login activity and sets the login button
      * @param savedInstanceState the saved instance sent by the Android OS
      */
@@ -67,6 +74,14 @@ public class LoginActivity extends AnalyticsActivity {
         this.layoutFile = R.layout.activity_login;
         this.initializeName("Login", "Login");
         super.onCreate(savedInstanceState);
+        this.prefs = this.getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE);
+
+        ((EditText) this.findViewById(R.id.usernameEntry)).setText(
+                prefs.getString("mal_username", "")
+        );
+        ((EditText) this.findViewById(R.id.passwordEntry)).setText(
+                prefs.getString("mal_password", "")
+        );
 
         Button loginButton = (Button) this.findViewById(R.id.loginButton);
 
@@ -83,7 +98,8 @@ public class LoginActivity extends AnalyticsActivity {
             }
         });
 
-        final Spinner serviceSelector = (Spinner) LoginActivity.this.findViewById(R.id.serviceSelector);
+        final Spinner serviceSelector =
+                (Spinner) LoginActivity.this.findViewById(R.id.serviceSelector);
         serviceSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -106,8 +122,13 @@ public class LoginActivity extends AnalyticsActivity {
         this.username = usernameEditText.getText().toString();
         EditText passwordEditText = (EditText) this.findViewById(R.id.passwordEntry);
         this.password = passwordEditText.getText().toString();
-        Log.e("Test", this.username);
-        Log.e("Test", this.password);
+
+        if (((CheckBox) this.findViewById(R.id.loginRememberCheck)).isChecked()) {
+            SharedPreferences.Editor editor = this.prefs.edit();
+            editor.putString("mal_username", this.username);
+            editor.putString("mal_password", this.password);
+            editor.apply();
+        }
     }
 
     /**
@@ -159,8 +180,10 @@ public class LoginActivity extends AnalyticsActivity {
                          */
                         @Override
                         public void run() {
-                            LoginActivity.this.sendAnalyticsEvent("Log In", "Unuccesful Log In", "failure");
-                            LoginActivity.this.showErrorDialog("Authentication Error", "Wrong username/password");
+                            LoginActivity.this.sendAnalyticsEvent(
+                                    "Log In", "Unuccesful Log In", "failure");
+                            LoginActivity.this.showErrorDialog(
+                                    "Authentication Error", "Wrong username/password");
                         }
                     });
                 }
@@ -172,7 +195,8 @@ public class LoginActivity extends AnalyticsActivity {
                      */
                     @Override
                     public void run() {
-                        LoginActivity.this.showErrorDialog("Connection Error", "Connection to Server failed");
+                        LoginActivity.this.showErrorDialog(
+                                "Connection Error", "Connection to Server failed");
                     }
                 });
             }

@@ -41,7 +41,9 @@ public class MalAuthenticator implements Authenticator{
      */
     @Override
     public boolean isAuthenticated(String username, String password) throws IOException {
-        HttpHandler handler = new HttpHandler("http://myanimelist.net/api/account/verify_credentials.xml");
+        HttpHandler handler = new HttpHandler(
+                "https://myanimelist.net/api/account/verify_credentials.xml"
+        );
         handler.setBasicAuthentication(username, password);
         handler.setMethod("GET");
         handler.connect();

@@ -1,5 +1,11 @@
 # MAL Tournament
 
+|master|develop|
+|:----:|:-----:|
+|[![build status](https://gitlab.namibsun.net/namboy94/anime-list-tournament/badges/master/build.svg)](https://gitlab.namibsun.net/namboy94/anime-list-tournament/commits/master)|[![build status](https://gitlab.namibsun.net/namboy94/anime-list-tournament/badges/develop/build.svg)](https://gitlab.namibsun.net/namboy94/anime-list-tournament/commits/develop)|
+
+![Logo](anime-list-tournament-android/resources/playstore/art_assets/logo.png)
+
 This is a program that pits the anime series in a user's myanimelist.net account against each other
 in an effort to determine better scores for those series.
 
@@ -37,12 +43,12 @@ set the scores to the ones currently entered in the text fields.
 
 Rinse and Repeat
 
-## Contributing
+## Further Information
 
-This project is automatically mirrored to [github](https://github.com/namboy94/mal-tournament), however all development
-is conducted at a privately hosted [Gitlab instance](http://gitlab.namibsun.net/namboy94/mal-tournament). Issues
-on both services are taken unto consideration.
-
-## Statistics
-
-Automatically generated git statistics can be found [here](http://krumreyh.eu/mal-tournament/git_stats/index.html)
+* [Changelog](https://gitlab.namibsun.net/namboy94/anime-list-tournament/raw/master/CHANGELOG)
+* [Gitlab](https://gitlab.namibsun.net/namboy94/anime-list-tournament)
+* [Github](https://github.com/namboy94/anime-list-tournament)
+* [Play Store Entry](https://play.google.com/store/apps/details?id=net.namibsun.maltourn.android)
+* [Git Statistics (gitstats)](https://gitstats.namibsun.net/gitstats/anime-list-tournament/index.html)
+* [Git Statistics (git_stats)](https://gitstats.namibsun.net/git_stats/anime-list-tournament/index.html)
+* [Privacy Statement](maltourn-android/resources/playstore/privacy_statement.txt)
