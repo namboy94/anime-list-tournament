@@ -65,7 +65,8 @@ public class OverViewActivity extends AnalyticsActivity {
              */
             @Override
             public void onClick(View v) {
-                Intent winnerStaysActivity = new Intent(OverViewActivity.this, WinnerStaysActivity.class);
+                Intent winnerStaysActivity =
+                        new Intent(OverViewActivity.this, WinnerStaysActivity.class);
                 winnerStaysActivity.putExtras(OverViewActivity.this.getIntent().getExtras());
                 OverViewActivity.this.startActivity(winnerStaysActivity);
             }

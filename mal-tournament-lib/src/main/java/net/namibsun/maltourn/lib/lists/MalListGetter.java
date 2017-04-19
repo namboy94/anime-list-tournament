@@ -32,8 +32,10 @@ public class MalListGetter implements ListGetter{
         String response = handler.getResponse();
 
         for (String xmlData: response.split("<anime>")) {
-            if (xmlData.contains("<my_status>2</my_status>")) {                //Status 2 = Completed
-                series.add(new MalAnimeSeries(xmlData.split("</anime>")[0]));  //Get XML data from inside <anime> tags
+            //Status 2 = Completed
+            if (xmlData.contains("<my_status>2</my_status>")) {
+                //Get XML data from inside <anime> tags
+                series.add(new MalAnimeSeries(xmlData.split("</anime>")[0]));
             }
         }
 

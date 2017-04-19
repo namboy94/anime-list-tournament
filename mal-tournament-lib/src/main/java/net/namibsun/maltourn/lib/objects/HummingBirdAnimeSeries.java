@@ -141,7 +141,8 @@ public class HummingBirdAnimeSeries extends AnimeSeries {
     private float parseJsonFloat(String value, String jsonData, String end) {
         try {
             try {
-                return Float.parseFloat(jsonData.split("\"" + value + "\":\"")[1].split("\"" + end)[0]);
+                return Float.parseFloat(
+                        jsonData.split("\"" + value + "\":\"")[1].split("\"" + end)[0]);
             } catch (ArrayIndexOutOfBoundsException e) {
                 return Float.parseFloat(jsonData.split("\"" + value + "\":")[1].split(end)[0]);
             }
@@ -163,7 +164,8 @@ public class HummingBirdAnimeSeries extends AnimeSeries {
         this.rating = score;
         String rating = String.format(java.util.Locale.US,"%.1f", ((float)score / 2));
 
-        HttpHandler handler = new HttpHandler("http://hummingbird.me/api/v1/libraries/" + this.animeId);
+        HttpHandler handler =
+                new HttpHandler("http://hummingbird.me/api/v1/libraries/" + this.animeId);
         handler.setMethod("POST");
         handler.setContentType("application/x-www-form-urlencoded");
 

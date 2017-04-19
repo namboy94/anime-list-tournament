@@ -140,7 +140,8 @@ public class SimpleVsActivity extends AnalyticsActivity {
             public void onClick(View v) {
                 String matchup = SimpleVsActivity.this.simpleVs.getTitles()[0] + " - "
                         + SimpleVsActivity.this.simpleVs.getTitles()[1];
-                SimpleVsActivity.this.sendAnalyticsEvent(SimpleVsActivity.this.activityName, "Canceled", matchup);
+                SimpleVsActivity.this.sendAnalyticsEvent(
+                        SimpleVsActivity.this.activityName, "Canceled", matchup);
                 SimpleVsActivity.this.nextRound();
             }
         });
@@ -167,8 +168,10 @@ public class SimpleVsActivity extends AnalyticsActivity {
 
         this.sendAnalyticsEvent(this.activityName, "New Matchup",
                 this.simpleVs.getTitles()[0] + " - " + this.simpleVs.getTitles()[1]);
-        this.sendAnalyticsEvent(this.activityName, "Displayed Series", this.simpleVs.getTitles()[0]);
-        this.sendAnalyticsEvent(this.activityName, "Displayed Series", this.simpleVs.getTitles()[1]);
+        this.sendAnalyticsEvent(
+                this.activityName, "Displayed Series", this.simpleVs.getTitles()[0]);
+        this.sendAnalyticsEvent(
+                this.activityName, "Displayed Series", this.simpleVs.getTitles()[1]);
 
     }
 
@@ -178,11 +181,14 @@ public class SimpleVsActivity extends AnalyticsActivity {
      */
     private void confirmScores() {
         try {
-            int topScore = Integer.parseInt(((EditText) this.findViewById(R.id.topScore)).getText().toString());
-            int bottomScore = Integer.parseInt(((EditText) this.findViewById(R.id.bottomScore)).getText().toString());
+            int topScore = Integer.parseInt(((EditText)
+                    this.findViewById(R.id.topScore)).getText().toString());
+            int bottomScore = Integer.parseInt(((EditText)
+                    this.findViewById(R.id.bottomScore)).getText().toString());
             if (this.decided) {
 
-                this.sendAnalyticsEvent(this.activityName, "Score Set", this.simpleVs.getTitles()[0] + ": " + topScore);
+                this.sendAnalyticsEvent(this.activityName, "Score Set",
+                        this.simpleVs.getTitles()[0] + ": " + topScore);
                 this.sendAnalyticsEvent(this.activityName, "Score Set",
                         this.simpleVs.getTitles()[1] + ": " + bottomScore);
 
@@ -206,8 +212,10 @@ public class SimpleVsActivity extends AnalyticsActivity {
         else {
             this.decided = true;
             this.sendAnalyticsEvent(this.activityName, "Inorrect Decision", "incorrect");
-            ((EditText) this.findViewById(R.id.topScore)).setText("" + this.simpleVs.getCurrentScores()[0]);
-            ((EditText) this.findViewById(R.id.bottomScore)).setText("" + this.simpleVs.getCurrentScores()[1]);
+            ((EditText) this.findViewById(R.id.topScore)).setText(
+                    "" + this.simpleVs.getCurrentScores()[0]);
+            ((EditText) this.findViewById(R.id.bottomScore)).setText(
+                    "" + this.simpleVs.getCurrentScores()[1]);
         }
     }
 
@@ -220,7 +228,8 @@ public class SimpleVsActivity extends AnalyticsActivity {
         this.sendAnalyticsEvent(this.activityName, "Winner Selected", winner.getText().toString());
         this.sendAnalyticsEvent(this.activityName, "Loser Selected", loser.getText().toString());
         if (!this.decided) {
-            this.simpleVs.setWinningDecision(winner.getText().toString(), loser.getText().toString());
+            this.simpleVs.setWinningDecision(winner.getText().toString(),
+                    loser.getText().toString());
             this.evaluate();
         }
     }
@@ -254,8 +263,8 @@ public class SimpleVsActivity extends AnalyticsActivity {
 
         /**
          * This sets the anime scores, only if the scores differ from the current ones
-         * @param params expects two integer values, one for the top competitor, one for the bottom competitor,
-         *                  in exactly that sequence
+         * @param params expects two integer values, one for the top competitor,
+         *               one for the bottom competitor, in exactly that sequence
          * @return nothing
          */
         protected Void doInBackground(Integer... params) {
@@ -286,9 +295,11 @@ public class SimpleVsActivity extends AnalyticsActivity {
 
             try {
                 URL topUrl = new URL(SimpleVsActivity.this.simpleVs.getCoverUrls()[0]);
-                final Bitmap topBitmap = BitmapFactory.decodeStream(topUrl.openConnection().getInputStream());
+                final Bitmap topBitmap = BitmapFactory.decodeStream(
+                        topUrl.openConnection().getInputStream());
                 URL bottomUrl = new URL(SimpleVsActivity.this.simpleVs.getCoverUrls()[1]);
-                final Bitmap bottomBitmap = BitmapFactory.decodeStream(bottomUrl.openConnection().getInputStream());
+                final Bitmap bottomBitmap = BitmapFactory.decodeStream(
+                        bottomUrl.openConnection().getInputStream());
 
                 runOnUiThread(new Runnable() {
                     @Override
@@ -301,7 +312,8 @@ public class SimpleVsActivity extends AnalyticsActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        int fallbackColor = ContextCompat.getColor(SimpleVsActivity.this, R.color.colorDefaultBG);
+                        int fallbackColor = ContextCompat.getColor(
+                                SimpleVsActivity.this, R.color.colorDefaultBG);
                         topCompetitorImage.setImageDrawable(new ColorDrawable(fallbackColor));
                         bottomCompetitorImage.setImageDrawable(new ColorDrawable(fallbackColor));
                     }
@@ -344,7 +356,8 @@ public class SimpleVsActivity extends AnalyticsActivity {
                      */
                     @Override
                     public void run() {
-                        SimpleVsActivity.this.findViewById(R.id.loadingSimpleVs).setVisibility(View.GONE);
+                        SimpleVsActivity.this.findViewById(
+                                R.id.loadingSimpleVs).setVisibility(View.GONE);
                         SimpleVsActivity.this.nextRound();
                         SimpleVsActivity.this.initializeListeners();
                     }
@@ -355,7 +368,8 @@ public class SimpleVsActivity extends AnalyticsActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        SimpleVsActivity.this.showFatalErrorDialog("Connection Error", "Failed to fetch list");
+                        SimpleVsActivity.this.showFatalErrorDialog(
+                                "Connection Error", "Failed to fetch list");
                     }
                 });
             }

@@ -187,7 +187,8 @@ public class HttpHandler {
 
         String response = "";
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(this.connection.getInputStream()));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    this.connection.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
                 response += line + "\n";

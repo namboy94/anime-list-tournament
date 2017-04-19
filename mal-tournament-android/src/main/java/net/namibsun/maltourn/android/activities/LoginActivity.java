@@ -83,7 +83,8 @@ public class LoginActivity extends AnalyticsActivity {
             }
         });
 
-        final Spinner serviceSelector = (Spinner) LoginActivity.this.findViewById(R.id.serviceSelector);
+        final Spinner serviceSelector =
+                (Spinner) LoginActivity.this.findViewById(R.id.serviceSelector);
         serviceSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -159,8 +160,10 @@ public class LoginActivity extends AnalyticsActivity {
                          */
                         @Override
                         public void run() {
-                            LoginActivity.this.sendAnalyticsEvent("Log In", "Unuccesful Log In", "failure");
-                            LoginActivity.this.showErrorDialog("Authentication Error", "Wrong username/password");
+                            LoginActivity.this.sendAnalyticsEvent(
+                                    "Log In", "Unuccesful Log In", "failure");
+                            LoginActivity.this.showErrorDialog(
+                                    "Authentication Error", "Wrong username/password");
                         }
                     });
                 }
@@ -172,7 +175,8 @@ public class LoginActivity extends AnalyticsActivity {
                      */
                     @Override
                     public void run() {
-                        LoginActivity.this.showErrorDialog("Connection Error", "Connection to Server failed");
+                        LoginActivity.this.showErrorDialog(
+                                "Connection Error", "Connection to Server failed");
                     }
                 });
             }

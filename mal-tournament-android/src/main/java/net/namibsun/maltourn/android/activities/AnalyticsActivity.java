@@ -61,7 +61,8 @@ public abstract class AnalyticsActivity extends AppCompatActivity {
      * Class that
      * @param savedInstanceState the saved instance sent by the Android OS
      */
-    @SuppressWarnings("ConstantConditions") //To appease IntelliJ regarding the setting of the action bar title
+    //To appease IntelliJ regarding the setting of the action bar title
+    @SuppressWarnings("ConstantConditions")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

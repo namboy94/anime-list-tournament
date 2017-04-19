@@ -85,7 +85,8 @@ public class MalAnimeSeries extends AnimeSeries{
         this.myScore = score;
 
         String payload = "data=%3Centry%3E%3Cscore%3E" + score + "%3C%2Fscore%3E%3C%2Fentry%3E";
-        String scoreSetUrl = "http://myanimelist.net/api/animelist/update/" + this.seriesAnimedbId + ".xml";
+        String scoreSetUrl =
+                "http://myanimelist.net/api/animelist/update/" + this.seriesAnimedbId + ".xml";
 
         HttpHandler handler = new HttpHandler(scoreSetUrl);
         handler.setBasicAuthentication(username, password);

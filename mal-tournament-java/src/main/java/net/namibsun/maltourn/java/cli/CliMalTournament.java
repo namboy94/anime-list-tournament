@@ -78,7 +78,8 @@ public class CliMalTournament {
                 AnimeSeries seriesOne = (AnimeSeries) competitorOne.getObject();
                 AnimeSeries seriesTwo = (AnimeSeries) competitorTwo.getObject();
 
-                System.out.println("1: " + seriesOne.getTitle() + "  vs.  2: " + seriesTwo.getTitle());
+                System.out.println(
+                        "1: " + seriesOne.getTitle() + "  vs.  2: " + seriesTwo.getTitle());
                 String userResponse = "";
                 while (!userResponse.equals("1") && !userResponse.equals("2")) {
                     userResponse = this.inputScanner.nextLine();
