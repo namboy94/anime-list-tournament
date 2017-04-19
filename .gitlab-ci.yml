@@ -35,7 +35,6 @@ lint:
     - linux-buildserver
   script:
     - echo $GOOGLE_SERVICES_JSON > mal-tournament-android/google-services.json
-    - gradle ktlint
     - gradle lint
 
 build_app:
