@@ -71,7 +71,21 @@ This file is part of mal-tournament.
                         android:id="@+id/passwordEntry"/>
             </android.support.design.widget.TextInputLayout>
 
-            <Button android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:id="@+id/loginRememberCheck"
+                    android:text="@string/remember_check"/>
+
+                <Button android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="3dp"
                     android:paddingStart="3dp"
@@ -81,6 +95,9 @@ This file is part of mal-tournament.
                     android:gravity="center"
                     android:id="@+id/loginButton"
                     android:layout_gravity="center_horizontal"/>
+
+            </LinearLayout>
+
         </LinearLayout>
     </android.support.v7.widget.CardView>
     <ImageView android:layout_width="wrap_content"

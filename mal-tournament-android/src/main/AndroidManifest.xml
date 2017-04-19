@@ -27,11 +27,9 @@ This file is part of mal-tournament.
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
-            android:name="com.google.samples.quickstart.analytics.AnalyticsApplication"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
-            android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
                 android:name=".activities.LoginActivity">
@@ -40,12 +38,9 @@ This file is part of mal-tournament.
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.OverViewActivity">
-        </activity>
-        <activity android:name=".activities.SimpleVsActivity">
-        </activity>
-        <activity android:name=".activities.WinnerStaysActivity">
-        </activity>
+        <activity android:name=".activities.OverViewActivity"/>
+        <activity android:name=".activities.SimpleVsActivity"/>
+        <activity android:name=".activities.WinnerStaysActivity"/>
     </application>
 
 </manifest>
