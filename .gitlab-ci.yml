@@ -97,7 +97,7 @@ upload_play_store_beta:
     - git clone https://gitlab.namibsun.net/namboy94/play-upload.git
     - python changelog-reader/changelog-reader.py -c CHANGELOG -d en-US
     - echo $PLAY_UPLOAD_SECRET | base64 -d > key.p12
-    - python play-upload/play-upload.py net.namibsun.dice production $PLAY_UPLOAD_EMAIL key.p12 artifacts/*.apk --changes="en-US"
+    - python play-upload/play-upload.py net.namibsun.maltourn.android production $PLAY_UPLOAD_EMAIL key.p12 artifacts/*.apk --changes="en-US"
     - rm key.p12
 
 gitstats:
