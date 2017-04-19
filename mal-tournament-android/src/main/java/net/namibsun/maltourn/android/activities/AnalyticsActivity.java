@@ -27,9 +27,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.google.samples.quickstart.analytics.AnalyticsApplication;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 /**
  * An abstract class featuring some commonly used functionality of android and
@@ -38,14 +36,9 @@ import com.google.samples.quickstart.analytics.AnalyticsApplication;
 public abstract class AnalyticsActivity extends AppCompatActivity {
 
     /**
-     * Flag that can disable all analytics-related features
+     * The Firebase Analytics tracker
      */
-    protected boolean analyticsActive = true;
-
-    /**
-     * The Google Analytics tracker
-     */
-    protected Tracker analyticsTracker;
+    protected FirebaseAnalytics analyticsTracker;
 
     /**
      * The ID of the XML layout file
@@ -88,12 +81,7 @@ public abstract class AnalyticsActivity extends AppCompatActivity {
             this.getActionBar().setTitle(this.screenName);
         }
 
-        if (this.analyticsActive) {
-            //Initializes the analytics tracker
-            AnalyticsApplication application = (AnalyticsApplication) this.getApplication();
-            this.analyticsTracker = application.getDefaultTracker();
-            this.analyticsTracker.enableAdvertisingIdCollection(true); //Enable demographics tracking
-        }
+        this.analyticsTracker = FirebaseAnalytics.getInstance(this);
     }
 
     /**
@@ -104,10 +92,7 @@ public abstract class AnalyticsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (this.analyticsActive) {
-            analyticsTracker.setScreenName(this.analyticsName);  //Set the name to be sent to the analytics service
-            analyticsTracker.send(new HitBuilders.ScreenViewBuilder().build()); //And send it
-        }
+        this.analyticsTracker.setCurrentScreen(this, this.analyticsName, null);
     }
 
     /**
@@ -127,11 +112,9 @@ public abstract class AnalyticsActivity extends AppCompatActivity {
      * @param label the event's label
      */
     protected void sendAnalyticsEvent(String category, String action, String label) {
-        this.analyticsTracker.send(new HitBuilders.EventBuilder()
-                .setCategory(category)
-                .setAction(action)
-                .setLabel(label)
-                .build());
+        Bundle bundle = new Bundle();
+        bundle.putString(action, label);
+        this.analyticsTracker.logEvent(category, bundle);
     }
 
     /**
