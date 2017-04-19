@@ -1,5 +1,11 @@
 # MAL Tournament
 
+|master|develop|
+|:----:|:-----:|
+|[![build status](https://gitlab.namibsun.net/namboy94/anime-list-tournament/badges/master/build.svg)](https://gitlab.namibsun.net/namboy94/anime-list-tournament/commits/master)|[![build status](https://gitlab.namibsun.net/namboy94/anime-list-tournament/badges/develop/build.svg)](https://gitlab.namibsun.net/namboy94/anime-list-tournament/commits/develop)|
+
+![Logo](anime-list-tournament-android/resources/playstore/art_assets/logo.png)
+
 This is a program that pits the anime series in a user's myanimelist.net account against each other
 in an effort to determine better scores for those series.
 
