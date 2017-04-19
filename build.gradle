@@ -23,7 +23,7 @@ This file is part of mal-tournament.
 
 ext {
     version = "0.8.0"
-    versionCode = 080
+    versionCode = 80
 }
 
 buildscript {
