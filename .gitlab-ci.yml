@@ -51,7 +51,7 @@ build_app:
     - ./gradlew assembleRelease -Pandroid.injected.signing.store.file=androidkey -Pandroid.injected.signing.store.password=$ANDROIDKEY_PASS -Pandroid.injected.signing.key.alias=$ANDROIDKEY_ALIAS -Pandroid.injected.signing.key.password=$ANDROIDKEY_PASS
     - mv mal-tournament-android/build/outputs/apk/mal-tournament-android-release.apk artifacts/diceroll-$(gradle version -q).apk
     - mv mal-tournament-lib/build/libs/mal-tournament-lib-$(gradle version -q).jar artifacts/mal-tournament-lib-$(gradle version -q).jar
-    - mv mal-tournament-java/build/libs/mal-tournament-$(gradle version -q).jar artifacts/mal-tournament-java-$(gradle version -q).jar
+    - mv mal-tournament-java/build/libs/mal-tournament-java-$(gradle version -q).jar artifacts/mal-tournament-java-$(gradle version -q).jar
     - rm androidkey mal-tournament-android/google-services.json
   artifacts:
      paths:
