@@ -2,9 +2,8 @@
 
 |master|develop|
 |:----:|:-----:|
-|[![build status](https://gitlab.namibsun.net/namboy94/anime-list-tournament/badges/master/build.svg)](https://gitlab.namibsun.net/namboy94/anime-list-tournament/commits/master)|[![build status](https://gitlab.namibsun.net/namboy94/anime-list-tournament/badges/develop/build.svg)](https://gitlab.namibsun.net/namboy94/anime-list-tournament/commits/develop)|
+|[![build status](https://gitlab.namibsun.net/namibsun/android/anime-list-tournament/badges/master/build.svg)](https://gitlab.namibsun.net/namibsun/android/anime-list-tournament/commits/master)|[![build status](https://gitlab.namibsun.net/namibsun/android/anime-list-tournament/badges/develop/build.svg)](https://gitlab.namibsun.net/namibsun/android/anime-list-tournament/commits/develop)|
 
-![Logo](anime-list-tournament-android/resources/playstore/art_assets/logo.png)
 
 This is a program that pits the anime series in a user's myanimelist.net account against each other
 in an effort to determine better scores for those series.
@@ -45,10 +44,11 @@ Rinse and Repeat
 
 ## Further Information
 
-* [Changelog](https://gitlab.namibsun.net/namboy94/anime-list-tournament/raw/master/CHANGELOG)
-* [Gitlab](https://gitlab.namibsun.net/namboy94/anime-list-tournament)
+* [Changelog](CHANGELOG)
+* [Changelog (German)](CHANGELOG-de-DE)
+* [License (GPLv3)](LICENSE)
+* [Gitlab](https://gitlab.namibsun.net/namibsun/android/anime-list-tournament)
 * [Github](https://github.com/namboy94/anime-list-tournament)
-* [Play Store Entry](https://play.google.com/store/apps/details?id=net.namibsun.maltourn.android)
-* [Git Statistics (gitstats)](https://gitstats.namibsun.net/gitstats/anime-list-tournament/index.html)
-* [Git Statistics (git_stats)](https://gitstats.namibsun.net/git_stats/anime-list-tournament/index.html)
-* [Privacy Statement](maltourn-android/resources/playstore/privacy_statement.txt)
+* [Progstats](https://progstats.namibsun.net/projects/anime-list-tournament)
+* [Play Store Entry](https://play.google.com/store/apps/details?id=net.namibsun.maltour.android)
+* [Privacy Statement](app/resources/playstore/privacy_statement.txt)
